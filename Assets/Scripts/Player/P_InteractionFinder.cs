@@ -7,9 +7,9 @@ public class P_InteractionFinder : MonoBehaviour
     private readonly float RADIUS = 2.0f;
 
     #region InputSystem
-    private void Interaction(InputAction.CallbackContext callbackContext)
+    private void OnInteraction(InputAction.CallbackContext callbackContext)
     {
-        if (interaction.OnInteraction)
+        if (interaction.Interaction)
         {
             return;
         }
@@ -54,32 +54,31 @@ public class P_InteractionFinder : MonoBehaviour
 
     private readonly Collider[] colliders = new Collider[8];
 
-    private P_Interaction interaction;
     private LayerMask targetLayer;
+    private P_Interaction interaction;
 
     private Transform target;
 
     private void Awake()
     {
-        interaction = GetComponent<P_Interaction>();
         targetLayer = LayerMask.GetMask(Define.LAYER_OBJECT);
+        interaction = GetComponent<P_Interaction>();
     }
 
     private void Start()
     {
-        Managers.Input.System.Player.Interaction.started += Interaction;
+        Managers.Input.System.Player.Interaction.started += OnInteraction;
     }
 
     private void Update()
     {
-        if (interaction.OnInteraction)
+        if (interaction.Interaction)
         {
             return;
         }
 
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, colliders, targetLayer) == 0)
         {
-            this.target = null;
             Close_KeyUI();
             return;
         }
@@ -87,6 +86,7 @@ public class P_InteractionFinder : MonoBehaviour
         var target = GetTarget();
         if (target != this.target)
         {
+            this.target = target;
             Close_KeyUI();
         }
 

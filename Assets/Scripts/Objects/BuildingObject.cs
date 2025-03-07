@@ -29,7 +29,7 @@ public class BuildingObject : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         effect = gameObject.FindComponent<Transform>(nameof(effect).FirstCharacterToUpper());
         buildingStatusUI = gameObject.FindComponent<UI_BuildingStatus>();
-        layer = Define.LAYER_GROUND;
+        layer = LayerMask.NameToLayer(Define.LAYER_GROUND);
 
         SetMaterial(MaterialType.Transparent);
     }
@@ -81,7 +81,6 @@ public class BuildingObject : MonoBehaviour
         effect.DOScale(0.3f, 2.0f).From(0.0f);
 
         completed = true;
-        //Managers.Building.Complete();
     }
 
     private void SetMaterial(MaterialType type)

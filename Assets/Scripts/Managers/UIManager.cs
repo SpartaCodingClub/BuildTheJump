@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
 public class UIManager
@@ -15,23 +16,11 @@ public class UIManager
         Transform = new GameObject(nameof(UIManager), typeof(InputSystemUIInputModule)).transform;
         Transform.SetParent(Managers.Instance.transform);
 
-        //NavagationUI = Open<UI_Navigation>();
+        NavagationUI = Open<UI_Navigation>();
         //PopupUI = Open<UI_Popup>();
-    }
 
-    public void Update()
-    {
-        
-        
-
-        //if (Input.GetKeyDown(KeyCode.I))
-        //{
-        //    Open_MenuUI<UI_Inventory>();
-        //}
-        //else if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //    Open_MenuUI<UI_Building>();
-        //}
+        Managers.Input.System.UI.UI_Inventory.started += Open_MenuUI<UI_Inventory>;
+        Managers.Input.System.UI.UI_Building.started += Open_MenuUI<UI_Building>;
     }
 
     public T Open<T>() where T : UI_Base
@@ -46,7 +35,7 @@ public class UIManager
         return @base;
     }
 
-    private void Open_MenuUI<T>() where T : UI_Base
+    private void Open_MenuUI<T>(InputAction.CallbackContext callbackContext) where T : UI_Base
     {
         if (CurrentMenuUI != null)
         {

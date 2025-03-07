@@ -97,7 +97,8 @@ public class UI_BuildingStatus : UI_Base
     {
         base.Open();
 
-        BuildingData data = Managers.Data.GetData<BuildingData>(DataType.Building, int.Parse(buildingObject.name));
+        int id = int.Parse(buildingObject.name[..buildingObject.name.IndexOf('_')]);
+        BuildingData data = Managers.Data.GetData<BuildingData>(DataType.Building, id);
         Get<Image>((int)Children.Icon_Building).sprite = Managers.Resource.GetSprite(SpriteType.Building, data.ID.ToString());
         Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
 

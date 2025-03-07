@@ -13,8 +13,8 @@ public class DataManager
     private readonly Dictionary<int, BaseData>[] datas = new Dictionary<int, BaseData>[(int)DataType.Count];
 
     public BaseData GetData(DataType type, int id) => datas[(int)type][id];
-    public IEnumerable<BaseData> GetDatas(DataType type) => datas[(int)type].Values;
     public T GetData<T>(DataType type, int id) where T : BaseData => GetData(type, id) as T;
+    public IEnumerable<BaseData> GetDatas(DataType type) => datas[(int)type].Values;
 
     public void Initialize()
     {

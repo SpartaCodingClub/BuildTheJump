@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 567161966360517568}
   - component: {fileID: 4981992739310079392}
   m_Layer: 0
-  m_Name: Effect_Hit
+  m_Name: Effect_Interaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Item_Movement : MonoBehaviour
+public class ItemObject : MonoBehaviour
 {
     #region Inspector
     [SerializeField] private float radius;
@@ -68,8 +68,8 @@ public class Item_Movement : MonoBehaviour
             spreadPosition = transform.position;
         }
 
-        Managers.Item.AddDropItem(item);
-        Managers.Resource.Instantiate(Define.EFFECT_GET, transform.position, Define.PATH_EFFECT);
+        Managers.Item.AddItem(item);
+        Managers.Resource.Instantiate(Define.EFFECT_ITEM_GET, transform.position, Define.PATH_EFFECT);
         Managers.Resource.Destroy(gameObject);
         Managers.UI.NavagationUI.Open_NavigationItem(item);
         Managers.UI.UpdateMenuUI();

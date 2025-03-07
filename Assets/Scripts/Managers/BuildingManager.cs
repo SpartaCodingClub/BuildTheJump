@@ -1,48 +1,24 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildingManager
 {
-    private LayerMask layerMask;
-
-    private bool onBuild;
-    private BuildingObject buildingObject;
-
-    public void Initialize()
+    #region InputSystem
+    private void OnBuild(InputAction.CallbackContext callbackContext)
     {
-        layerMask = Define.LAYER_GROUND;
-    }
-
-    public void Update()
-    {
-        if (buildingObject == null)
-        {
-            return;
-        }
-
-        Ray ray = Managers.Camera.Main.ScreenPointToRay(Input.mousePosition);
+        Vector2 readValue = callbackContext.ReadValue<Vector2>();
+        Ray ray = Managers.Camera.Main.ScreenPointToRay(readValue);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layerMask))
         {
             Vector3 targetPosition = hitInfo.point;
             targetPosition.x = (int)targetPosition.x;
             targetPosition.z = (int)targetPosition.z;
-
-            onBuild = true;
             buildingObject.transform.position = targetPosition;
         }
     }
 
-    public void Build(BuildingData data)
+    private void OnConfirm(InputAction.CallbackContext callbackContext)
     {
-        buildingObject = Managers.Resource.Instantiate(data.ID.ToString(), Vector3.zero, Define.PATH_BUILDING).GetComponent<BuildingObject>();
-    }
-
-    private void Confirm()
-    {
-        if (onBuild == false)
-        {
-            return;
-        }
-
         if (buildingObject.CanBuild == false)
         {
             return;
@@ -50,7 +26,28 @@ public class BuildingManager
 
         buildingObject.Confirm();
 
-        onBuild = false;
-        buildingObject = null;
+        Managers.Input.System.UI.Enable();
+        Managers.Input.System.UI_Building.Disable();
+    }
+    #endregion
+
+    private LayerMask layerMask;
+
+    private BuildingObject buildingObject;
+
+    public void Initialize()
+    {
+        layerMask = LayerMask.GetMask(Define.LAYER_GROUND);
+
+        Managers.Input.System.UI_Building.Build.performed += OnBuild;
+        Managers.Input.System.UI_Building.Confirm.canceled += OnConfirm;
+    }
+
+    public void Build(BuildingData data)
+    {
+        buildingObject = Managers.Resource.Instantiate($"{data.ID}_{data.name}", Vector3.zero, Define.PATH_BUILDING).GetComponent<BuildingObject>();
+
+        Managers.Input.System.UI.Disable();
+        Managers.Input.System.UI_Building.Enable();
     }
 }

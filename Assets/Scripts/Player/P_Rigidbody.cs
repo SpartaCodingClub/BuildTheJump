@@ -16,12 +16,12 @@ public class P_Rigidbody : MonoBehaviour
     [ShowInInspector, ReadOnly] private Vector3 velocity;
     #endregion
     #region InputSystem
-    private void Move(InputAction.CallbackContext callbackContext)
+    private void OnMove(InputAction.CallbackContext callbackContext)
     {
         readValue = callbackContext.ReadValue<Vector2>();
     }
 
-    private void Jump(InputAction.CallbackContext callbackContext)
+    private void OnJump(InputAction.CallbackContext callbackContext)
     {
         jumping = callbackContext.phase == InputActionPhase.Started;
     }
@@ -40,10 +40,16 @@ public class P_Rigidbody : MonoBehaviour
 
     private void Start()
     {
-        Managers.Input.System.Player.Move.performed += Move;
-        Managers.Input.System.Player.Move.canceled += Move;
-        Managers.Input.System.Player.Jump.started += Jump;
-        Managers.Input.System.Player.Jump.canceled += Jump;
+        Managers.Game.Interaction.OnInteractionEnter += () =>
+        {
+            readValue = Vector2.zero;
+            jumping = false;
+        };
+
+        Managers.Input.System.Player.Move.performed += OnMove;
+        Managers.Input.System.Player.Move.canceled += OnMove;
+        Managers.Input.System.Player.Jump.started += OnJump;
+        Managers.Input.System.Player.Jump.canceled += OnJump;
     }
 
     private void Update()

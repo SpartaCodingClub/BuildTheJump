@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Managers : MonoBehaviour
 {
@@ -22,20 +23,14 @@ public class Managers : MonoBehaviour
         P_Rigidbody player = FindAnyObjectByType<P_Rigidbody>();
         P_Interaction interaction = FindAnyObjectByType<P_Interaction>();
         Game.Initialize(player, interaction);
+        Input.Initialize();
 
         Building.Initialize();
         Camera.Initialize();
         Data.Initialize();
-        Input.Initialize();
         Pool.Initialize();
         Resource.Initialize();
         UI.Initialize();
-    }
-
-    private void Update()
-    {
-        Building.Update();
-        UI.Update();
     }
 
     private void LateUpdate()

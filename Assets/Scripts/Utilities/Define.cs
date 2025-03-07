@@ -17,12 +17,12 @@ public class Define
     #region Effects
     public static readonly string EFFECT_BUILD = "Effect_Build";
     public static readonly string EFFECT_DEATH = "Effect_Death";
-    public static readonly string EFFECT_GET = "Effect_Get";
-    public static readonly string EFFECT_HIT = "Effect_Hit";
+    public static readonly string EFFECT_INTERACTION = "Effect_Interaction";
     public static readonly string EFFECT_ITEM = "Effect_Item";
+    public static readonly string EFFECT_ITEM_GET = "Effect_ItemGet";
     #endregion
     #region Layers
-    public static readonly int LAYER_GROUND = LayerMask.NameToLayer("Ground");
+    public static readonly string LAYER_GROUND = "Ground";
     public static readonly string LAYER_OBJECT = "Object";
     #endregion
     #region Path

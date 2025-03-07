@@ -188,6 +188,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             ""id"": ""2ea6cf93-fb4c-4c1b-aad0-1c3de512271c"",
             ""actions"": [
                 {
+                    ""name"": ""Build"",
+                    ""type"": ""Value"",
+                    ""id"": ""4823c10b-cc90-479d-906c-8bec6be760dd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Confirm"",
                     ""type"": ""Button"",
                     ""id"": ""d7e267e0-3d6b-4a00-ab42-f6e8a8674608"",
@@ -206,6 +215,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08614fbc-8b82-4d8e-98e1-20688bbb8253"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Build"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -286,6 +306,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_UI_Inventory = m_UI.FindAction("UI_Inventory", throwIfNotFound: true);
         // UI_Building
         m_UI_Building = asset.FindActionMap("UI_Building", throwIfNotFound: true);
+        m_UI_Building_Build = m_UI_Building.FindAction("Build", throwIfNotFound: true);
         m_UI_Building_Confirm = m_UI_Building.FindAction("Confirm", throwIfNotFound: true);
     }
 
@@ -471,11 +492,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     // UI_Building
     private readonly InputActionMap m_UI_Building;
     private List<IUI_BuildingActions> m_UI_BuildingActionsCallbackInterfaces = new List<IUI_BuildingActions>();
+    private readonly InputAction m_UI_Building_Build;
     private readonly InputAction m_UI_Building_Confirm;
     public struct UI_BuildingActions
     {
         private @InputSystem_Actions m_Wrapper;
         public UI_BuildingActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Build => m_Wrapper.m_UI_Building_Build;
         public InputAction @Confirm => m_Wrapper.m_UI_Building_Confirm;
         public InputActionMap Get() { return m_Wrapper.m_UI_Building; }
         public void Enable() { Get().Enable(); }
@@ -486,6 +509,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UI_BuildingActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UI_BuildingActionsCallbackInterfaces.Add(instance);
+            @Build.started += instance.OnBuild;
+            @Build.performed += instance.OnBuild;
+            @Build.canceled += instance.OnBuild;
             @Confirm.started += instance.OnConfirm;
             @Confirm.performed += instance.OnConfirm;
             @Confirm.canceled += instance.OnConfirm;
@@ -493,6 +519,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IUI_BuildingActions instance)
         {
+            @Build.started -= instance.OnBuild;
+            @Build.performed -= instance.OnBuild;
+            @Build.canceled -= instance.OnBuild;
             @Confirm.started -= instance.OnConfirm;
             @Confirm.performed -= instance.OnConfirm;
             @Confirm.canceled -= instance.OnConfirm;
@@ -571,6 +600,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     }
     public interface IUI_BuildingActions
     {
+        void OnBuild(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
     }
 }

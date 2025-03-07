@@ -9,7 +9,7 @@ public enum UIState
     Close
 }
 
-[RequireComponent(typeof(CanvasGroup), typeof(Poolable))]
+[RequireComponent(typeof(CanvasGroup))]
 public abstract class UI_Base : MonoBehaviour
 {
     protected CanvasGroup canvasGroup;

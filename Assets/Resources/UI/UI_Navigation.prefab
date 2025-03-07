@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5490456332176581620}
   - component: {fileID: 2288103702144150231}
   - component: {fileID: 7766287525053467028}
-  - component: {fileID: 6509217261177135955}
   m_Layer: 5
   m_Name: UI_Navigation
   m_TagString: Untagged
@@ -109,18 +108,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 285e0d8b1654096468b672764e40a0f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6509217261177135955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214635255115418327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409d6b22ece416a4d90299ba853c40e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5363964164295495823

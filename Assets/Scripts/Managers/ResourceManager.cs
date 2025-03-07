@@ -22,7 +22,7 @@ public class ResourceManager
         string[] names = Enum.GetNames(typeof(SpriteType));
         for (int i = 0; i < atlas.Length; i++)
         {
-            SpriteAtlas atlas = Resources.Load<SpriteAtlas>($"{Define.PATH_ATLAS}/{names[i]}");
+            SpriteAtlas atlas = Resources.Load<SpriteAtlas>($"{Define.PATH_ATLAS}/Atlas_{names[i]}");
             this.atlas[i] = atlas;
         }
     }

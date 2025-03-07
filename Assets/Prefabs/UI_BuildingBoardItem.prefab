@@ -222,7 +222,6 @@ GameObject:
   - component: {fileID: 1475702675384575212}
   - component: {fileID: 5163971840717452684}
   - component: {fileID: 8672015207770127659}
-  - component: {fileID: 8416952219615695663}
   m_Layer: 5
   m_Name: UI_BuildingBoardItem
   m_TagString: Untagged
@@ -273,17 +272,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00ee72025b7f8cc4bab7764f217f1f33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8416952219615695663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6954391133432925865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409d6b22ece416a4d90299ba853c40e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

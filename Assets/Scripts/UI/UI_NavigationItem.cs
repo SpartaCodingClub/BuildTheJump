@@ -30,7 +30,7 @@ public class UI_NavigationItem : UI_Base
         Frame,
         Icon,
         Mask,
-        Text_Value
+        Text_Description
     }
 
     protected override void Initialize()
@@ -52,6 +52,6 @@ public class UI_NavigationItem : UI_Base
     {
         Get<Image>((int)Children.Frame).sprite = Managers.Resource.GetSprite(SpriteType.Rarity, dropItem.Data.Rarity.ToString());
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Item, dropItem.Data.ID.ToString());
-        Get<TMP_Text>((int)Children.Text_Value).text = $"{dropItem.Data.Name} x{dropItem.Count}";
+        Get<TMP_Text>((int)Children.Text_Description).text = $"{dropItem.Data.Name} x{dropItem.Count}";
     }
 }

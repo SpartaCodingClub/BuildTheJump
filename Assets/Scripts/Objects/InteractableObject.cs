@@ -6,10 +6,16 @@ public abstract class InteractableObject : MonoBehaviour
     [SerializeField] protected ObjectData data;
     #endregion
     #region UI_StatusBar
+    private UI_StatusBar statusBarUI;
+
     public void Open_StatusBarUI()
     {
-        statusBarUI = Managers.UI.Open<UI_StatusBar>();
-        statusBarUI.UpdateUI(hp, data);
+        if (statusBarUI == null)
+        {
+            statusBarUI = Managers.UI.Open<UI_StatusBar>();
+        }
+
+        statusBarUI.UpdateUI(currentHP, data);
     }
 
     public void Close_StatusBarUI()
@@ -24,37 +30,31 @@ public abstract class InteractableObject : MonoBehaviour
     }
     #endregion
 
-    public bool IsDead { get { return hp == 0; } }
+    public ObjectType Type { get; private set; }
+    public bool IsDead { get { return currentHP == 0; } }
 
-    public ObjectType Type;
-    private int hp;
-
+    private int currentHP;
     private MeshRenderer meshRenderer;
-    private UI_StatusBar statusBarUI;
 
     private void Start()
     {
         Type = data.Type;
-        hp = data.HP;
-
+        currentHP = data.HP;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
     public virtual void OnInteraction(int damage)
     {
-        hp = Mathf.Max(hp - damage, 0);
-        if (hp == 0)
+        currentHP = Mathf.Max(currentHP - damage, 0);
+        if (IsDead)
         {
-            GameObject gameObject = Managers.Resource.Instantiate(Define.EFFECT_DEATH, transform.position, Define.PATH_EFFECT);
-            gameObject.GetComponent<ParticleHandler>().Play(meshRenderer);
-
-            Managers.Game.Interaction.InteractionExit();
-            Managers.Resource.Destroy(this.gameObject);
+            Managers.Resource.Instantiate(Define.EFFECT_DEATH, transform.position, Define.PATH_EFFECT).GetComponent<ParticleHandler>().Play(meshRenderer);
+            Managers.Resource.Destroy(gameObject);
         }
 
         if (statusBarUI != null)
         {
-            statusBarUI.UpdateUI(hp, data);
+            statusBarUI.UpdateUI(currentHP, data);
         }
     }
 }

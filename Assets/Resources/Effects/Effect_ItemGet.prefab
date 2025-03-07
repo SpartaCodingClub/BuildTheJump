@@ -9878,7 +9878,7 @@ GameObject:
   - component: {fileID: -2729360336334706370}
   - component: {fileID: 4750605843284840098}
   m_Layer: 0
-  m_Name: Effect_Get
+  m_Name: Effect_ItemGet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

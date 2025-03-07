@@ -47,7 +47,7 @@ public class UI_Inventory : UI_Base
         Frame,
         Content,
         Fill,
-        Text_Bottom,
+        Text_Weights,
     }
 
     public UI_Focus FocusUI { get; private set; }
@@ -95,11 +95,11 @@ public class UI_Inventory : UI_Base
         foreach (var item in Managers.Item.Inventory)
         {
             content[index++].UpdateUI(item.Value);
-            weight += Managers.Item.GetWeight(item.Key);
+            weight += Managers.Item.GetWeights(item.Key);
         }
 
         float fillAmount = weight / Define.MAX_WEIGHT;
         Get<Image>((int)Children.Fill).fillAmount = fillAmount;
-        Get<TMP_Text>((int)Children.Text_Bottom).text = $"소지 중량 <size=30>({weight:N1}g / {Define.MAX_WEIGHT:N1}g)</size>";
+        Get<TMP_Text>((int)Children.Text_Weights).text = $"무게 <size=30>({weight:N1}g / {Define.MAX_WEIGHT:N1}g)</size>";
     }
 }

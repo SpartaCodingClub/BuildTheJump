@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   Name: "\uBC14\uC704"
-  Description: "\uAD11\uBB3C\uC774\uB098 \uC870\uC554 \uAD11\uBB3C\uC774 \uC790\uC5F0\uC801\uC73C\uB85C
-    \uBAA8\uC5EC \uC774\uB8E8\uC5B4\uC9C4 \uACE0\uCCB4 \uB369\uC5B4\uB9AC\uC774\uB2E4."
+  Description: "\uD06C\uACE0 \uB2E8\uB2E8\uD55C \uBC14\uC704\uC785\uB2C8\uB2E4."
   HP: 100
   DropTable:
   - Data: {fileID: 11400000, guid: 9b46f4fcd1e3a2b4691fe8a3101b1ac4, type: 2}

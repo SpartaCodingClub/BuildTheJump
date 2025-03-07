@@ -318,7 +318,6 @@ GameObject:
   - component: {fileID: 810317742791835}
   - component: {fileID: 8630045471491729422}
   - component: {fileID: 3704404761986612779}
-  - component: {fileID: 472157144682274100}
   m_Layer: 5
   m_Name: UI_Focus
   m_TagString: Untagged
@@ -405,18 +404,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3787f36cdfe0db44595e6afad57bcea9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &472157144682274100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7577564664976035797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409d6b22ece416a4d90299ba853c40e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7974473324021928935

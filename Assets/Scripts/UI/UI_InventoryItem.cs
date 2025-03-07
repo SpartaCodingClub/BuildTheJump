@@ -58,7 +58,7 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
         id = item.Data.ID;
         frame.sprite = Managers.Resource.GetSprite(SpriteType.Rarity, item.Data.Rarity.ToString());
         icon.sprite = Managers.Resource.GetSprite(SpriteType.Item, item.Data.ID.ToString());
-        textWeight.text = $"{Managers.Item.GetWeight(item.Data.ID):N1}g";
+        textWeight.text = $"{Managers.Item.GetWeights(item.Data.ID):N1}g";
         textCount.text = item.Count.ToString();
 
         SetActive(true);

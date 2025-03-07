@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class ResourceObject : InteractableObject
 {
-    private readonly float shakeAmount = 5.0f;
-    private readonly float shakeDuration = 0.5f;
+    private readonly float SHAKE_AMOUNT = 5.0f;
+    private readonly float SHAKE_DURATION = 0.5f;
 
     private Quaternion originalRotation;
 
-    private void OnEnable()
+    private void Awake()
     {
         originalRotation = transform.rotation;
     }
@@ -16,14 +16,11 @@ public class ResourceObject : InteractableObject
     public override void OnInteraction(int damage)
     {
         base.OnInteraction(damage);
-
         if (IsDead)
         {
-            var dropItems = Managers.Item.GetDropItems(data.DropTable);
-            for (int i = 0; i < dropItems.Count; i++)
+            foreach (var dropItem in Managers.Item.GetDropItems(data.DropTable))
             {
-                GameObject gameObject = Managers.Resource.Instantiate(Define.EFFECT_ITEM, transform.position, Define.PATH_EFFECT);
-                gameObject.GetComponent<Item_Movement>().Play(dropItems[i]);
+                Managers.Resource.Instantiate(Define.EFFECT_ITEM, transform.position, Define.PATH_EFFECT).GetComponent<ItemObject>().Play(dropItem);
             }
 
             return;
@@ -36,21 +33,21 @@ public class ResourceObject : InteractableObject
     private IEnumerator Shaking(Vector3 attackDirection)
     {
         Vector3 shakeAxis = Vector3.Cross(Vector3.up, attackDirection).normalized;
-        Quaternion targetRotation = Quaternion.AngleAxis(shakeAmount, shakeAxis) * originalRotation;
+        Quaternion targetRotation = Quaternion.AngleAxis(SHAKE_AMOUNT, shakeAxis) * originalRotation;
 
         float elapsedTime = 0.0f;
-        while (elapsedTime < shakeDuration * 0.5f)
+        while (elapsedTime < SHAKE_DURATION * 0.5f)
         {
-            transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, elapsedTime / (shakeDuration * 0.5f));
+            transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, elapsedTime / (SHAKE_DURATION * 0.5f));
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
 
         elapsedTime = 0.0f;
-        while (elapsedTime < shakeDuration * 0.5f)
+        while (elapsedTime < SHAKE_DURATION * 0.5f)
         {
-            transform.rotation = Quaternion.Slerp(targetRotation, originalRotation, elapsedTime / (shakeDuration * 0.5f));
+            transform.rotation = Quaternion.Slerp(targetRotation, originalRotation, elapsedTime / (SHAKE_DURATION * 0.5f));
             elapsedTime += Time.deltaTime;
 
             yield return null;

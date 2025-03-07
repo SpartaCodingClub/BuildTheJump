@@ -166,6 +166,15 @@
             "id": "2ea6cf93-fb4c-4c1b-aad0-1c3de512271c",
             "actions": [
                 {
+                    "name": "Build",
+                    "type": "Value",
+                    "id": "4823c10b-cc90-479d-906c-8bec6be760dd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Confirm",
                     "type": "Button",
                     "id": "d7e267e0-3d6b-4a00-ab42-f6e8a8674608",
@@ -184,6 +193,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "08614fbc-8b82-4d8e-98e1-20688bbb8253",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Build",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

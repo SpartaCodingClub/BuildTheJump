@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
-
-public delegate void Interaction();
+using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AnimationHandler))]
 public class P_Interaction : MonoBehaviour
@@ -8,22 +9,38 @@ public class P_Interaction : MonoBehaviour
     private readonly int DAMAGE = 20;
 
     #region AnimationEvents
-    private void Interact(float height)
+    private void InteractEnter(float height)
     {
         Vector3 position = InteractableObject.transform.position;
         position.x += Random.Range(-0.5f, 0.5f);
         position.y += height;
         position.z += Random.Range(-0.5f, 0.5f);
-        Managers.Resource.Instantiate(Define.EFFECT_HIT, position, Define.PATH_EFFECT);
+        Managers.Resource.Instantiate(Define.EFFECT_INTERACTION, position, Define.PATH_EFFECT);
 
         InteractableObject.OnInteraction(DAMAGE);
     }
+
+    private void InteractExit()
+    {
+        if (InteractableObject.IsDead == false)
+        {
+            return;
+        }
+
+        InteractionExit();
+    }
+    #endregion
+    #region InputSystem
+    private void OnInteraction(InputAction.CallbackContext callbackContext)
+    {
+        InteractionExit();
+    }
     #endregion
 
-    public event Interaction OnInteractionEnter;
-    public event Interaction OnInteractionExit;
+    public event Action OnInteractionEnter;
+    public event Action OnInteractionExit;
 
-    public bool OnInteraction { get; private set; }
+    public bool Interaction { get; private set; }
     public InteractableObject InteractableObject { get; set; }
 
     private readonly GameObject[] equipments = new GameObject[(int)ObjectType.Count];
@@ -38,9 +55,15 @@ public class P_Interaction : MonoBehaviour
         animationHandler = GetComponent<AnimationHandler>();
     }
 
+    private void Start()
+    {
+        Managers.Input.System.Player.Move.performed += OnInteraction;
+        Managers.Input.System.Player.Jump.performed += OnInteraction;
+    }
+
     public void InteractionEnter()
     {
-        OnInteraction = true;
+        Interaction = true;
         InteractableObject.Open_StatusBarUI();
         equipments[(int)InteractableObject.Type].SetActive(true);
         animationHandler.SetBool(Define.ID_ACTION, true);
@@ -49,9 +72,14 @@ public class P_Interaction : MonoBehaviour
         OnInteractionEnter?.Invoke();
     }
 
-    public void InteractionExit()
+    private void InteractionExit()
     {
-        OnInteraction = false;
+        if (Interaction == false)
+        {
+            return;
+        }
+
+        Interaction = false;
         InteractableObject.Close_StatusBarUI();
         equipments[(int)InteractableObject.Type].SetActive(false);
         animationHandler.SetBool(Define.ID_ACTION, false);

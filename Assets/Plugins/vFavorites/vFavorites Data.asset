@@ -12,5 +12,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066cf82f8f80d408c856e48fc8f1127b, type: 3}
   m_Name: vFavorites Data
   m_EditorClassIdentifier: 
-  pages: []
+  pages:
+  - items:
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-489d536113cc6044d8b13341bf4d2773-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 489d536113cc6044d8b13341bf4d2773, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1052160961
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-f12856074d8a33f4cb557a3262ba0b6f-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: f12856074d8a33f4cb557a3262ba0b6f, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1053638178
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-da10c659e0d44ff4a9588978f617f7cf-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: da10c659e0d44ff4a9588978f617f7cf, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1062252372
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-3251d70a5ab432d49b787eadcd9e74f5-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 3251d70a5ab432d49b787eadcd9e74f5, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1059954769
+    - globalId:
+        globalObjectIdString: GlobalObjectId_V1-1-01bb909bd98695a42b90278f69e89541-102900000-0
+      _typeString: UnityEditor.DefaultAsset, UnityEditor.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      _obj: {fileID: 102900000, guid: 01bb909bd98695a42b90278f69e89541, type: 3}
+      isSceneGameObject: 0
+      isFolder: 1
+      isAsset: 0
+      _id: 1041268273
+    name: Page 1
+    _id: 1049800793
+  - items: []
+    name: Page 2
+    _id: 0
   rowScale: 1

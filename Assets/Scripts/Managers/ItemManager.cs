@@ -5,16 +5,16 @@ public class ItemManager
 {
     public Dictionary<int, Item> Inventory { get; private set; } = new();
 
-    public void AddDropItem(Item dropItem)
+    public void AddItem(Item item)
     {
-        int key = dropItem.Data.ID;
-        if (Inventory.TryGetValue(key, out var item))
+        int key = item.Data.ID;
+        if (Inventory.TryGetValue(key, out var inventoryItem))
         {
-            item.Count += dropItem.Count;
+            inventoryItem.Count += item.Count;
             return;
         }
 
-        Inventory.Add(key, dropItem);
+        Inventory.Add(key, item);
     }
 
     public List<Item> GetDropItems(List<DropRow> dropTable)
@@ -27,7 +27,7 @@ public class ItemManager
                 continue;
             }
 
-            int count = Random.Range(1, dropRow.Count);
+            int count = Random.Range(1, dropRow.Count + 1);
             Item dropItem = new() { Data = dropRow.Data, Count = count };
             dropItems.Add(dropItem);
         }
@@ -35,7 +35,7 @@ public class ItemManager
         return dropItems;
     }
 
-    public float GetWeight(int key)
+    public float GetWeights(int key)
     {
         if (Inventory.TryGetValue(key, out var item) == false)
         {

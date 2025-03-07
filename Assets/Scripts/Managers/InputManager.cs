@@ -1,5 +1,3 @@
-using System;
-
 public enum InputType
 {
     Player,
@@ -14,6 +12,7 @@ public class InputManager
     public void Initialize()
     {
         System = new();
-        System.Enable();
+        System.Player.Enable();
+        System.UI.Enable();
     }
 }

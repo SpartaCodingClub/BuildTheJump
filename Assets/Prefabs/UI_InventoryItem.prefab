@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7909929283712469304}
   - component: {fileID: 7865963160619982418}
   - component: {fileID: 3827612634970295163}
-  - component: {fileID: 1750921889232818828}
   m_Layer: 5
   m_Name: UI_InventoryItem
   m_TagString: Untagged
@@ -103,18 +102,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a07b69dd32d5254989ab8b2ed4457a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1750921889232818828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1813236291741012047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409d6b22ece416a4d90299ba853c40e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4963598630849477284
@@ -318,7 +305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b99128139aad4a0409a657d54c7c6341, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed11366841b93194084fd62cfeaf2ca7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -362,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: -5}
+  m_AnchoredPosition: {x: 10, y: -5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6600472076803932304
