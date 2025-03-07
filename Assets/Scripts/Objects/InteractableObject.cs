@@ -40,7 +40,7 @@ public abstract class InteractableObject : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
-    public virtual void OnHit(int damage)
+    public virtual void OnInteraction(int damage)
     {
         hp = Mathf.Max(hp - damage, 0);
         if (hp == 0)

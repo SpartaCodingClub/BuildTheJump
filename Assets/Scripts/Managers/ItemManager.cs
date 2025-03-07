@@ -27,7 +27,7 @@ public class ItemManager
                 continue;
             }
 
-            int count = Random.Range(1, dropRow.MaxCount);
+            int count = Random.Range(1, dropRow.Count);
             Item dropItem = new() { Data = dropRow.Data, Count = count };
             dropItems.Add(dropItem);
         }

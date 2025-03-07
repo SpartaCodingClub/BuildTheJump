@@ -3,10 +3,12 @@ using UnityEngine;
 public class Define
 {
     #region Animations
-    public static readonly int HASH_ACTION = Animator.StringToHash("Action");
-    public static readonly int HASH_ACTION_TREE = Animator.StringToHash("Action_Tree");
-    public static readonly int HASH_ACTION_ROCK = Animator.StringToHash("Action_Rock");
-    public static readonly int HASH_SPEED = Animator.StringToHash("Speed");
+    public static readonly int ID_ACTION = Animator.StringToHash("Action");
+    public static readonly int ID_ACTION_TREE = Animator.StringToHash("Action_Tree");
+    public static readonly int ID_ACTION_ROCK = Animator.StringToHash("Action_Rock");
+    public static readonly int ID_MOVE = Animator.StringToHash("Move");
+    public static readonly int ID_GROUND = Animator.StringToHash("Ground");
+    public static readonly int ID_JUMP = Animator.StringToHash("Jump");
     #endregion
     #region Colors
     public static readonly Color BLUE = new Color32(0, 48, 191, 255);
@@ -21,6 +23,7 @@ public class Define
     #endregion
     #region Layers
     public static readonly int LAYER_GROUND = LayerMask.NameToLayer("Ground");
+    public static readonly string LAYER_OBJECT = "Object";
     #endregion
     #region Path
     public const string PATH_ATLAS = "Atlas";

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum ItemType
@@ -16,6 +17,7 @@ public enum ItemRarity
     Legendary
 }
 
+[Serializable]
 public class Item
 {
     public ItemData Data;

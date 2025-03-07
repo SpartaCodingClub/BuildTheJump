@@ -19,7 +19,7 @@ public class Managers : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);
 
-        P_Movement player = FindAnyObjectByType<P_Movement>();
+        P_Rigidbody player = FindAnyObjectByType<P_Rigidbody>();
         P_Interaction interaction = FindAnyObjectByType<P_Interaction>();
         Game.Initialize(player, interaction);
 

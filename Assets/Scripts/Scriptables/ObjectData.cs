@@ -13,11 +13,11 @@ public class DropRow
 {
     public ItemData Data;
 
+    [Range(0, 10)]
+    public int Count;
+
     [Range(0.0f, 100.0f)]
     public float Percent;
-
-    [Range(0, 100)]
-    public int MaxCount;
 }
 
 [CreateAssetMenu(fileName = "ObjectData", menuName = "Scriptable Objects/ObjectData")]

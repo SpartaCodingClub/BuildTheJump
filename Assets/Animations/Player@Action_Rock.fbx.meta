@@ -56,10 +56,10 @@ ModelImporter:
       curves: []
       events:
       - time: 0.42581847
-        functionName: Hit
+        functionName: Interact
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
+        floatParameter: 0.5
         intParameter: 0
         messageOptions: 0
       transformMask: []

@@ -5,7 +5,7 @@ public class AnimationHandler : MonoBehaviour
     private Animator animator;
 
     public void SetBool(int id, bool value) => animator.SetBool(id, value);
-    public void SetFloat(int id, float value) => animator.SetFloat(id, value);
+    public void SetTrigger(int id) => animator.SetTrigger(id);
 
     private void Awake()
     {
@@ -17,10 +17,10 @@ public class AnimationHandler : MonoBehaviour
         switch (type)
         {
             case ObjectType.Tree:
-                animator.SetTrigger(Define.HASH_ACTION_TREE);
+                animator.SetTrigger(Define.ID_ACTION_TREE);
                 break;
             case ObjectType.Rock:
-                animator.SetTrigger(Define.HASH_ACTION_ROCK);
+                animator.SetTrigger(Define.ID_ACTION_ROCK);
                 break;
         }
     }

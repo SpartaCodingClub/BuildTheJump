@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9ef398a141c7945be8f0c422e1b69e, type: 3}
+  m_Name: 10001_FireWood
+  m_EditorClassIdentifier: 
+  ID: 10001
+  Type: 2
+  Rarity: 0
+  Name: "\uC7A5\uC791"
+  Description: "\uBD88\uC774 \uC798 \uBD99\uC744 \uAC83 \uAC19\uC740 \uC7A5\uC791\uC785\uB2C8\uB2E4."
+  Weight: 5

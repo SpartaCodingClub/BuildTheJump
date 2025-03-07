@@ -13,9 +13,9 @@ public class ResourceObject : InteractableObject
         originalRotation = transform.rotation;
     }
 
-    public override void OnHit(int damage)
+    public override void OnInteraction(int damage)
     {
-        base.OnHit(damage);
+        base.OnInteraction(damage);
 
         if (IsDead)
         {

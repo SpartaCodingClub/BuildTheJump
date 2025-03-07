@@ -2,22 +2,21 @@ using UnityEngine;
 
 public delegate void Interaction();
 
+[RequireComponent(typeof(AnimationHandler))]
 public class P_Interaction : MonoBehaviour
 {
-    #region Inspector
-    [SerializeField, Min(0.0f)] private int damage;
-    #endregion
+    private readonly int DAMAGE = 20;
+
     #region AnimationEvents
-    private void Attack()
+    private void Interact(float height)
     {
-        InteractableObject.OnHit(damage);
-
-        Vector3 position = new(
-            InteractableObject.transform.position.x + Random.Range(-0.5f, 0.5f),
-            InteractableObject.transform.position.y + 1.5f,
-            InteractableObject.transform.position.z + Random.Range(-0.5f, 0.5f));
-
+        Vector3 position = InteractableObject.transform.position;
+        position.x += Random.Range(-0.5f, 0.5f);
+        position.y += height;
+        position.z += Random.Range(-0.5f, 0.5f);
         Managers.Resource.Instantiate(Define.EFFECT_HIT, position, Define.PATH_EFFECT);
+
+        InteractableObject.OnInteraction(DAMAGE);
     }
     #endregion
 
@@ -44,6 +43,7 @@ public class P_Interaction : MonoBehaviour
         OnInteraction = true;
         InteractableObject.Open_StatusBarUI();
         equipments[(int)InteractableObject.Type].SetActive(true);
+        animationHandler.SetBool(Define.ID_ACTION, true);
         animationHandler.SetTrigger(InteractableObject.Type);
 
         OnInteractionEnter?.Invoke();
@@ -54,6 +54,7 @@ public class P_Interaction : MonoBehaviour
         OnInteraction = false;
         InteractableObject.Close_StatusBarUI();
         equipments[(int)InteractableObject.Type].SetActive(false);
+        animationHandler.SetBool(Define.ID_ACTION, false);
 
         OnInteractionExit?.Invoke();
     }

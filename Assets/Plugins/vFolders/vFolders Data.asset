@@ -22,6 +22,11 @@ MonoBehaviour:
     - 943940fb081455c4bb4a158e63216e3f
     - 41e37c45131644b40975da343885cfa6
     - 0ce3b39a33cb2994ea32aa1276b951e4
+    - d5b7219cd19704340a0ef85a3c500d7d
+    - adc6f7e349b7e4f49be6643edcb94e00
+    - f54d1bd14bd3ca042bd867b519fee8cc
+    - d753930a91976794b965679988bb8f2d
+    - 4ad0dfc7a295192459a17c04f0a3d1f1
     values:
     - iconNameOrGuid: 
       colorIndex: 7
@@ -55,4 +60,24 @@ MonoBehaviour:
       colorIndex: 2
       isIconRecursive: 0
       isColorRecursive: 1
+    - iconNameOrGuid: Font Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: AnimationClip Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Font Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Material Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: Texture Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
   bookmarks: []

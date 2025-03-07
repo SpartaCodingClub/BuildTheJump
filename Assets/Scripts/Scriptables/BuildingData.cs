@@ -5,5 +5,6 @@ using UnityEngine;
 public class BuildingData : BaseData
 {
     public float Timer;
+
     public List<Item> Items = new();
 }

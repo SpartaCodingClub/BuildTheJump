@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9ef398a141c7945be8f0c422e1b69e, type: 3}
+  m_Name: 10004_Crystal
+  m_EditorClassIdentifier: 
+  ID: 10004
+  Type: 2
+  Rarity: 4
+  Name: "\uD06C\uB9AC\uC2A4\uD0C8"
+  Description: "\uC601\uB871\uD55C \uBE5B\uC744 \uB0B4\uBFDC\uB294 \uBCF4\uC11D\uC785\uB2C8\uB2E4."
+  Weight: 5

@@ -7,7 +7,6 @@ public class Utility
     public static T FindComponent<T>(GameObject gameObject, string name = null) where T : Component
     {
         name ??= typeof(T).Name;
-
         foreach (var component in gameObject.GetComponentsInChildren<T>(true))
         {
             if (component.name.Equals(name))

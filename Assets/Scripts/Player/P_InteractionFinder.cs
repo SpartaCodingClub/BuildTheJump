@@ -1,0 +1,118 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(P_Interaction))]
+public class P_InteractionFinder : MonoBehaviour
+{
+    private readonly float RADIUS = 2.0f;
+
+    #region InputSystem
+    private void Interaction(InputAction.CallbackContext callbackContext)
+    {
+        if (interaction.OnInteraction)
+        {
+            return;
+        }
+
+        if (target == null)
+        {
+            return;
+        }
+
+        transform.LookAt(target);
+
+        interaction.InteractableObject = target.GetComponent<InteractableObject>();
+        interaction.InteractionEnter();
+
+        Close_KeyUI();
+    }
+    #endregion
+    #region UI_Key
+    private UI_Key keyUI;
+
+    private void Open_KeyUI()
+    {
+        if (keyUI == null)
+        {
+            keyUI = Managers.UI.Open<UI_Key>();
+        }
+
+        keyUI.UpdateUI(target);
+    }
+
+    private void Close_KeyUI()
+    {
+        if (keyUI == null)
+        {
+            return;
+        }
+
+        keyUI.Close();
+        keyUI = null;
+    }
+    #endregion
+
+    private readonly Collider[] colliders = new Collider[8];
+
+    private P_Interaction interaction;
+    private LayerMask targetLayer;
+
+    private Transform target;
+
+    private void Awake()
+    {
+        interaction = GetComponent<P_Interaction>();
+        targetLayer = LayerMask.GetMask(Define.LAYER_OBJECT);
+    }
+
+    private void Start()
+    {
+        Managers.Input.System.Player.Interaction.started += Interaction;
+    }
+
+    private void Update()
+    {
+        if (interaction.OnInteraction)
+        {
+            return;
+        }
+
+        if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, colliders, targetLayer) == 0)
+        {
+            this.target = null;
+            Close_KeyUI();
+            return;
+        }
+
+        var target = GetTarget();
+        if (target != this.target)
+        {
+            Close_KeyUI();
+        }
+
+        this.target = target;
+        Open_KeyUI();
+    }
+
+    private Transform GetTarget()
+    {
+        Transform target = null;
+        float closestDistance = Mathf.Infinity;
+        foreach (var collider in colliders)
+        {
+            if (collider == null)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(transform.position, collider.transform.position);
+            if (distance < closestDistance)
+            {
+                target = collider.transform;
+                closestDistance = distance;
+            }
+        }
+
+        return target;
+    }
+}

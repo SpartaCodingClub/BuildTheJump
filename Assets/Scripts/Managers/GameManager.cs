@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class GameManager
 {
-    public P_Movement Player { get; private set; }
+    public P_Rigidbody Player { get; private set; }
     public P_Interaction Interaction { get; private set; }
 
-    public void Initialize(P_Movement player, P_Interaction interaction)
+    public void Initialize(P_Rigidbody player, P_Interaction interaction)
     {
         Player = player;
         Interaction = interaction;

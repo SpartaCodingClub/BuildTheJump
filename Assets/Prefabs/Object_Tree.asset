@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc86f3369343e7048a6b038abce651e7, type: 3}
+  m_Name: Object_Tree
+  m_EditorClassIdentifier: 
+  Type: 0
+  Name: "\uB098\uBB34"
+  Description: "\uBFCC\uB9AC,\uC78E , \uC5F4\uB9E4, \uB098\uBB34\uC9C8\uB85C \uB41C
+    \uC904\uAE30 \uB4F1\uC73C\uB85C \uAD6C\uC131\uB41C \uC5EC\uB7EC\uD574\uC0B4\uC774
+    \uC2DD\uBB3C\uC774\uB2E4."
+  HP: 100
+  DropTable:
+  - Data: {fileID: 11400000, guid: 2376e4e10d87e2549b5ffa607b536af4, type: 2}
+    Count: 5
+    Percent: 100
+  - Data: {fileID: 11400000, guid: 558df0a6d0358624f8af6587d00673c0, type: 2}
+    Count: 1
+    Percent: 100
