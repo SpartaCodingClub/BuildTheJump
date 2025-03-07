@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 10001
   Name: "\uBAA8\uB2E5\uBD88"
   Description: 
-  Timer: 6
+  Duration: 6
   Items:
   - Data: {fileID: 11400000, guid: 2376e4e10d87e2549b5ffa607b536af4, type: 2}
     Count: 1

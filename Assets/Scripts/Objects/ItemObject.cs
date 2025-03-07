@@ -70,8 +70,9 @@ public class ItemObject : MonoBehaviour
 
         Managers.Item.AddItem(item);
         Managers.Resource.Instantiate(Define.EFFECT_ITEM_GET, transform.position, Define.PATH_EFFECT);
-        Managers.Resource.Destroy(gameObject);
         Managers.UI.NavagationUI.Open_NavigationItem(item);
         Managers.UI.UpdateMenuUI();
+
+        Managers.Resource.Destroy(gameObject);
     }
 }

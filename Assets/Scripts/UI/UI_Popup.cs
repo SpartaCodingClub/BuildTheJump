@@ -1,9 +1,20 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_Popup : UI_Base
 {
+    #region Open
+    private Sequence Frame_Open()
+    {
+        var child = Get((int)Children.Frame);
+
+        return Utility.RecyclableSequence()
+            .Append(child.DOScale(1.0f, 0.3f).From(0.0f).SetEase(Ease.OutBack));
+    }
+    #endregion
+
     private enum Children
     {
         Frame,
@@ -17,11 +28,20 @@ public class UI_Popup : UI_Base
         base.Initialize();
         BindChildren(typeof(Children));
 
+        BindSequences(UIState.Open, Frame_Open);
+
+        gameObject.SetActive(false);
+    }
+
+    public override void Close()
+    {
         gameObject.SetActive(false);
     }
 
     public void UpdateUI(DataType type, int id, Vector2 screenPosition)
     {
+        Open();
+
         RectTransform frame = Get((int)Children.Frame);
         frame.pivot = GetPivot(screenPosition);
         frame.anchoredPosition = screenPosition;
@@ -38,8 +58,6 @@ public class UI_Popup : UI_Base
     {
         float x = screenPosition.x > Screen.width * 0.5f ? 1.0f : 0.0f;
         float y = screenPosition.y > Screen.height * 0.5f ? 1.0f : 0.0f;
-
         return new(x, y);
     }
-
 }

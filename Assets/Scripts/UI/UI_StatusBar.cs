@@ -49,6 +49,7 @@ public class UI_StatusBar : UI_Base
 
     private Image fillWhite;
     private Image fillRed;
+
     private float previousHP;
 
     protected override void Initialize()
@@ -78,18 +79,18 @@ public class UI_StatusBar : UI_Base
             previousHP = hp;
         }
 
-        fillRed.fillAmount = fillAmount;
-        StartCoroutine(Filling());
-
         Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
         Get<TMP_Text>((int)Children.Text_Description).text = data.Description;
+
+        fillRed.fillAmount = fillAmount;
+        StartCoroutine(Filling());
     }
 
     private IEnumerator Filling()
     {
         while (fillWhite.fillAmount > fillRed.fillAmount)
         {
-            fillWhite.fillAmount = Mathf.Lerp(fillWhite.fillAmount, fillRed.fillAmount, Time.deltaTime * 5.0f);
+            fillWhite.fillAmount = Mathf.Lerp(fillWhite.fillAmount, fillRed.fillAmount, 5.0f * Time.deltaTime);
             yield return null;
         }
     }

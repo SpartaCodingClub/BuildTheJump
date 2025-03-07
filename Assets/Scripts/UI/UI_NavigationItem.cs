@@ -1,5 +1,6 @@
 using DG.Tweening;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_NavigationItem : UI_Base
@@ -33,6 +34,8 @@ public class UI_NavigationItem : UI_Base
         Text_Description
     }
 
+    private Sprite originalSprite;
+
     protected override void Initialize()
     {
         base.Initialize();
@@ -40,6 +43,8 @@ public class UI_NavigationItem : UI_Base
 
         BindSequences(UIState.Open, Mask_Open);
         BindSequences(UIState.Close, NavigationItem_Close);
+
+        originalSprite = Get<Image>((int)Children.Frame).sprite;
     }
 
     public override void Open()
@@ -53,5 +58,12 @@ public class UI_NavigationItem : UI_Base
         Get<Image>((int)Children.Frame).sprite = Managers.Resource.GetSprite(SpriteType.Rarity, dropItem.Data.Rarity.ToString());
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Item, dropItem.Data.ID.ToString());
         Get<TMP_Text>((int)Children.Text_Description).text = $"{dropItem.Data.Name} x{dropItem.Count}";
+    }
+
+    public void UpdateUI(string id, string description)
+    {
+        Get<Image>((int)Children.Frame).sprite = originalSprite;
+        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, id);
+        Get<TMP_Text>((int)Children.Text_Description).text = description;
     }
 }

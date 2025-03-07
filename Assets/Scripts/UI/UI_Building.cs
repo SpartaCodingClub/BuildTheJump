@@ -9,7 +9,7 @@ public class UI_Building : UI_Base
         var child = Get((int)Children.Frame);
 
         return Utility.RecyclableSequence()
-            .Append(child.DOAnchorPosY(-428.0f, 0.3f).From());
+            .Append(child.DOAnchorPosY(-378.0f, 0.3f).From());
     }
     #endregion
     #region Close
@@ -18,7 +18,7 @@ public class UI_Building : UI_Base
         var child = Get((int)Children.Frame);
 
         return Utility.RecyclableSequence()
-            .Append(child.DOAnchorPosY(-428.0f, 0.3f));
+            .Append(child.DOAnchorPosY(-378.0f, 0.3f));
     }
     #endregion
 
@@ -40,6 +40,8 @@ public class UI_Building : UI_Base
         BindSequences(UIState.Open, Frame_Open);
         BindSequences(UIState.Close, Frame_Close);
 
+        FocusUI = gameObject.FindComponent<UI_Focus>();
+
         foreach (var data in Managers.Data.GetDatas(DataType.Building))
         {
             var buildingItem = Managers.UI.Open<UI_BuildingItem>();
@@ -47,8 +49,6 @@ public class UI_Building : UI_Base
             buildingItem.UpdateUI(data);
             content.Add(buildingItem);
         }
-
-        FocusUI = gameObject.FindComponent<UI_Focus>();
     }
 
     public override void Open()
@@ -71,6 +71,7 @@ public class UI_Building : UI_Base
         }
 
         FocusUI.UpdateUI(null);
+        Managers.UI.PopupUI.Close();
     }
 
     public void UpdateUI()

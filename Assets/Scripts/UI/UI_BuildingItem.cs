@@ -22,6 +22,8 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
     }
     #endregion
     #region UI_BuildingBoard
+    public static UI_BuildingBoard BuildingBoardUI { get; private set; }
+
     private void Close_BuildingBoardUI()
     {
         if (BuildingBoardUI == null)
@@ -40,7 +42,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         Name
     }
 
-    public static UI_BuildingBoard BuildingBoardUI { get; private set; }
+    private RectTransform rectTransform;
 
     private BaseData data;
 
@@ -50,6 +52,8 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         BindChildren(typeof(Children));
 
         BindSequences(UIState.Open, BuildingItem_Open, Icon_Open);
+
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public override void Close()
@@ -59,16 +63,22 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
 
     public void UpdateUI(BaseData data)
     {
+        this.data = data;
+
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, data.ID.ToString());
         Get<TMP_Text>((int)Children.Name).text = $"{data.Name} 설치";
-
-        this.data = data;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        (Managers.UI.CurrentMenuUI as UI_Building).FocusUI.UpdateUI(rectTransform);
+        UI_Building buildingUI = (Managers.UI.CurrentMenuUI as UI_Building);
+        if (buildingUI != null)
+        {
+            buildingUI.FocusUI.UpdateUI(rectTransform);
+        }
+
+        Vector2 screenPosition = rectTransform.position + (Vector3)rectTransform.rect.size;
+        Managers.UI.PopupUI.UpdateUI(DataType.Building, data.ID, screenPosition);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -80,6 +90,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         }
 
         buildingUI.FocusUI.UpdateUI(null);
+        Managers.UI.PopupUI.Close();
     }
 
     public void OnPointerDown(PointerEventData eventData)

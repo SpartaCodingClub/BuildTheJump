@@ -8,7 +8,7 @@ public class ResourceObject : InteractableObject
 
     private Quaternion originalRotation;
 
-    private void Awake()
+    private void Start()
     {
         originalRotation = transform.rotation;
     }
@@ -16,6 +16,7 @@ public class ResourceObject : InteractableObject
     public override void OnInteraction(int damage)
     {
         base.OnInteraction(damage);
+
         if (IsDead)
         {
             foreach (var dropItem in Managers.Item.GetDropItems(data.DropTable))
@@ -40,7 +41,6 @@ public class ResourceObject : InteractableObject
         {
             transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, elapsedTime / (SHAKE_DURATION * 0.5f));
             elapsedTime += Time.deltaTime;
-
             yield return null;
         }
 
@@ -49,7 +49,6 @@ public class ResourceObject : InteractableObject
         {
             transform.rotation = Quaternion.Slerp(targetRotation, originalRotation, elapsedTime / (SHAKE_DURATION * 0.5f));
             elapsedTime += Time.deltaTime;
-
             yield return null;
         }
     }

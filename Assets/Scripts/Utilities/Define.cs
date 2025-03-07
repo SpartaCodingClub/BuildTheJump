@@ -15,6 +15,7 @@ public class Define
     public static readonly Color RED = new Color32(191, 48, 0, 255);
     #endregion
     #region Effects
+    public static readonly string EFFECT = "Effect";
     public static readonly string EFFECT_BUILD = "Effect_Build";
     public static readonly string EFFECT_DEATH = "Effect_Death";
     public static readonly string EFFECT_INTERACTION = "Effect_Interaction";

@@ -36,7 +36,7 @@ public abstract class InteractableObject : MonoBehaviour
     private int currentHP;
     private MeshRenderer meshRenderer;
 
-    private void Start()
+    private void Awake()
     {
         Type = data.Type;
         currentHP = data.HP;
@@ -46,6 +46,7 @@ public abstract class InteractableObject : MonoBehaviour
     public virtual void OnInteraction(int damage)
     {
         currentHP = Mathf.Max(currentHP - damage, 0);
+
         if (IsDead)
         {
             Managers.Resource.Instantiate(Define.EFFECT_DEATH, transform.position, Define.PATH_EFFECT).GetComponent<ParticleHandler>().Play(meshRenderer);

@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_Inventory : UI_Base
@@ -20,7 +18,7 @@ public class UI_Inventory : UI_Base
         var child = Get((int)Children.Frame);
 
         return Utility.RecyclableSequence()
-            .Append(child.DOAnchorPosX(1230.0f, 0.3f).From().SetEase(Ease.OutBack));
+            .Append(child.DOAnchorPosX(1080.0f, 0.3f).From().SetEase(Ease.OutBack));
     }
     #endregion
     #region Close
@@ -37,7 +35,7 @@ public class UI_Inventory : UI_Base
         var child = Get((int)Children.Frame);
 
         return Utility.RecyclableSequence()
-            .Append(child.DOAnchorPosX(1230.0f, 0.3f).SetEase(Ease.OutExpo));
+            .Append(child.DOAnchorPosX(1080.0f, 0.3f).SetEase(Ease.OutExpo));
     }
     #endregion
 
@@ -47,12 +45,12 @@ public class UI_Inventory : UI_Base
         Frame,
         Content,
         Fill,
-        Text_Weights,
+        Text_Weights
     }
 
     public UI_Focus FocusUI { get; private set; }
 
-    private readonly List<UI_InventoryItem> content = new();
+    private UI_InventoryItem[] content;
 
     protected override void Initialize()
     {
@@ -62,13 +60,8 @@ public class UI_Inventory : UI_Base
         BindSequences(UIState.Open, Background_Open, Frame_Open);
         BindSequences(UIState.Close, Background_Close, Frame_Close);
 
-        RectTransform content = Get((int)Children.Content);
-        for (int i = 0; i < content.childCount; i++)
-        {
-            this.content.Add(content.GetChild(i).GetComponent<UI_InventoryItem>());
-        }
-
         FocusUI = gameObject.FindComponent<UI_Focus>();
+        content = Get((int)Children.Content).GetComponentsInChildren<UI_InventoryItem>();
     }
 
     public override void Open()
@@ -80,14 +73,16 @@ public class UI_Inventory : UI_Base
     public override void Close()
     {
         base.Close();
+
         FocusUI.UpdateUI(null);
+        Managers.UI.PopupUI.Close();
     }
 
     public void UpdateUI()
     {
-        foreach (var invetoryItem in content)
+        foreach (var inventoryItem in content)
         {
-            invetoryItem.UpdateUI(null);
+            inventoryItem.UpdateUI(null);
         }
 
         int index = 0;

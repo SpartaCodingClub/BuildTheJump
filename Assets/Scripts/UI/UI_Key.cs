@@ -60,7 +60,7 @@ public class UI_Key : UI_Base
     public void UpdateUI(Transform target)
     {
         Vector3 worldPosition = new(target.position.x, target.position.y + 1.5f, target.position.z);
-        Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+        Vector3 screenPosition = Managers.Camera.Main.WorldToScreenPoint(worldPosition);
         frame.position = screenPosition;
 
         screenPosition.y += descriptionOffsetY;

@@ -4,6 +4,7 @@ using UnityEngine;
 public class UI_Focus : UI_Base
 {
     private RectTransform rectTransform;
+
     private Sequence opened;
 
     protected override void Initialize()

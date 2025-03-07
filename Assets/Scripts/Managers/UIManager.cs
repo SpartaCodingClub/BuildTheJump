@@ -9,7 +9,7 @@ public class UIManager
     public UI_Popup PopupUI { get; private set; }
 
     private Transform Transform;
-    
+
 
     public void Initialize()
     {
@@ -17,7 +17,7 @@ public class UIManager
         Transform.SetParent(Managers.Instance.transform);
 
         NavagationUI = Open<UI_Navigation>();
-        //PopupUI = Open<UI_Popup>();
+        PopupUI = Open<UI_Popup>();
 
         Managers.Input.System.UI.UI_Inventory.started += Open_MenuUI<UI_Inventory>;
         Managers.Input.System.UI.UI_Building.started += Open_MenuUI<UI_Building>;
@@ -31,7 +31,6 @@ public class UIManager
 
         T @base = gameObject.GetComponent<T>();
         @base.Open();
-
         return @base;
     }
 

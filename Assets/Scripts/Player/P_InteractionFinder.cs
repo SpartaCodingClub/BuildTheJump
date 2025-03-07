@@ -79,6 +79,7 @@ public class P_InteractionFinder : MonoBehaviour
 
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, colliders, targetLayer) == 0)
         {
+            this.target = null;
             Close_KeyUI();
             return;
         }

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum MaterialType
@@ -14,7 +13,6 @@ public class BuildingObject : MonoBehaviour
 
     private MeshCollider meshCollider;
     private MeshRenderer meshRenderer;
-
     private Transform effect;
     private UI_BuildingStatus buildingStatusUI;
 
@@ -24,11 +22,11 @@ public class BuildingObject : MonoBehaviour
     private void Awake()
     {
         meshCollider = GetComponentInChildren<MeshCollider>();
-        meshCollider.isTrigger = true;
-
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-        effect = gameObject.FindComponent<Transform>(nameof(effect).FirstCharacterToUpper());
+        effect = gameObject.FindComponent<Transform>(Define.EFFECT);
         buildingStatusUI = gameObject.FindComponent<UI_BuildingStatus>();
+
+        meshCollider.isTrigger = true;
         layer = LayerMask.NameToLayer(Define.LAYER_GROUND);
 
         SetMaterial(MaterialType.Transparent);
@@ -63,8 +61,8 @@ public class BuildingObject : MonoBehaviour
 
     public void Confirm()
     {
-        buildingStatusUI.Open();
         meshCollider.isTrigger = false;
+        buildingStatusUI.Open();
 
         Managers.Resource.Instantiate(Define.EFFECT_BUILD, transform.position, Define.PATH_EFFECT);
     }

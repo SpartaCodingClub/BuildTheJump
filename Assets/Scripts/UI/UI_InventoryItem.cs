@@ -12,16 +12,15 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
         Text_Count
     }
 
-    private int id;
-
     private Image frame;
     private Image icon;
+    private RectTransform rectTransform;
+    private Sprite originalSprite;
     private TMP_Text textWeight;
     private TMP_Text textCount;
 
-    private Sprite originalSprite;
     private bool activeSelf;
-
+    private int id;
 
     protected override void Initialize()
     {
@@ -30,14 +29,19 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
 
         frame = GetComponent<Image>();
         icon = Get<Image>((int)Children.Icon);
+        rectTransform = GetComponent<RectTransform>();
+        originalSprite = frame.sprite;
         textWeight = Get<TMP_Text>((int)Children.Text_Weight);
         textCount = Get<TMP_Text>((int)Children.Text_Count);
-
-        originalSprite = frame.sprite;
     }
 
     public void SetActive(bool value)
     {
+        if (value == false)
+        {
+            frame.sprite = originalSprite;
+        }
+
         icon.gameObject.SetActive(value);
         textWeight.gameObject.SetActive(value);
         textCount.gameObject.SetActive(value);
@@ -49,9 +53,7 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
     {
         if (item == null)
         {
-            frame.sprite = originalSprite;
             SetActive(false);
-
             return;
         }
 
@@ -71,10 +73,14 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
             return;
         }
 
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        (Managers.UI.CurrentMenuUI as UI_Inventory).FocusUI.UpdateUI(rectTransform);
+        UI_Inventory inventoryUI = (Managers.UI.CurrentMenuUI as UI_Inventory);
+        if (inventoryUI != null)
+        {
+            inventoryUI.FocusUI.UpdateUI(rectTransform);
+        }
 
-        Managers.UI.PopupUI.UpdateUI(DataType.Item, id, eventData.position);
+        Vector2 screenPosition = rectTransform.position + (Vector3)rectTransform.rect.size;
+        Managers.UI.PopupUI.UpdateUI(DataType.Item, id, screenPosition);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -86,6 +92,6 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
         }
 
         inventoryUI.FocusUI.UpdateUI(null);
-        Managers.UI.PopupUI.gameObject.SetActive(false);
+        Managers.UI.PopupUI.Close();
     }
 }

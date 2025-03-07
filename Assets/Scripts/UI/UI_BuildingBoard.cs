@@ -50,8 +50,8 @@ public class UI_BuildingBoard : UI_Base
 
     private readonly List<UI_BuildingBoardItem> content = new();
 
-    private BuildingData data;
     private bool canBuild;
+    private BuildingData data;
 
     protected override void Initialize()
     {
@@ -77,8 +77,8 @@ public class UI_BuildingBoard : UI_Base
         ID = data.ID;
         this.data = data as BuildingData;
 
+        Get<TMP_Text>((int)Children.Text_Timer).text = Utility.GetTimer(this.data.Duration);
         UpdateUI();
-        Get<TMP_Text>((int)Children.Text_Timer).text = Utility.GetTimer(this.data.Timer);
     }
 
     public void UpdateUI()
