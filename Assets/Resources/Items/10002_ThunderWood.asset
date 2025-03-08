@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9ef398a141c7945be8f0c422e1b69e, type: 3}
   m_Name: 10002_ThunderWood
   m_EditorClassIdentifier: 
+  Type: 4
   ID: 10002
-  Type: 2
-  Rarity: 3
   Name: "\uBCBC\uB77D\uB9DE\uC740 \uC7A5\uC791"
   Description: "\uBCBC\uB77D\uC744 \uB9DE\uC544\uC11C \uC804\uB958\uAC00 \uD750\uB974\uB294
     \uC7A5\uC791\uC785\uB2C8\uB2E4."
+  HP: 0
+  ItemType: 2
+  Rarity: 3
   Weight: 15

@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9ef398a141c7945be8f0c422e1b69e, type: 3}
   m_Name: 10007_MonsterEnergy
   m_EditorClassIdentifier: 
+  Type: 4
   ID: 10007
-  Type: 2
-  Rarity: 3
   Name: "\uBAAC\uC2A4\uD130 \uC815\uC218"
   Description: "\uBAAC\uC2A4\uD130\uC758 \uB450\uB824\uC6C0\uC774 \uB290\uAEF4\uC9C0\uB294
     \uC815\uC218\uC785\uB2C8\uB2E4."
+  HP: 0
+  ItemType: 2
+  Rarity: 3
   Weight: 1

@@ -27,7 +27,8 @@ public class Item
 [CreateAssetMenu(fileName = "ItemData", menuName = "Scriptable Objects/ItemData")]
 public class ItemData : BaseData
 {
-    public ItemType Type;
+    [Space(20)]
+    public ItemType ItemType;
     public ItemRarity Rarity;
 
     public float Weight;

@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VInspector;
 
 [RequireComponent(typeof(P_Interaction))]
 public class P_InteractionFinder : MonoBehaviour
 {
     private readonly float RADIUS = 2.0f;
 
+    #region Inspector
+    [SerializeField, ReadOnly]
+    private Transform target;
+    #endregion
     #region InputSystem
     private void OnInteraction(InputAction.CallbackContext callbackContext)
     {
@@ -21,7 +26,7 @@ public class P_InteractionFinder : MonoBehaviour
 
         transform.LookAt(target);
 
-        interaction.InteractableObject = target.GetComponent<InteractableObject>();
+        interaction.InteractableObject = target.GetComponentInParent<InteractableObject>();
         interaction.InteractionEnter();
 
         Close_KeyUI();
@@ -57,8 +62,6 @@ public class P_InteractionFinder : MonoBehaviour
     private LayerMask targetLayer;
     private P_Interaction interaction;
 
-    private Transform target;
-
     private void Awake()
     {
         targetLayer = LayerMask.GetMask(Define.LAYER_OBJECT);
@@ -80,6 +83,8 @@ public class P_InteractionFinder : MonoBehaviour
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, colliders, targetLayer) == 0)
         {
             this.target = null;
+            interaction.InteractableObject = null;
+
             Close_KeyUI();
             return;
         }

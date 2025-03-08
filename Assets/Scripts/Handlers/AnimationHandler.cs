@@ -16,6 +16,9 @@ public class AnimationHandler : MonoBehaviour
     {
         switch (type)
         {
+            case ObjectType.Bonfire:
+                animator.SetTrigger(Define.ID_ACTION_BONFIRE);
+                break;
             case ObjectType.Tree:
                 animator.SetTrigger(Define.ID_ACTION_TREE);
                 break;

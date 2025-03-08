@@ -3,38 +3,48 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
     #region Inspector
-    [SerializeField] protected ObjectData data;
+    [SerializeField] protected BaseData data;
     #endregion
-    #region UI_StatusBar
-    private UI_StatusBar statusBarUI;
+    #region UI_ObjectStatus
+    private UI_ObjectStatus objectStatusUI;
 
-    public void Open_StatusBarUI()
+    public void Open_ObjectStatusUI()
     {
-        if (statusBarUI == null)
-        {
-            statusBarUI = Managers.UI.Open<UI_StatusBar>();
-        }
-
-        statusBarUI.UpdateUI(currentHP, data);
-    }
-
-    public void Close_StatusBarUI()
-    {
-        if (statusBarUI == null)
+        if (data.HP == 0)
         {
             return;
         }
 
-        statusBarUI.Close();
-        statusBarUI = null;
+        if (objectStatusUI == null)
+        {
+            objectStatusUI = Managers.UI.Open<UI_ObjectStatus>();
+        }
+
+        objectStatusUI.UpdateUI(currentHP, data);
+    }
+
+    public void Close_ObjectStatusUI()
+    {
+        if (data.HP == 0)
+        {
+            return;
+        }
+
+        if (objectStatusUI == null)
+        {
+            return;
+        }
+
+        objectStatusUI.Close();
+        objectStatusUI = null;
     }
     #endregion
 
     public ObjectType Type { get; private set; }
     public bool IsDead { get { return currentHP == 0; } }
 
-    private int currentHP;
-    private MeshRenderer meshRenderer;
+    protected int currentHP;
+    protected MeshRenderer meshRenderer;
 
     private void Awake()
     {
@@ -43,8 +53,13 @@ public abstract class InteractableObject : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
-    public virtual void OnInteraction(int damage)
+    public virtual void OnInteraction(int damage = 0)
     {
+        if (data.HP == 0)
+        {
+            return;
+        }
+
         currentHP = Mathf.Max(currentHP - damage, 0);
 
         if (IsDead)
@@ -53,9 +68,9 @@ public abstract class InteractableObject : MonoBehaviour
             Managers.Resource.Destroy(gameObject);
         }
 
-        if (statusBarUI != null)
+        if (objectStatusUI != null)
         {
-            statusBarUI.UpdateUI(currentHP, data);
+            objectStatusUI.UpdateUI(currentHP, data);
         }
     }
 }

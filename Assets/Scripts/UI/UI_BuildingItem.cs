@@ -39,7 +39,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
     private enum Children
     {
         Icon,
-        Name
+        Text_Name
     }
 
     private BaseData data;
@@ -62,7 +62,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         this.data = data;
 
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, data.ID.ToString());
-        Get<TMP_Text>((int)Children.Name).text = $"{data.Name} 설치";
+        Get<TMP_Text>((int)Children.Text_Name).text = $"{data.Name} 설치";
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c9951f0e642cf498626893660373b7, type: 3}
   m_Name: Bonfire
   m_EditorClassIdentifier: 
+  Type: 0
   ID: 10001
   Name: "\uBAA8\uB2E5\uBD88"
   Description: 
+  HP: 0
   Duration: 6
   Items:
   - Data: {fileID: 11400000, guid: 2376e4e10d87e2549b5ffa607b536af4, type: 2}

@@ -48,7 +48,7 @@ public class UI_BuildingBoard : UI_Base
 
     public int ID { get; private set; }
 
-    private readonly List<UI_BuildingBoardItem> content = new();
+    private readonly List<UI_Subitem> content = new();
 
     private bool canBuild;
     private BuildingData data;
@@ -64,7 +64,7 @@ public class UI_BuildingBoard : UI_Base
         RectTransform content = Get((int)Children.Content);
         for (int i = 0; i < content.childCount; i++)
         {
-            UI_BuildingBoardItem buildingBoardItem = content.GetChild(i).GetComponent<UI_BuildingBoardItem>();
+            UI_Subitem buildingBoardItem = content.GetChild(i).GetComponent<UI_Subitem>();
             buildingBoardItem.gameObject.SetActive(false);
             this.content.Add(buildingBoardItem);
         }

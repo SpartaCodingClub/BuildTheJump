@@ -13,12 +13,13 @@ public class ResourceObject : InteractableObject
         originalRotation = transform.rotation;
     }
 
-    public override void OnInteraction(int damage)
+    public override void OnInteraction(int damage = 0)
     {
         base.OnInteraction(damage);
 
         if (IsDead)
         {
+            ObjectData data = this.data as ObjectData;
             foreach (var dropItem in Managers.Item.GetDropItems(data.DropTable))
             {
                 Managers.Resource.Instantiate(Define.EFFECT_ITEM, transform.position, Define.PATH_EFFECT).GetComponent<ItemObject>().Play(dropItem);

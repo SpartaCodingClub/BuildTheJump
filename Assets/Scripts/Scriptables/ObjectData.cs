@@ -3,9 +3,16 @@ using UnityEngine;
 
 public enum ObjectType
 {
+    // Buildings
+    Bonfire,
+    Portal,
+
+    // Objects
     Tree,
     Rock,
-    Count
+
+    // Others
+    Other
 }
 
 [System.Serializable]
@@ -21,14 +28,8 @@ public class DropRow
 }
 
 [CreateAssetMenu(fileName = "ObjectData", menuName = "Scriptable Objects/ObjectData")]
-public class ObjectData : ScriptableObject
+public class ObjectData : BaseData
 {
-    public ObjectType Type;
-
-    public string Name;
-    public string Description;
-
-    public int HP;
-
+    [Space(20)]
     public List<DropRow> DropTable = new();
 }

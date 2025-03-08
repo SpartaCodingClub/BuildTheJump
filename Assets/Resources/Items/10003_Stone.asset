@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9ef398a141c7945be8f0c422e1b69e, type: 3}
   m_Name: 10003_Stone
   m_EditorClassIdentifier: 
+  Type: 4
   ID: 10003
-  Type: 2
-  Rarity: 0
   Name: "\uB3CC\uBA69\uC774"
   Description: "\uBCF4\uC798\uAC83\uC5C6\uB294 \uB3CC\uBA69\uC774\uC785\uB2C8\uB2E4."
+  HP: 0
+  ItemType: 2
+  Rarity: 0
   Weight: 10
