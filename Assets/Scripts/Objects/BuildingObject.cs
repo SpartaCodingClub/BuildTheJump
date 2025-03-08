@@ -1,40 +1,40 @@
 using DG.Tweening;
 using UnityEngine;
 
-public enum MaterialType
-{
-    Opaque,
-    Transparent
-}
-
 public class BuildingObject : MonoBehaviour
 {
+    private readonly string TRANSPARENT = "Transparent";
+
     public bool CanBuild { get; private set; }
 
+    private Vector3 originalScale;
+    private Material originalMaterial;
     private MeshCollider meshCollider;
     private MeshRenderer meshRenderer;
     private Transform effect;
     private UI_BuildingStatus buildingStatusUI;
 
-    private bool completed;
+    private bool confirm;
     private int layer;
 
     private void Awake()
     {
         meshCollider = GetComponentInChildren<MeshCollider>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
+        originalMaterial = meshRenderer.material;
         effect = gameObject.FindComponent<Transform>(Define.EFFECT);
+        originalScale = effect.localScale;
         buildingStatusUI = gameObject.FindComponent<UI_BuildingStatus>();
 
         meshCollider.isTrigger = true;
         layer = LayerMask.NameToLayer(Define.LAYER_GROUND);
 
-        SetMaterial(MaterialType.Transparent);
+        meshRenderer.material = Resources.Load<Material>($"{Define.PATH_MATERIAL}/{TRANSPARENT}");
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (completed)
+        if (confirm)
         {
             return;
         }
@@ -50,7 +50,7 @@ public class BuildingObject : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (completed)
+        if (confirm)
         {
             return;
         }
@@ -63,27 +63,20 @@ public class BuildingObject : MonoBehaviour
     {
         meshCollider.isTrigger = false;
         buildingStatusUI.Open();
+        confirm = true;
 
         Managers.Resource.Instantiate(Define.EFFECT_BUILD, transform.position, Define.PATH_EFFECT);
     }
 
     public void Complete()
     {
-        SetMaterial(MaterialType.Opaque);
+        meshRenderer.material = originalMaterial;
 
         DOTween.Sequence()
             .Append(meshRenderer.material.DOColor(Color.white * 5.0f, Define.EMISSION_COLOR, 1.0f))
             .Append(meshRenderer.material.DOColor(Color.black, Define.EMISSION_COLOR, 1.0f));
 
         effect.gameObject.SetActive(true);
-        effect.DOScale(0.3f, 2.0f).From(0.0f);
-
-        completed = true;
-        Managers.Building.Complete();
-    }
-
-    private void SetMaterial(MaterialType type)
-    {
-        meshRenderer.material = Resources.Load<Material>($"{Define.PATH_MATERIAL}/{type}");
+        effect.DOScale(originalScale, 2.0f).From(0.0f);
     }
 }

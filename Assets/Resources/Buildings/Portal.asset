@@ -19,9 +19,9 @@ MonoBehaviour:
   Duration: 120
   Items:
   - Data: {fileID: 11400000, guid: 2376e4e10d87e2549b5ffa607b536af4, type: 2}
-    Count: 20
+    Count: 1
   - Data: {fileID: 11400000, guid: 9b46f4fcd1e3a2b4691fe8a3101b1ac4, type: 2}
-    Count: 200
+    Count: 1
   - Data: {fileID: 11400000, guid: 558df0a6d0358624f8af6587d00673c0, type: 2}
     Count: 1
   - Data: {fileID: 11400000, guid: 7bde1e6124b00054d8caa57b89dcf8b2, type: 2}

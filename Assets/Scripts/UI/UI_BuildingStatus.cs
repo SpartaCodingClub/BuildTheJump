@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class UI_BuildingStatus : UI_Base
 {
+    private static readonly string MESSAGE_CONFIRM = "건설이 시작되었습니다.";
+    private static readonly string MESSAGE_COMPLETE = "건설이 완료되었습니다.";
+
     #region Open
     private Sequence BuildingStatus_Open()
     {
@@ -67,6 +70,8 @@ public class UI_BuildingStatus : UI_Base
     private Image fill;
     private TMP_Text textValue;
 
+    private string id;
+
     private Sequence opened;
 
     protected override void Initialize()
@@ -98,12 +103,14 @@ public class UI_BuildingStatus : UI_Base
     {
         base.Open();
 
-        string id = buildingObject.name[..buildingObject.name.IndexOf('_')];
+        id = buildingObject.name[..buildingObject.name.IndexOf('_')];
         BuildingData data = Managers.Data.GetData<BuildingData>(DataType.Building, int.Parse(id));
         Get<Image>((int)Children.Icon_Building).sprite = Managers.Resource.GetSprite(SpriteType.Building, id);
         Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
 
         gameObject.SetActive(true);
+        Managers.UI.NavagationUI.Open_NavigationItem(id, MESSAGE_CONFIRM);
+
         StartCoroutine(Updating(data.Duration));
     }
 
@@ -119,6 +126,8 @@ public class UI_BuildingStatus : UI_Base
         }
 
         buildingObject.Complete();
+        Managers.UI.NavagationUI.Open_NavigationItem(id, MESSAGE_COMPLETE);
+
         Close();
     }
 }

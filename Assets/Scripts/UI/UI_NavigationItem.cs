@@ -63,7 +63,7 @@ public class UI_NavigationItem : UI_Base
         textDescription.text = $"{dropItem.Data.Name} x{dropItem.Count}";
     }
 
-    public void UpdateUI(int id, string description)
+    public void UpdateUI(string id, string description)
     {
         Get<Image>((int)Children.Frame).sprite = originalSprite;
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, id.ToString());
