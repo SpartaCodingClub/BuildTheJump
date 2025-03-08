@@ -79,6 +79,7 @@ public class BuildingObject : MonoBehaviour
         effect.DOScale(0.3f, 2.0f).From(0.0f);
 
         completed = true;
+        Managers.Building.Complete();
     }
 
     private void SetMaterial(MaterialType type)

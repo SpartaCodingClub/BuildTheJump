@@ -45,7 +45,6 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
         icon.gameObject.SetActive(value);
         textWeight.gameObject.SetActive(value);
         textCount.gameObject.SetActive(value);
-
         activeSelf = value;
     }
 
@@ -79,8 +78,7 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
             inventoryUI.FocusUI.UpdateUI(rectTransform);
         }
 
-        Vector2 screenPosition = rectTransform.position + (Vector3)rectTransform.rect.size;
-        Managers.UI.PopupUI.UpdateUI(DataType.Item, id, screenPosition);
+        Managers.UI.PopupUI.UpdateUI(DataType.Item, id, eventData.position);
     }
 
     public void OnPointerExit(PointerEventData eventData)

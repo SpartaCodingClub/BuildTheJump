@@ -4,6 +4,18 @@ using UnityEngine.InputSystem.UI;
 
 public class UIManager
 {
+    #region InputSystem
+    private void Open_MenuUI<T>(InputAction.CallbackContext callbackContext) where T : UI_Base
+    {
+        if (Close_MenuUI<T>())
+        {
+            return;
+        }
+
+        CurrentMenuUI = Open<T>();
+    }
+    #endregion
+
     public UI_Base CurrentMenuUI { get; private set; }
     public UI_Navigation NavagationUI { get; private set; }
     public UI_Popup PopupUI { get; private set; }
@@ -34,20 +46,18 @@ public class UIManager
         return @base;
     }
 
-    private void Open_MenuUI<T>(InputAction.CallbackContext callbackContext) where T : UI_Base
+    public bool Close_MenuUI<T>() where T : UI_Base
     {
-        if (CurrentMenuUI != null)
+        if (CurrentMenuUI == null)
         {
-            CurrentMenuUI.Close();
+            return false;
         }
 
-        if (CurrentMenuUI is T)
-        {
-            CurrentMenuUI = null;
-            return;
-        }
+        UI_Base menuUI = CurrentMenuUI;
+        menuUI.Close();
 
-        CurrentMenuUI = Open<T>();
+        CurrentMenuUI = null;
+        return menuUI is T;
     }
 
     public void UpdateMenuUI()

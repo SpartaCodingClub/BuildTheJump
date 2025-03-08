@@ -13,6 +13,7 @@ public class Define
     #region Colors
     public static readonly Color BLUE = new Color32(0, 48, 191, 255);
     public static readonly Color RED = new Color32(191, 48, 0, 255);
+    public static readonly Color SKYBLUE = new Color32(128, 255, 255, 255);
     #endregion
     #region Effects
     public static readonly string EFFECT = "Effect";

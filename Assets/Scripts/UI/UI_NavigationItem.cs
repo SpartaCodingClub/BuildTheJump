@@ -57,13 +57,19 @@ public class UI_NavigationItem : UI_Base
     {
         Get<Image>((int)Children.Frame).sprite = Managers.Resource.GetSprite(SpriteType.Rarity, dropItem.Data.Rarity.ToString());
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Item, dropItem.Data.ID.ToString());
-        Get<TMP_Text>((int)Children.Text_Description).text = $"{dropItem.Data.Name} x{dropItem.Count}";
+
+        TMP_Text textDescription = Get<TMP_Text>((int)Children.Text_Description);
+        textDescription.color = Color.white;
+        textDescription.text = $"{dropItem.Data.Name} x{dropItem.Count}";
     }
 
-    public void UpdateUI(string id, string description)
+    public void UpdateUI(int id, string description)
     {
         Get<Image>((int)Children.Frame).sprite = originalSprite;
-        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, id);
-        Get<TMP_Text>((int)Children.Text_Description).text = description;
+        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, id.ToString());
+
+        TMP_Text textDescription = Get<TMP_Text>((int)Children.Text_Description);
+        textDescription.color = Define.SKYBLUE;
+        textDescription.text = description;
     }
 }

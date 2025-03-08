@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class UI_BuildingStatus : UI_Base
 {
-    private static readonly string MESSAGE_CONFIRM = "건설이 시작되었습니다.";
-    private static readonly string MESSAGE_COMPLETE = "건설이 완료되었습니다.";
-
     #region Open
     private Sequence BuildingStatus_Open()
     {
@@ -66,7 +63,6 @@ public class UI_BuildingStatus : UI_Base
         Text_Value
     }
 
-    private string id;
     private BuildingObject buildingObject;
     private Image fill;
     private TMP_Text textValue;
@@ -83,14 +79,12 @@ public class UI_BuildingStatus : UI_Base
         BindSequences(UIState.Close, BuildingStatus_Close, Frame_Close);
 
         buildingObject = GetComponentInParent<BuildingObject>();
-        id = buildingObject.name[..buildingObject.name.IndexOf('_')];
         fill = Get<Image>((int)Children.Fill);
         textValue = Get<TMP_Text>((int)Children.Text_Value);
         opened = DOTween.Sequence().SetLoops(-1)
             .Append(Get((int)Children.Icon_Rotate).DORotate(360.0f * Vector3.back, 1.0f).SetEase(Ease.Linear).SetRelative(true));
 
         GetComponent<Canvas>().worldCamera = Managers.Camera.Main;
-
         gameObject.SetActive(false);
     }
 
@@ -104,13 +98,12 @@ public class UI_BuildingStatus : UI_Base
     {
         base.Open();
 
+        string id = buildingObject.name[..buildingObject.name.IndexOf('_')];
         BuildingData data = Managers.Data.GetData<BuildingData>(DataType.Building, int.Parse(id));
         Get<Image>((int)Children.Icon_Building).sprite = Managers.Resource.GetSprite(SpriteType.Building, id);
         Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
 
         gameObject.SetActive(true);
-        Managers.UI.NavagationUI.Open_NavigationItem(id, MESSAGE_CONFIRM);
-
         StartCoroutine(Updating(data.Duration));
     }
 
@@ -126,8 +119,6 @@ public class UI_BuildingStatus : UI_Base
         }
 
         buildingObject.Complete();
-        Managers.UI.NavagationUI.Open_NavigationItem(id, MESSAGE_COMPLETE);
-
         Close();
     }
 }

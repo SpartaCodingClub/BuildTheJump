@@ -42,8 +42,6 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         Name
     }
 
-    private RectTransform rectTransform;
-
     private BaseData data;
 
     protected override void Initialize()
@@ -52,8 +50,6 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         BindChildren(typeof(Children));
 
         BindSequences(UIState.Open, BuildingItem_Open, Icon_Open);
-
-        rectTransform = GetComponent<RectTransform>();
     }
 
     public override void Close()
@@ -71,14 +67,15 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
         UI_Building buildingUI = (Managers.UI.CurrentMenuUI as UI_Building);
         if (buildingUI != null)
         {
             buildingUI.FocusUI.UpdateUI(rectTransform);
         }
 
-        Vector2 screenPosition = rectTransform.position + (Vector3)rectTransform.rect.size;
-        Managers.UI.PopupUI.UpdateUI(DataType.Building, data.ID, screenPosition);
+        Managers.UI.PopupUI.UpdateUI(DataType.Building, data.ID, eventData.position);
     }
 
     public void OnPointerExit(PointerEventData eventData)

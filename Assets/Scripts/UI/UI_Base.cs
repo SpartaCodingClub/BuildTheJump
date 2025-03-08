@@ -17,8 +17,6 @@ public abstract class UI_Base : MonoBehaviour
     private readonly SequenceHandler sequenceHandler = new();
     private readonly List<RectTransform> children = new();
 
-    private bool isDead;
-
     private void Awake() => Initialize();
     private void OnDestroy() => Deinitialize();
 
@@ -42,18 +40,11 @@ public abstract class UI_Base : MonoBehaviour
     public virtual void Open()
     {
         sequenceHandler.Open.Restart();
-        isDead = false;
     }
 
     public virtual void Close()
     {
-        if (isDead)
-        {
-            return;
-        }
-
         sequenceHandler.Close.Restart();
-        isDead = true;
     }
 
     protected void BindChildren(Type enumType)

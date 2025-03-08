@@ -29,6 +29,11 @@ public class Pool
 
     public void Push(Poolable poolable)
     {
+        if (poolable.gameObject.activeInHierarchy == false)
+        {
+            return;
+        }
+
         objectPool.Release(poolable.gameObject);
     }
 

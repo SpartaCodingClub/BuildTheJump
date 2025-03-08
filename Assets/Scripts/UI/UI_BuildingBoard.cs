@@ -34,7 +34,7 @@ public class UI_BuildingBoard : UI_Base
 
         // TODO: 추후 재료 삭제
         Managers.Building.Build(data);
-        (Managers.UI.CurrentMenuUI as UI_Building).Close();
+        Managers.UI.Close_MenuUI<UI_Building>();
     }
     #endregion
 
@@ -77,12 +77,17 @@ public class UI_BuildingBoard : UI_Base
         ID = data.ID;
         this.data = data as BuildingData;
 
-        Get<TMP_Text>((int)Children.Text_Timer).text = Utility.GetTimer(this.data.Duration);
         UpdateUI();
+        Get<TMP_Text>((int)Children.Text_Timer).text = Utility.GetTimer(this.data.Duration);
     }
 
     public void UpdateUI()
     {
+        foreach (var buildingBoardItem in content)
+        {
+            buildingBoardItem.gameObject.SetActive(false);
+        }
+
         canBuild = true;
         for (int i = 0; i < data.Items.Count; i++)
         {

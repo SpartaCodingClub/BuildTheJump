@@ -83,6 +83,7 @@ public class P_Rigidbody : MonoBehaviour
 
         animationHandler.SetBool(Define.ID_GROUND, isGrounded);
         animationHandler.SetBool(Define.ID_MOVE, velocity.magnitude > 1.0f);
+
         controller.Move(velocity * Time.deltaTime);
     }
 

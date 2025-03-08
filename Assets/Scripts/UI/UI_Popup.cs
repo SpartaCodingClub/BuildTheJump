@@ -11,7 +11,7 @@ public class UI_Popup : UI_Base
         var child = Get((int)Children.Frame);
 
         return Utility.RecyclableSequence()
-            .Append(child.DOScale(1.0f, 0.3f).From(0.0f).SetEase(Ease.OutBack));
+            .Append(child.DOScale(1.0f, 0.2f).From(0.0f).SetEase(Ease.OutBack));
     }
     #endregion
 
@@ -46,7 +46,7 @@ public class UI_Popup : UI_Base
         frame.pivot = GetPivot(screenPosition);
         frame.anchoredPosition = screenPosition;
 
-        var data = Managers.Data.GetData(type, id);
+        BaseData data = Managers.Data.GetData(type, id);
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite((SpriteType)type, id.ToString());
         Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
         Get<TMP_Text>((int)Children.Text_Description).text = data.Description;

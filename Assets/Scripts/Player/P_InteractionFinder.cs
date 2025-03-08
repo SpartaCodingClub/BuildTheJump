@@ -87,7 +87,6 @@ public class P_InteractionFinder : MonoBehaviour
         var target = GetTarget();
         if (target != this.target)
         {
-            this.target = target;
             Close_KeyUI();
         }
 
