@@ -80,6 +80,11 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i] = null;
+        }
+
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, colliders, targetLayer) == 0)
         {
             this.target = null;

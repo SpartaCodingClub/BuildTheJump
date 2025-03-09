@@ -18,6 +18,12 @@ public class SequenceHandler
         Close.Kill();
     }
 
+    public void Complete()
+    {
+        Open.Pause();
+        Close.Pause();
+    }
+
     public void Bind(UIState type, params Func<Sequence>[] sequences)
     {
         Sequence sequence = sequences[0]();

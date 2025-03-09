@@ -19,6 +19,7 @@ public abstract class UI_Base : MonoBehaviour
 
     private void Awake() => Initialize();
     private void OnDestroy() => Deinitialize();
+    private void OnDisable() => sequenceHandler.Complete();
 
     protected void BindSequences(UIState type, params Func<Sequence>[] sequences) => sequenceHandler.Bind(type, sequences);
     protected RectTransform Get(int index) => children[index];

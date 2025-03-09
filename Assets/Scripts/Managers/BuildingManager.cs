@@ -45,7 +45,7 @@ public class BuildingManager
 
     public void Build(BuildingData data)
     {
-        buildingObject = Managers.Resource.Instantiate($"{data.ID}_{data.name}", Vector3.zero, Define.PATH_BUILDING).GetComponent<BuildingObject>();
+        buildingObject = Managers.Resource.Instantiate(data.name, Vector3.zero, Define.PATH_BUILDING).GetComponent<BuildingObject>();
 
         Managers.Input.System.UI.Disable();
         Managers.Input.System.UI_Building.Enable();

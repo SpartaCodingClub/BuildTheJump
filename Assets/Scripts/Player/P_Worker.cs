@@ -1,7 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using VInspector;
+
+public enum WorkerState
+{
+    Idle,
+    Move,
+    Interact,
+    Interaction,
+}
 
 public class P_Worker : MonoBehaviour
 {
@@ -19,14 +28,6 @@ public class P_Worker : MonoBehaviour
     private Transform target;
     #endregion
 
-    private enum WorkerState
-    {
-        Idle,
-        Move,
-        Interact,
-        Interaction,
-    }
-
     private readonly Collider[] colliders = new Collider[8];
 
     private LayerMask targetLayer;
@@ -40,20 +41,14 @@ public class P_Worker : MonoBehaviour
         animationHandler = GetComponent<AnimationHandler>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         interaction = GetComponent<P_Interaction>();
-    }
 
-    private void Start()
-    {
-        SetState(WorkerState.Idle);
+        navMeshAgent.stoppingDistance = P_InteractionFinder.RADIUS;
     }
 
     private void Update()
     {
         switch (state)
         {
-            case WorkerState.Move:
-                if (navMeshAgent.remainingDistance <= P_InteractionFinder.RADIUS) SetState(WorkerState.Interact);
-                break;
             case WorkerState.Interact:
                 Interaction();
                 break;
@@ -63,42 +58,34 @@ public class P_Worker : MonoBehaviour
         }
     }
 
-    private void SetState(WorkerState state)
+    public void SetDestination(Vector3 target, Action onComplete)
+    {
+        if (navMeshAgent.enabled == false)
+        {
+            navMeshAgent.enabled = true;
+        }
+
+        animationHandler.SetBool(Define.ID_MOVE, true);
+        navMeshAgent.SetDestination(target);
+
+        StartCoroutine(Moving(onComplete));
+    }
+
+    public void SetState(WorkerState state)
     {
         this.state = state;
         switch (state)
         {
             case WorkerState.Idle:
-                //navMeshAgent.isStopped = false;
                 StartCoroutine(Targeting());
                 break;
             case WorkerState.Move:
-                animationHandler.SetBool(Define.ID_MOVE, true);
-                navMeshAgent.SetDestination(target.position);
+                SetDestination(target.position, () => SetState(WorkerState.Interact));
                 break;
             case WorkerState.Interact:
                 animationHandler.SetBool(Define.ID_MOVE, false);
-                //navMeshAgent.isStopped = true;
                 break;
         }
-    }
-
-    private IEnumerator Targeting()
-    {
-        yield return DELAY;
-
-        while (target == null)
-        {
-            if (Physics.OverlapSphereNonAlloc(transform.position, radius += 10.0f, colliders, targetLayer) == 0)
-            {
-                continue;
-            }
-
-            target = GetTarget();
-            yield return INTERVAL;
-        }
-
-        SetState(WorkerState.Move);
     }
 
     private Transform GetTarget()
@@ -125,7 +112,6 @@ public class P_Worker : MonoBehaviour
             }
         }
 
-        radius = 0.0f;
         return target;
     }
 
@@ -143,5 +129,36 @@ public class P_Worker : MonoBehaviour
         interaction.InteractionEnter();
 
         SetState(WorkerState.Interaction);
+    }
+
+    private IEnumerator Targeting()
+    {
+        animationHandler.SetBool(Define.ID_MOVE, false);
+        yield return DELAY;
+
+        while (target == null)
+        {
+            if (Physics.OverlapSphereNonAlloc(transform.position, radius += 10.0f, colliders, targetLayer) == 0)
+            {
+                continue;
+            }
+
+            target = GetTarget();
+            yield return INTERVAL;
+        }
+
+        radius = 0.0f;
+        SetState(WorkerState.Move);
+    }
+
+    private IEnumerator Moving(Action onComplete)
+    {
+        do
+        {
+            yield return null;
+        }
+        while (navMeshAgent.remainingDistance > P_InteractionFinder.RADIUS);
+
+        onComplete();
     }
 }

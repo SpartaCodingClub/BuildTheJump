@@ -17,6 +17,7 @@ public class Building_Portal : BuildingObject
     public void Summoned(UnitData data)
     {
         meshRenderer.gameObject.layer = LayerMask.NameToLayer(Define.LAYER_OBJECT);
-        Managers.Resource.Instantiate($"{data.ID}_{data.name}", transform.position, Define.PATH_UNIT);
+        P_Worker worker = Managers.Resource.Instantiate(data.name, transform.position + Vector3.left, Define.PATH_UNIT).GetComponent<P_Worker>();
+        worker.SetDestination(transform.position + 4.0f * Vector3.right, () => worker.SetState(WorkerState.Idle));
     }
 }
