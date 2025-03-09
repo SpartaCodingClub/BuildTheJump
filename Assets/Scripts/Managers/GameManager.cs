@@ -25,6 +25,11 @@ public class GameManager
         DOTween.SetTweensCapacity(200, 500);
     }
 
+    public void Update()
+    {
+        // TODO: 자연회복 구현예정
+    }
+
     public void SetHP(int value)
     {
         CurrentHP = Mathf.Clamp(CurrentHP + value, 0, HP);

@@ -32,6 +32,16 @@ public class Managers : MonoBehaviour
         UI.Initialize();
     }
 
+    private void Start()
+    {
+        Managers.UI.Open<UI_Compass>();
+    }
+
+    private void Update()
+    {
+        Game.Update();
+    }
+
     private void LateUpdate()
     {
         Camera.LateUpdate();
