@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_BuildingBoard : UI_Base
@@ -48,7 +46,7 @@ public class UI_BuildingBoard : UI_Base
 
     public int ID { get; private set; }
 
-    private readonly List<UI_Subitem> content = new();
+    private UI_Subitem[] content;
 
     private bool canBuild;
     private BuildingData data;
@@ -61,12 +59,10 @@ public class UI_BuildingBoard : UI_Base
         BindSequences(UIState.Open, Frame_Open);
         BindSequences(UIState.Close, Frame_Close);
 
-        RectTransform content = Get((int)Children.Content);
-        for (int i = 0; i < content.childCount; i++)
+        content = Get((int)Children.Content).GetComponentsInChildren<UI_Subitem>();
+        foreach (var subItem in content)
         {
-            UI_Subitem buildingBoardItem = content.GetChild(i).GetComponent<UI_Subitem>();
-            buildingBoardItem.gameObject.SetActive(false);
-            this.content.Add(buildingBoardItem);
+            subItem.gameObject.SetActive(false);
         }
 
         Get<Button>((int)Children.Button_Build).onClick.AddListener(Button_Build);
@@ -83,20 +79,21 @@ public class UI_BuildingBoard : UI_Base
 
     public void UpdateUI()
     {
-        foreach (var buildingBoardItem in content)
+        foreach (var subItem in content)
         {
-            buildingBoardItem.gameObject.SetActive(false);
+            subItem.gameObject.SetActive(false);
         }
 
         canBuild = true;
         for (int i = 0; i < data.Items.Count; i++)
         {
-            if (content[i].UpdateUI(data.Items[i]) == false)
+            UI_Subitem subitem = content[i];
+            if (subitem.UpdateUI(data.Items[i]) == false)
             {
                 canBuild = false;
             }
 
-            content[i].gameObject.SetActive(true);
+            subitem.gameObject.SetActive(true);
         }
     }
 }

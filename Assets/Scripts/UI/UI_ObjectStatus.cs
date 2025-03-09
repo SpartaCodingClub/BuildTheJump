@@ -70,17 +70,17 @@ public class UI_ObjectStatus : UI_Base
         previousHP = 0.0f;
     }
 
-    public void UpdateUI(float hp, BaseData data)
+    public void UpdateUI(float hp, BaseData objectData)
     {
-        float fillAmount = hp / data.HP;
+        float fillAmount = hp / objectData.HP;
         if (previousHP == 0.0f)
         {
             fillWhite.fillAmount = fillAmount;
             previousHP = hp;
         }
 
-        Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
-        Get<TMP_Text>((int)Children.Text_Description).text = data.Description;
+        Get<TMP_Text>((int)Children.Text_Name).text = objectData.Name;
+        Get<TMP_Text>((int)Children.Text_Description).text = objectData.Description;
 
         fillRed.fillAmount = fillAmount;
         StartCoroutine(Filling());

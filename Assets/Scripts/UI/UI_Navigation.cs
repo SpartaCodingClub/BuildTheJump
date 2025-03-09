@@ -18,9 +18,9 @@ public class UI_Navigation : UI_Base
         Open_NavigationItem().UpdateUI(dropItem);
     }
 
-    public void Open_NavigationItem(string id, string description)
+    public void Open_NavigationItem(SpriteType type, string id, string description)
     {
-        Open_NavigationItem().UpdateUI(id, description);
+        Open_NavigationItem().UpdateUI(type, id, description);
     }
 
     private UI_NavigationItem Open_NavigationItem()

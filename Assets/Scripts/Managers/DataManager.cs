@@ -5,6 +5,7 @@ public enum DataType
 {
     Item,
     Building,
+    Unit,
     Count
 }
 
@@ -34,6 +35,9 @@ public class DataManager
                 break;
             case DataType.Building:
                 foreach (var data in Resources.LoadAll<BaseData>(Define.PATH_BUILDING)) datas[(int)type].Add(data.ID, data);
+                break;
+            case DataType.Unit:
+                foreach (var data in Resources.LoadAll<BaseData>(Define.PATH_UNIT)) datas[(int)type].Add(data.ID, data);
                 break;
         }
     }

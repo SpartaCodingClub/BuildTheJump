@@ -14,6 +14,17 @@ public class UIManager
 
         CurrentMenuUI = Open<T>();
     }
+
+    private void Close_MenuUI(InputAction.CallbackContext callbackContext)
+    {
+        if (CurrentMenuUI == null)
+        {
+            return;
+        }
+
+        CurrentMenuUI.Close();
+        CurrentMenuUI = null;
+    }
     #endregion
 
     public UI_Base CurrentMenuUI { get; private set; }
@@ -21,7 +32,6 @@ public class UIManager
     public UI_Popup PopupUI { get; private set; }
 
     private Transform Transform;
-
 
     public void Initialize()
     {
@@ -33,6 +43,7 @@ public class UIManager
 
         Managers.Input.System.UI.UI_Inventory.started += Open_MenuUI<UI_Inventory>;
         Managers.Input.System.UI.UI_Building.started += Open_MenuUI<UI_Building>;
+        Managers.Input.System.UI.Close_MenuUI.started += Close_MenuUI;
     }
 
     public T Open<T>() where T : UI_Base
@@ -44,6 +55,12 @@ public class UIManager
         T @base = gameObject.GetComponent<T>();
         @base.Open();
         return @base;
+    }
+
+    public T Open_MenuUI<T>() where T : UI_Base
+    {
+        Open_MenuUI<T>(new());
+        return CurrentMenuUI as T;
     }
 
     public bool Close_MenuUI<T>() where T : UI_Base
@@ -69,6 +86,9 @@ public class UIManager
                 break;
             case var @base when CurrentMenuUI is UI_Building:
                 (@base as UI_Building).UpdateUI();
+                break;
+            case var @base when CurrentMenuUI is UI_Portal:
+                (@base as UI_Portal).UpdateUI();
                 break;
         }
     }

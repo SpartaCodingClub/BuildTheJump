@@ -20,7 +20,7 @@ public class Managers : MonoBehaviour
         DontDestroyOnLoad(this);
 
         P_Rigidbody player = FindAnyObjectByType<P_Rigidbody>();
-        P_Interaction interaction = FindAnyObjectByType<P_Interaction>();
+        P_Interaction interaction = player.GetComponent<P_Interaction>();
         Game.Initialize(player, interaction);
         Input.Initialize();
 

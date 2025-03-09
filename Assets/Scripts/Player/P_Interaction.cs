@@ -53,6 +53,7 @@ public class P_Interaction : MonoBehaviour
 
     private readonly GameObject[] equipments = new GameObject[(int)ObjectType.Other];
 
+    private bool isWorker;
     private AnimationHandler animationHandler;
 
     private void Awake()
@@ -60,11 +61,17 @@ public class P_Interaction : MonoBehaviour
         equipments[(int)ObjectType.Tree] = gameObject.FindComponent<Transform>("Axe").gameObject;
         equipments[(int)ObjectType.Rock] = gameObject.FindComponent<Transform>("Pickaxe").gameObject;
 
+        isWorker = GetComponent<P_Worker>() != null;
         animationHandler = GetComponent<AnimationHandler>();
     }
 
     private void Start()
     {
+        if (isWorker)
+        {
+            return;
+        }
+
         Managers.Input.System.Player.Move.performed += OnInteractionExit;
         Managers.Input.System.Player.Jump.performed += OnInteractionExit;
     }
@@ -72,9 +79,13 @@ public class P_Interaction : MonoBehaviour
     public void InteractionEnter()
     {
         Interaction = true;
-        InteractableObject.Open_ObjectStatusUI();
         animationHandler.SetBool(Define.ID_ACTION, true);
         animationHandler.SetTrigger(InteractableObject.Type);
+
+        if (isWorker == false)
+        {
+            InteractableObject.Open_ObjectStatusUI();
+        }
 
         GameObject equipment = equipments[(int)InteractableObject.Type];
         if (equipment != null)

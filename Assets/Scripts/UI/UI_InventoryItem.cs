@@ -13,11 +13,7 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
     }
 
     private Image frame;
-    private Image icon;
-    private RectTransform rectTransform;
     private Sprite originalSprite;
-    private TMP_Text textWeight;
-    private TMP_Text textCount;
 
     private bool activeSelf;
     private int id;
@@ -28,11 +24,7 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
         BindChildren(typeof(Children));
 
         frame = GetComponent<Image>();
-        icon = Get<Image>((int)Children.Icon);
-        rectTransform = GetComponent<RectTransform>();
         originalSprite = frame.sprite;
-        textWeight = Get<TMP_Text>((int)Children.Text_Weight);
-        textCount = Get<TMP_Text>((int)Children.Text_Count);
     }
 
     public void SetActive(bool value)
@@ -42,9 +34,10 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
             frame.sprite = originalSprite;
         }
 
-        icon.gameObject.SetActive(value);
-        textWeight.gameObject.SetActive(value);
-        textCount.gameObject.SetActive(value);
+        Get((int)Children.Icon).gameObject.SetActive(value);
+        Get((int)Children.Text_Weight).gameObject.SetActive(value);
+        Get((int)Children.Text_Count).gameObject.SetActive(value);
+
         activeSelf = value;
     }
 
@@ -58,9 +51,10 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
 
         id = item.Data.ID;
         frame.sprite = Managers.Resource.GetSprite(SpriteType.Rarity, item.Data.Rarity.ToString());
-        icon.sprite = Managers.Resource.GetSprite(SpriteType.Item, item.Data.ID.ToString());
-        textWeight.text = $"{Managers.Item.GetWeights(item.Data.ID):N1}g";
-        textCount.text = item.Count.ToString();
+
+        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Item, item.Data.ID.ToString());
+        Get<TMP_Text>((int)Children.Text_Weight).text = $"{Managers.Item.GetWeights(item.Data.ID):N1}g";
+        Get<TMP_Text>((int)Children.Text_Count).text = item.Count.ToString();
 
         SetActive(true);
     }
@@ -75,7 +69,7 @@ public class UI_InventoryItem : UI_Base, IPointerEnterHandler, IPointerExitHandl
         UI_Inventory inventoryUI = (Managers.UI.CurrentMenuUI as UI_Inventory);
         if (inventoryUI != null)
         {
-            inventoryUI.FocusUI.UpdateUI(rectTransform);
+            inventoryUI.FocusUI.UpdateUI(transform);
         }
 
         Managers.UI.PopupUI.UpdateUI(DataType.Item, id, eventData.position);

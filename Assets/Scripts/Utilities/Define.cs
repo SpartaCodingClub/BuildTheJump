@@ -25,6 +25,7 @@ public class Define
     public static readonly string EFFECT_ITEM_GET = "Effect_ItemGet";
     #endregion
     #region Layers
+    public static readonly string LAYER_DEFAULT = "Default";
     public static readonly string LAYER_GROUND = "Ground";
     public static readonly string LAYER_OBJECT = "Object";
     #endregion
@@ -36,6 +37,7 @@ public class Define
     public const string PATH_MATERIAL = "Materials";
     public const string PATH_OBJECT = "Objects";
     public const string PATH_UI = "UI";
+    public const string PATH_UNIT = "Units";
     #endregion
     #region Shaders
     public static readonly string EMISSION_COLOR = "_EmissionColor";

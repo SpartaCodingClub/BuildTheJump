@@ -11,22 +11,23 @@ public abstract class BuildingObject : InteractableObject
 {
     public bool CanBuild { get; private set; }
 
+    protected UI_BuildingStatus buildingStatusUI;
+
     private Vector3 originalScale;
     private Material originalMaterial;
     private MeshCollider meshCollider;
     private Transform effect;
-    private UI_BuildingStatus buildingStatusUI;
 
     private bool confirm;
     private int layer;
 
     private void Start()
     {
+        buildingStatusUI = gameObject.FindComponent<UI_BuildingStatus>();
         originalMaterial = meshRenderer.material;
         meshCollider = GetComponentInChildren<MeshCollider>();
         effect = gameObject.FindComponent<Transform>(Define.EFFECT);
         originalScale = effect.localScale;
-        buildingStatusUI = gameObject.FindComponent<UI_BuildingStatus>();
 
         meshRenderer.material = Resources.Load<Material>($"{Define.PATH_MATERIAL}/{MaterialType.Transparent}");
         meshCollider.isTrigger = true;
@@ -63,9 +64,9 @@ public abstract class BuildingObject : InteractableObject
     public void Confirm()
     {
         meshCollider.isTrigger = false;
-        buildingStatusUI.Open();
         confirm = true;
 
+        buildingStatusUI.UpdateUI_Build(data as BuildingData);
         Managers.Resource.Instantiate(Define.EFFECT_BUILD, transform.position, Define.PATH_EFFECT);
     }
 

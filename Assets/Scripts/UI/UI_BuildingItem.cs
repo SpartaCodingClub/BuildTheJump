@@ -1,6 +1,5 @@
 using DG.Tweening;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -57,22 +56,20 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         Close_BuildingBoardUI();
     }
 
-    public void UpdateUI(BaseData data)
+    public void UpdateUI(BaseData buildingData)
     {
-        this.data = data;
+        data = buildingData;
 
-        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, data.ID.ToString());
-        Get<TMP_Text>((int)Children.Text_Name).text = $"{data.Name} 설치";
+        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, buildingData.ID.ToString());
+        Get<TMP_Text>((int)Children.Text_Name).text = $"{buildingData.Name} 설치";
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-
         UI_Building buildingUI = (Managers.UI.CurrentMenuUI as UI_Building);
         if (buildingUI != null)
         {
-            buildingUI.FocusUI.UpdateUI(rectTransform);
+            buildingUI.FocusUI.UpdateUI(transform);
         }
 
         Managers.UI.PopupUI.UpdateUI(DataType.Building, data.ID, eventData.position);

@@ -5,7 +5,7 @@ using VInspector;
 [RequireComponent(typeof(P_Interaction))]
 public class P_InteractionFinder : MonoBehaviour
 {
-    private readonly float RADIUS = 2.0f;
+    public static readonly float RADIUS = 2.0f;
 
     #region Inspector
     [SerializeField, ReadOnly]
@@ -83,8 +83,6 @@ public class P_InteractionFinder : MonoBehaviour
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, colliders, targetLayer) == 0)
         {
             this.target = null;
-            interaction.InteractableObject = null;
-
             Close_KeyUI();
             return;
         }

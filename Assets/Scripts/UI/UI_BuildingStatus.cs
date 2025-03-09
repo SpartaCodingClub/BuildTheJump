@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class UI_BuildingStatus : UI_Base
 {
     private static readonly string MESSAGE_CONFIRM = "건설이 시작되었습니다.";
     private static readonly string MESSAGE_COMPLETE = "건설이 완료되었습니다.";
+    private static readonly string MESSAGE_SUMMON = "소환이 시작되었습니다.";
+    private static readonly string MESSAGE_SUMMONED = "소환이 완료되었습니다.";
 
     #region Open
     private Sequence BuildingStatus_Open()
@@ -70,8 +73,6 @@ public class UI_BuildingStatus : UI_Base
     private Image fill;
     private TMP_Text textValue;
 
-    private string id;
-
     private Sequence opened;
 
     protected override void Initialize()
@@ -99,22 +100,47 @@ public class UI_BuildingStatus : UI_Base
         opened.Kill();
     }
 
-    public override void Open()
+    public void UpdateUI_Build(BuildingData data)
     {
-        base.Open();
+        Open();
 
-        id = buildingObject.name[..buildingObject.name.IndexOf('_')];
-        BuildingData data = Managers.Data.GetData<BuildingData>(DataType.Building, int.Parse(id));
+        string id = data.ID.ToString();
         Get<Image>((int)Children.Icon_Building).sprite = Managers.Resource.GetSprite(SpriteType.Building, id);
         Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
 
         gameObject.SetActive(true);
-        Managers.UI.NavagationUI.Open_NavigationItem(id, MESSAGE_CONFIRM);
+        Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Building, id, MESSAGE_CONFIRM);
 
-        StartCoroutine(Updating(data.Duration));
+        StartCoroutine(Updating(data.Duration, () =>
+        {
+            buildingObject.Complete();
+            Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Building, id, MESSAGE_COMPLETE);
+
+            Close();
+        }));
     }
 
-    private IEnumerator Updating(float duration)
+    public void UpdateUI_Summon(UnitData data)
+    {
+        Open();
+
+        string id = data.ID.ToString();
+        Get<Image>((int)Children.Icon_Building).sprite = Managers.Resource.GetSprite(SpriteType.Unit, id);
+        Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
+
+        gameObject.SetActive(true);
+        Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Unit, id, MESSAGE_SUMMON);
+
+        StartCoroutine(Updating(data.Duration, () =>
+        {
+            (buildingObject as Building_Portal).Summoned(data);
+            Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Unit, id, MESSAGE_SUMMONED);
+
+            Close();
+        }));
+    }
+
+    private IEnumerator Updating(float duration, Action onComplete)
     {
         float elapsedTime = 0.0f;
         while (elapsedTime < duration)
@@ -125,9 +151,6 @@ public class UI_BuildingStatus : UI_Base
             yield return null;
         }
 
-        buildingObject.Complete();
-        Managers.UI.NavagationUI.Open_NavigationItem(id, MESSAGE_COMPLETE);
-
-        Close();
+        onComplete();
     }
 }

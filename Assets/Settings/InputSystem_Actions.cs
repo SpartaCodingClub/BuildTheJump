@@ -156,6 +156,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Close_MenuUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7207035-0296-4d28-b86d-9c4748c34be5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -178,6 +187,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UI_Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d90391d-be75-483f-b683-7145fefd6a7b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Close_MenuUI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -304,6 +324,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_UI_Building = m_UI.FindAction("UI_Building", throwIfNotFound: true);
         m_UI_UI_Inventory = m_UI.FindAction("UI_Inventory", throwIfNotFound: true);
+        m_UI_Close_MenuUI = m_UI.FindAction("Close_MenuUI", throwIfNotFound: true);
         // UI_Building
         m_UI_Building = asset.FindActionMap("UI_Building", throwIfNotFound: true);
         m_UI_Building_Build = m_UI_Building.FindAction("Build", throwIfNotFound: true);
@@ -440,12 +461,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_UI_Building;
     private readonly InputAction m_UI_UI_Inventory;
+    private readonly InputAction m_UI_Close_MenuUI;
     public struct UIActions
     {
         private @InputSystem_Actions m_Wrapper;
         public UIActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         public InputAction @UI_Building => m_Wrapper.m_UI_UI_Building;
         public InputAction @UI_Inventory => m_Wrapper.m_UI_UI_Inventory;
+        public InputAction @Close_MenuUI => m_Wrapper.m_UI_Close_MenuUI;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -461,6 +484,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @UI_Inventory.started += instance.OnUI_Inventory;
             @UI_Inventory.performed += instance.OnUI_Inventory;
             @UI_Inventory.canceled += instance.OnUI_Inventory;
+            @Close_MenuUI.started += instance.OnClose_MenuUI;
+            @Close_MenuUI.performed += instance.OnClose_MenuUI;
+            @Close_MenuUI.canceled += instance.OnClose_MenuUI;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -471,6 +497,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @UI_Inventory.started -= instance.OnUI_Inventory;
             @UI_Inventory.performed -= instance.OnUI_Inventory;
             @UI_Inventory.canceled -= instance.OnUI_Inventory;
+            @Close_MenuUI.started -= instance.OnClose_MenuUI;
+            @Close_MenuUI.performed -= instance.OnClose_MenuUI;
+            @Close_MenuUI.canceled -= instance.OnClose_MenuUI;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -597,6 +626,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     {
         void OnUI_Building(InputAction.CallbackContext context);
         void OnUI_Inventory(InputAction.CallbackContext context);
+        void OnClose_MenuUI(InputAction.CallbackContext context);
     }
     public interface IUI_BuildingActions
     {

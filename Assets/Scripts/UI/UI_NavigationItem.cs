@@ -14,7 +14,7 @@ public class UI_NavigationItem : UI_Base
         return Utility.RecyclableSequence()
             .Append(child.DOScale(1.5f, 0.3f))
             .Append(graphic.DOFade(0.0f, 0.3f))
-            .AppendInterval(1.5f)
+            .AppendInterval(2.0f)
             .AppendCallback(Close);
     }
     #endregion
@@ -63,10 +63,10 @@ public class UI_NavigationItem : UI_Base
         textDescription.text = $"{dropItem.Data.Name} x{dropItem.Count}";
     }
 
-    public void UpdateUI(string id, string description)
+    public void UpdateUI(SpriteType type, string id, string description)
     {
         Get<Image>((int)Children.Frame).sprite = originalSprite;
-        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, id.ToString());
+        Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(type, id.ToString());
 
         TMP_Text textDescription = Get<TMP_Text>((int)Children.Text_Description);
         textDescription.color = Define.SKYBLUE;

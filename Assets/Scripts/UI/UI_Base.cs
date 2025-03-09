@@ -29,7 +29,21 @@ public abstract class UI_Base : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
 
         sequenceHandler.Initialize();
-        sequenceHandler.Close.OnComplete(() => Managers.Resource.Destroy(gameObject));
+        sequenceHandler.Close.OnComplete(() =>
+        {
+            if (!TryGetComponent<Canvas>(out var canvas))
+            {
+                return;
+            }
+
+            if (canvas.worldCamera != null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            Managers.Resource.Destroy(gameObject);
+        });
     }
 
     protected virtual void Deinitialize()
@@ -39,11 +53,17 @@ public abstract class UI_Base : MonoBehaviour
 
     public virtual void Open()
     {
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+
         sequenceHandler.Open.Restart();
     }
 
     public virtual void Close()
     {
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+
         sequenceHandler.Close.Restart();
     }
 

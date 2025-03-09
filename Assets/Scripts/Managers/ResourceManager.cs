@@ -8,6 +8,7 @@ public enum SpriteType
     Item,
     Building,
     Rarity,
+    Unit,
     Count
 }
 
