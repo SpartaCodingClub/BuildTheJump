@@ -34,7 +34,7 @@ public class Managers : MonoBehaviour
 
     private void Start()
     {
-        Managers.UI.Open<UI_Compass>();
+        Managers.UI.Open<UI_Minimap>();
     }
 
     private void Update()
