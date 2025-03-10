@@ -83,12 +83,14 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
+        for (int i = 0; i < monsterColliders.Length; i++) monsterColliders[i] = null;
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, monsterColliders, monsterLayer) > 0)
         {
             this.target = monsterColliders[0].transform;
             return;
         }
 
+        for (int i = 0; i < objectColliders.Length; i++) objectColliders[i] = null;
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, objectColliders, objectLayer) == 0)
         {
             this.target = null;

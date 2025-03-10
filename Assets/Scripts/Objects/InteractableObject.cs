@@ -20,7 +20,7 @@ public abstract class InteractableObject : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
-    public virtual void InteractionEnter(bool isPlayer, int damage = 0)
+    public virtual void InteractionEnter(int damage = 0)
     {
         if (baseData.HP == 0)
         {

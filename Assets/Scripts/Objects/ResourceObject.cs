@@ -39,11 +39,11 @@ public class ResourceObject : InteractableObject
         originalRotation = transform.rotation;
     }
 
-    public override void InteractionEnter(bool isPlayer, int damage = 0)
+    public override void InteractionEnter(int damage = 0)
     {
-        base.InteractionEnter(isPlayer, damage);
+        base.InteractionEnter(damage);
 
-        if (isPlayer && objectStatusUI != null)
+        if (objectStatusUI != null)
         {
             objectStatusUI.UpdateUI(currentHP, baseData);
         }

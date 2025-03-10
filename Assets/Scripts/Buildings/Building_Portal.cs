@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Building_Portal : BuildingObject
 {
-    public override void InteractionEnter(bool isPlayer, int damage = 0)
+    public override void InteractionEnter(int damage = 0)
     {
-        base.InteractionEnter(isPlayer, damage);
+        base.InteractionEnter(damage);
         Managers.UI.Open_MenuUI<UI_Portal>().Portal = this;
     }
 

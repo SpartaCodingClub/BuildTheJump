@@ -73,7 +73,6 @@ public class P_Worker : MonoBehaviour
 
     public void SetState(WorkerState state)
     {
-        this.state = state;
         switch (state)
         {
             case WorkerState.Idle:
@@ -86,13 +85,14 @@ public class P_Worker : MonoBehaviour
                 animationHandler.SetBool(Define.ID_MOVE, false);
                 break;
         }
+
+        this.state = state;
     }
 
     private Transform GetTarget()
     {
         Transform target = null;
         float closestDistance = Mathf.Infinity;
-
         foreach (var collider in objectColliders)
         {
             if (collider == null)
@@ -118,7 +118,7 @@ public class P_Worker : MonoBehaviour
 
     private void Interaction()
     {
-        if (target == null || state != WorkerState.Interact)
+        if (target == null)
         {
             SetState(WorkerState.Idle);
             return;
@@ -134,10 +134,7 @@ public class P_Worker : MonoBehaviour
 
     private IEnumerator Moving(Action onComplete)
     {
-        do
-        {
-            yield return null;
-        }
+        do yield return null;
         while (navMeshAgent.remainingDistance > P_InteractionFinder.RADIUS);
 
         onComplete();
@@ -150,6 +147,7 @@ public class P_Worker : MonoBehaviour
 
         while (target == null)
         {
+            for (int i = 0; i < objectColliders.Length; i++) objectColliders[i] = null;
             if (Physics.OverlapSphereNonAlloc(transform.position, radius += 10.0f, objectColliders, targetLayer) == 0)
             {
                 continue;

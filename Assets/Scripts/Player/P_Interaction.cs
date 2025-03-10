@@ -31,7 +31,7 @@ public class P_Interaction : MonoBehaviour
         position.z += Random.Range(-0.5f, 0.5f);
         Managers.Resource.Instantiate(Define.EFFECT_INTERACTION, position, Define.PATH_EFFECT);
 
-        InteractableObject.InteractionEnter(isPlayer, DAMAGE);
+        InteractableObject.InteractionEnter(DAMAGE);
     }
 
     private void InteractExit()
@@ -105,7 +105,7 @@ public class P_Interaction : MonoBehaviour
         }
         else
         {
-            InteractableObject.InteractionEnter(isPlayer);
+            InteractableObject.InteractionEnter();
         }
 
         Interaction = true;
