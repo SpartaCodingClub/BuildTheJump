@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UI_MinimapItem : UI_Base
 {
+    private static readonly float MIN_DISTANCE = 10.0f;
+
     #region Open
     private Sequence Open_MinimapItem()
     {
@@ -31,7 +33,8 @@ public class UI_MinimapItem : UI_Base
     private RectTransform rectTransform;
     private TMP_Text textDistance;
 
-    private bool closed;
+    private bool isClose;
+    private Sequence open;
     private Sequence close;
 
     protected override void Initialize()
@@ -39,10 +42,9 @@ public class UI_MinimapItem : UI_Base
         base.Initialize();
         BindChildren(typeof(Children));
 
-        BindSequences(UIState.Open, Open_MinimapItem);
-
         rectTransform = GetComponent<RectTransform>();
         textDistance = Get<TMP_Text>((int)Children.Text_Distance);
+        open = Open_MinimapItem();
         close = Close_MinimapItem();
     }
 
@@ -63,23 +65,31 @@ public class UI_MinimapItem : UI_Base
         close.Kill();
     }
 
+    public override void Open()
+    {
+        base.Open();
+        open.Restart();
+    }
+
     public void UpdateUI(float x, float distance)
     {
-        if (closed == false && distance < 10.0f)
+        bool isClose = distance < MIN_DISTANCE;
+        if (isClose != this.isClose)
         {
-            closed = true;
-            close.Restart();
-        }
-        else if (closed && distance > 10.0f)
-        {
-            closed = false;
-            Open();
+            this.isClose = isClose;
+            if (this.isClose)
+            {
+                open.Pause();
+                close.Restart();
+            }
+            else
+            {
+                close.Pause();
+                open.Restart();
+            }
         }
 
         rectTransform.anchoredPosition = new(x, rectTransform.anchoredPosition.y);
         textDistance.text = $"{distance:F1}m";
-
-        //float t = Mathf.InverseLerp(MIN_DISTANCE, MAX_DISTANCE, Mathf.Clamp(distance, MIN_DISTANCE, MAX_DISTANCE));
-        //canvasGroup.alpha = Mathf.SmoothStep(0.0f, 1.0f, t);
     }
 }

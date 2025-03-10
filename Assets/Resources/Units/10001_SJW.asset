@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2f4a2d089ec8341b4c46408433a248, type: 3}
   m_Name: 10001_SJW
   m_EditorClassIdentifier: 
-  Type: 4
+  Type: 5
   ID: 10001
   Name: "\uC1A1\uC81C\uC6B0"
   Description: "\uAE30\uACC4\uAC19\uC774 \uC77C\uD558\uB294 \uC77C\uAFBC\uC785\uB2C8\uB2E4."

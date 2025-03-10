@@ -25,6 +25,9 @@ public class AnimationHandler : MonoBehaviour
             case ObjectType.Rock:
                 animator.SetTrigger(Define.ID_ACTION_ROCK);
                 break;
+            case ObjectType.Monster:
+                animator.SetTrigger(Define.ID_ATTACK);
+                break;
         }
     }
 }

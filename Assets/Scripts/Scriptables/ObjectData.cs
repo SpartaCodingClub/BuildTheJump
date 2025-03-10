@@ -10,6 +10,7 @@ public enum ObjectType
     // Objects
     Tree,
     Rock,
+    Monster,
 
     // Others
     Other

@@ -7,6 +7,7 @@ public class Define
     public static readonly int ID_ACTION_BONFIRE = Animator.StringToHash("Action_Bonfire");
     public static readonly int ID_ACTION_TREE = Animator.StringToHash("Action_Tree");
     public static readonly int ID_ACTION_ROCK = Animator.StringToHash("Action_Rock");
+    public static readonly int ID_ATTACK = Animator.StringToHash("Attack");
     public static readonly int ID_MOVE = Animator.StringToHash("Move");
     public static readonly int ID_GROUND = Animator.StringToHash("Ground");
     public static readonly int ID_JUMP = Animator.StringToHash("Jump");
@@ -27,6 +28,7 @@ public class Define
     #region Layers
     public static readonly string LAYER_DEFAULT = "Default";
     public static readonly string LAYER_GROUND = "Ground";
+    public static readonly string LAYER_MONSTER = "Monster";
     public static readonly string LAYER_OBJECT = "Object";
     #endregion
     #region Path

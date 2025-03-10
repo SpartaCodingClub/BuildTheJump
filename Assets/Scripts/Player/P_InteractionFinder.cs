@@ -24,11 +24,18 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
+        InteractableObject interactableObject = target.GetComponentInParent<InteractableObject>();
+        if (interactableObject == null)
+        {
+            GetComponent<AnimationHandler>().SetTrigger(ObjectType.Monster);
+        }
+        else
+        {
+            interaction.InteractableObject = interactableObject; ;
+            interaction.InteractionEnter();
+        }
+
         transform.LookAt(target);
-
-        interaction.InteractableObject = target.GetComponentInParent<InteractableObject>();
-        interaction.InteractionEnter();
-
         Close_KeyUI();
     }
     #endregion
@@ -57,14 +64,17 @@ public class P_InteractionFinder : MonoBehaviour
     }
     #endregion
 
-    private readonly Collider[] colliders = new Collider[8];
+    private readonly Collider[] monsterColliders = new Collider[8];
+    private readonly Collider[] objectColliders = new Collider[8];
 
-    private LayerMask targetLayer;
+    private LayerMask monsterLayer;
+    private LayerMask objectLayer;
     private P_Interaction interaction;
 
     private void Awake()
     {
-        targetLayer = LayerMask.GetMask(Define.LAYER_OBJECT);
+        monsterLayer = LayerMask.GetMask(Define.LAYER_MONSTER);
+        objectLayer = LayerMask.GetMask(Define.LAYER_OBJECT);
         interaction = GetComponent<P_Interaction>();
     }
 
@@ -80,12 +90,18 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < colliders.Length; i++)
+        for (int i = 0; i < objectColliders.Length; i++)
         {
-            colliders[i] = null;
+            objectColliders[i] = null;
         }
 
-        if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, colliders, targetLayer) == 0)
+        if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, monsterColliders, monsterLayer) > 0)
+        {
+            this.target = monsterColliders[0].transform;
+            return;
+        }
+
+        if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, objectColliders, objectLayer) == 0)
         {
             this.target = null;
             Close_KeyUI();
@@ -106,7 +122,7 @@ public class P_InteractionFinder : MonoBehaviour
     {
         Transform target = null;
         float closestDistance = Mathf.Infinity;
-        foreach (var collider in colliders)
+        foreach (var collider in objectColliders)
         {
             if (collider == null)
             {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9ef398a141c7945be8f0c422e1b69e, type: 3}
   m_Name: 10005_Feather
   m_EditorClassIdentifier: 
-  Type: 4
+  Type: 5
   ID: 10005
   Name: "\uAE43\uD138"
   Description: "\uB9E4\uC6B0 \uAC00\uBCBC\uC6CC \uBCF4\uC774\uB294 \uAE43\uD138\uC785\uB2C8\uB2E4."

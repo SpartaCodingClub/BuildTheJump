@@ -28,6 +28,7 @@ MonoBehaviour:
     - d753930a91976794b965679988bb8f2d
     - 4ad0dfc7a295192459a17c04f0a3d1f1
     - e1c685d607534374fb2c655f005e9aef
+    - e5791b0c6836961419d6e33debffd3d3
     values:
     - iconNameOrGuid: 
       colorIndex: 7
@@ -82,6 +83,10 @@ MonoBehaviour:
       isIconRecursive: 0
       isColorRecursive: 0
     - iconNameOrGuid: Shader Icon
+      colorIndex: 0
+      isIconRecursive: 0
+      isColorRecursive: 0
+    - iconNameOrGuid: AudioSource Icon
       colorIndex: 0
       isIconRecursive: 0
       isColorRecursive: 0
