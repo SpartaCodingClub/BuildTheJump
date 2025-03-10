@@ -3,6 +3,41 @@ using UnityEngine;
 
 public class ResourceObject : InteractableObject
 {
+    #region UI_ObjectStatus
+    private UI_ObjectStatus objectStatusUI;
+
+    public void Open_ObjectStatusUI()
+    {
+        if (data.HP == 0)
+        {
+            return;
+        }
+
+        if (objectStatusUI == null)
+        {
+            objectStatusUI = Managers.UI.Open<UI_ObjectStatus>();
+        }
+
+        objectStatusUI.UpdateUI(currentHP, data);
+    }
+
+    public void Close_ObjectStatusUI()
+    {
+        if (data.HP == 0)
+        {
+            return;
+        }
+
+        if (objectStatusUI == null)
+        {
+            return;
+        }
+
+        objectStatusUI.Close();
+        objectStatusUI = null;
+    }
+    #endregion
+
     private readonly float SHAKE_AMOUNT = 5.0f;
     private readonly float SHAKE_DURATION = 0.5f;
 
@@ -16,6 +51,11 @@ public class ResourceObject : InteractableObject
     public override void OnInteraction(int damage = 0)
     {
         base.OnInteraction(damage);
+
+        if (objectStatusUI != null)
+        {
+            objectStatusUI.UpdateUI(currentHP, data);
+        }
 
         if (IsDead)
         {

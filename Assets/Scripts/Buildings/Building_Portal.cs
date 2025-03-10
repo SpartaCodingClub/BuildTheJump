@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Building_Portal : BuildingObject
 {
-    public override void OnInteraction(int damage)
+    public override void OnInteraction(int damage = 0)
     {
         base.OnInteraction(damage);
         Managers.UI.Open_MenuUI<UI_Portal>().Portal = this;
@@ -14,7 +14,7 @@ public class Building_Portal : BuildingObject
         buildingStatusUI.UpdateUI_Summon(data);
     }
 
-    public P_Worker Summoned(UnitData data)
+    public P_Worker Complete(UnitData data)
     {
         meshRenderer.gameObject.layer = LayerMask.NameToLayer(Define.LAYER_OBJECT);
         P_Worker worker = Managers.Resource.Instantiate(data.name, transform.position + Vector3.left, Define.PATH_UNIT).GetComponent<P_Worker>();

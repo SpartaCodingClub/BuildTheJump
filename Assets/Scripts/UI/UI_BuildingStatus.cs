@@ -135,7 +135,7 @@ public class UI_BuildingStatus : UI_Base
 
         StartCoroutine(Updating(data.Duration, () =>
         {
-            P_Worker worker = (buildingObject as Building_Portal).Summoned(data);
+            P_Worker worker = (buildingObject as Building_Portal).Complete(data);
 
             Managers.UI.MinimapUI.AddItem(worker.transform, SpriteType.Unit, id);
             Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Unit, id, MESSAGE_SUMMONED);

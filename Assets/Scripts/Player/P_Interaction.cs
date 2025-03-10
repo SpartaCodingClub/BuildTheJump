@@ -16,10 +16,10 @@ public class P_Interaction : MonoBehaviour
     #region AnimationEvents
     private void InteractEnter(float height)
     {
-        //if (animationHandler.Animator.GetCurrentAnimatorStateInfo(1).shortNameHash == Define.) // Top Layer만 체크
-        //{
-        //    Debug.Log("상체 애니메이션 이벤트 호출");
-        //}
+        if (animationHandler.Animator.GetCurrentAnimatorStateInfo(1).shortNameHash == Define.ID_ACTION_TREE)
+        {
+            Debug.Log("상체 애니메이션 이벤트 호출");
+        }
 
         if (InteractableObject == null)
         {
@@ -104,7 +104,7 @@ public class P_Interaction : MonoBehaviour
 
         if (isPlayer)
         {
-            InteractableObject.Open_ObjectStatusUI();
+            //InteractableObject.Open_ObjectStatusUI();
         }
 
         GameObject equipment = equipments[(int)InteractableObject.Type];
@@ -128,7 +128,7 @@ public class P_Interaction : MonoBehaviour
         }
 
         Interaction = false;
-        InteractableObject.Close_ObjectStatusUI();
+        //InteractableObject.Close_ObjectStatusUI();
         animationHandler.SetBool(Define.ID_ACTION, false);
 
         GameObject equipment = equipments[(int)InteractableObject.Type];

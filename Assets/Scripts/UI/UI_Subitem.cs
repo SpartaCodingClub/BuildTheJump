@@ -17,8 +17,8 @@ public class UI_Subitem : UI_Base
         int id = item.Data.ID;
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Item, id.ToString());
 
-        int count = Managers.Item.Inventory.TryGetValue(id, out var invetoryItem) ? invetoryItem.Count : 0;
         TMP_Text textValue = Get<TMP_Text>((int)Children.Text_Value);
+        int count = Managers.Item.Inventory.TryGetValue(id, out var invetoryItem) ? invetoryItem.Count : 0;
         textValue.color = count >= item.Count ? Color.green : Color.red;
         textValue.text = $"{count} / {item.Count}";
 

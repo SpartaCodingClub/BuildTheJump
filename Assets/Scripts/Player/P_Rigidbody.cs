@@ -2,13 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using VInspector;
 
-[RequireComponent(typeof(AnimationHandler))]
 public class P_Rigidbody : MonoBehaviour
 {
     private readonly float GRAVITY = 9.81f;
     private readonly float MOVE_SPEED = 5.0f;
     private readonly float ROTATE_SPEED = 10.0f;
-    private readonly float JUMP_FORCE = 15.0f;
+    private readonly float JUMP_FORCE = 8.0f;
 
     #region Inspector
     [ShowInInspector, ReadOnly] private Vector2 readValue;
@@ -58,10 +57,17 @@ public class P_Rigidbody : MonoBehaviour
         Move();
     }
 
+    public void Jump()
+    {
+        velocity.y = 150.0f;
+    }
+
     private void Move()
     {
+        float verticalVelocity = velocity.y;
         Vector3 targetVelocity = (readValue.magnitude > 0.0f) ? MOVE_SPEED * direction : Vector3.zero;
         velocity = Vector3.Lerp(velocity, targetVelocity, MOVE_SPEED * 2.0f * Time.deltaTime);
+        velocity.y = verticalVelocity;
 
         bool isGrounded = controller.isGrounded;
         if (isGrounded)
@@ -79,7 +85,6 @@ public class P_Rigidbody : MonoBehaviour
         else
         {
             velocity.y -= GRAVITY * Time.deltaTime;
-            Debug.Log("");
         }
 
         animationHandler.SetBool(Define.ID_GROUND, isGrounded);
