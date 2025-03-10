@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c9951f0e642cf498626893660373b7, type: 3}
+  m_Name: 10003_Trampoline
+  m_EditorClassIdentifier: 
+  Type: 2
+  ID: 10003
+  Name: "\uD2B8\uB7A8\uD384\uB9B0"
+  Description: "\uC9C0\uB098\uCE5C \uC810\uD504\uB294 GPU\uC5D0 \uD574\uB85C\uC6B8
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4.\\n\uC774 \uAC74\uBB3C\uC744 \uC124\uCE58\uD558\uBA74
+    \uC704 \uB0B4\uC6A9\uC5D0 \uB3D9\uC758\uD55C \uAC83\uC73C\uB85C \uAC04\uC8FC\uD569\uB2C8\uB2E4."
+  HP: 0
+  NameBuilding: "\uD2B8\uB7A8\uD384\uB9B0 \uC124\uCE58 \uACC4\uC57D\uC11C"
+  Duration: 6
+  Items:
+  - Data: {fileID: 11400000, guid: 2376e4e10d87e2549b5ffa607b536af4, type: 2}
+    Count: 1
+  - Data: {fileID: 11400000, guid: 9b46f4fcd1e3a2b4691fe8a3101b1ac4, type: 2}
+    Count: 1
+  - Data: {fileID: 11400000, guid: 558df0a6d0358624f8af6587d00673c0, type: 2}
+    Count: 1
+  - Data: {fileID: 11400000, guid: 7bde1e6124b00054d8caa57b89dcf8b2, type: 2}
+    Count: 1

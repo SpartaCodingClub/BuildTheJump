@@ -61,7 +61,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         data = buildingData;
 
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, buildingData.ID.ToString());
-        Get<TMP_Text>((int)Children.Text_Name).text = $"{buildingData.Name} 설치";
+        Get<TMP_Text>((int)Children.Text_Name).text = (buildingData as BuildingData).NameBuilding;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

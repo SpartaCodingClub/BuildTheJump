@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc86f3369343e7048a6b038abce651e7, type: 3}
   m_Name: Object_Tree
   m_EditorClassIdentifier: 
-  Type: 2
+  Type: 100
   ID: 0
   Name: "\uB098\uBB34"
   Description: "\uD06C\uACE0 \uC544\uB984\uB2E4\uC6B4 \uB098\uBB34\uC785\uB2C8\uB2E4."

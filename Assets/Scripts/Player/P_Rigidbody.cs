@@ -52,7 +52,7 @@ public class P_Rigidbody : MonoBehaviour
         Managers.Input.System.Player.Jump.canceled += OnJump;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Rotate();
         Move();
@@ -79,6 +79,7 @@ public class P_Rigidbody : MonoBehaviour
         else
         {
             velocity.y -= GRAVITY * Time.deltaTime;
+            Debug.Log("");
         }
 
         animationHandler.SetBool(Define.ID_GROUND, isGrounded);

@@ -284,6 +284,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2741362724767875971}
+  - component: {fileID: 1893959018018351314}
   - component: {fileID: 2974040447708310755}
   m_Layer: 7
   m_Name: Monster
@@ -310,6 +311,29 @@ Transform:
   - {fileID: 5416840887698498345}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1893959018018351314
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757901503990763359}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.03
+  m_Height: 0.12
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.06, z: 0}
 --- !u!114 &2974040447708310755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a766d12dec4dd5d4c8e58712b9b0f61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 5645c78e675ee814989ae7413d50617f, type: 2}
 --- !u!1 &2711977993677785518
 GameObject:
   m_ObjectHideFlags: 0

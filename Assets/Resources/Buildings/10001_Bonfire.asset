@@ -15,8 +15,10 @@ MonoBehaviour:
   Type: 0
   ID: 10001
   Name: "\uBAA8\uB2E5\uBD88"
-  Description: 
+  Description: "\uC5B4\uB460\uC744 \uBC1D\uD600\uC8FC\uAC70\uB098, \uC8FC\uC704\uC5D0\uC11C
+    \uD734\uC2DD\uC744 \uCDE8\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   HP: 0
+  NameBuilding: "\uBAA8\uB2E5\uBD88 \uC124\uCE58"
   Duration: 6
   Items:
   - Data: {fileID: 11400000, guid: 2376e4e10d87e2549b5ffa607b536af4, type: 2}

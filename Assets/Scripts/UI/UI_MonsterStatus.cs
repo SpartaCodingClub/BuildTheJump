@@ -1,4 +1,6 @@
 using DG.Tweening;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -59,5 +61,23 @@ public class UI_MonsterStatus : UI_Base
 
         GetComponent<Canvas>().worldCamera = Managers.Camera.Main;
         gameObject.SetActive(false);
+    }
+
+    public void UpdateUI(int level, float hp, BaseData objectData)
+    {
+        Get<TMP_Text>((int)Children.Text_Name).text = $"{objectData.Name} <size=12>Lv.{level}</size>";
+
+        float fillAmount = hp / objectData.HP;
+        fillRed.fillAmount = fillAmount;
+        StartCoroutine(Filling());
+    }
+
+    private IEnumerator Filling()
+    {
+        while (fillDarkred.fillAmount > fillRed.fillAmount)
+        {
+            fillDarkred.fillAmount = Mathf.Lerp(fillDarkred.fillAmount, fillRed.fillAmount, 5.0f * Time.deltaTime);
+            yield return null;
+        }
     }
 }

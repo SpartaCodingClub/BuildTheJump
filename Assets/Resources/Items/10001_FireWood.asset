@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f9ef398a141c7945be8f0c422e1b69e, type: 3}
   m_Name: 10001_FireWood
   m_EditorClassIdentifier: 
-  Type: 5
+  Type: 200
   ID: 10001
   Name: "\uC7A5\uC791"
   Description: "\uBD88\uC774 \uC798 \uBD99\uC744 \uAC83 \uAC19\uC740 \uC7A5\uC791\uC785\uB2C8\uB2E4."

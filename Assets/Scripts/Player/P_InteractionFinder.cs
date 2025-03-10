@@ -24,18 +24,17 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
-        InteractableObject interactableObject = target.GetComponentInParent<InteractableObject>();
-        if (interactableObject == null)
+        if ((1 << target.gameObject.layer) == monsterLayer)
         {
             GetComponent<AnimationHandler>().SetTrigger(ObjectType.Monster);
-        }
-        else
-        {
-            interaction.InteractableObject = interactableObject; ;
-            interaction.InteractionEnter();
+            return;
         }
 
         transform.LookAt(target);
+
+        interaction.InteractableObject = target.GetComponentInParent<InteractableObject>();
+        interaction.InteractionEnter();
+
         Close_KeyUI();
     }
     #endregion

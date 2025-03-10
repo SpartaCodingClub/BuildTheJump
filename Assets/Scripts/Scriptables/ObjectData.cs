@@ -6,14 +6,15 @@ public enum ObjectType
     // Buildings
     Bonfire,
     Portal,
+    Trampoline,
 
     // Objects
-    Tree,
+    Tree = 100,
     Rock,
     Monster,
 
     // Others
-    Other
+    Other = 200
 }
 
 [System.Serializable]

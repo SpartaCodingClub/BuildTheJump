@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class AnimationHandler : MonoBehaviour
 {
-    private Animator animator;
+    public Animator Animator { get; private set; }
 
-    public void SetBool(int id, bool value) => animator.SetBool(id, value);
-    public void SetTrigger(int id) => animator.SetTrigger(id);
+    public void SetBool(int id, bool value) => Animator.SetBool(id, value);
+    public void SetTrigger(int id) => Animator.SetTrigger(id);
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
     }
 
     public void SetTrigger(ObjectType type)
@@ -17,16 +17,16 @@ public class AnimationHandler : MonoBehaviour
         switch (type)
         {
             case ObjectType.Bonfire:
-                animator.SetTrigger(Define.ID_ACTION_BONFIRE);
+                Animator.SetTrigger(Define.ID_ACTION_BONFIRE);
                 break;
             case ObjectType.Tree:
-                animator.SetTrigger(Define.ID_ACTION_TREE);
+                Animator.SetTrigger(Define.ID_ACTION_TREE);
                 break;
             case ObjectType.Rock:
-                animator.SetTrigger(Define.ID_ACTION_ROCK);
+                Animator.SetTrigger(Define.ID_ACTION_ROCK);
                 break;
             case ObjectType.Monster:
-                animator.SetTrigger(Define.ID_ATTACK);
+                Animator.SetTrigger(Define.ID_ATTACK);
                 break;
         }
     }

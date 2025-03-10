@@ -31,7 +31,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_Barbarian_1s_Attack
+      name: Attack
       takeName: A_Barbarian_1s_Attack
       internalID: -6117965295005988008
       firstFrame: 0

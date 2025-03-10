@@ -16,6 +16,11 @@ public class P_Interaction : MonoBehaviour
     #region AnimationEvents
     private void InteractEnter(float height)
     {
+        //if (animationHandler.Animator.GetCurrentAnimatorStateInfo(1).shortNameHash == Define.) // Top Layer만 체크
+        //{
+        //    Debug.Log("상체 애니메이션 이벤트 호출");
+        //}
+
         if (InteractableObject == null)
         {
             return;
@@ -44,6 +49,11 @@ public class P_Interaction : MonoBehaviour
 
         InteractionExit();
     }
+
+    private void Attack()
+    {
+        // TODO: TEMP CODE
+    }
     #endregion
     #region InputSystem
     private void OnInteractionExit(InputAction.CallbackContext callbackContext)
@@ -67,6 +77,11 @@ public class P_Interaction : MonoBehaviour
         equipments[(int)ObjectType.Rock] = gameObject.FindComponent<Transform>("Pickaxe").gameObject;
 
         isPlayer = GetComponent<P_Worker>() == null;
+        if (isPlayer)
+        {
+            equipments[(int)ObjectType.Monster] = gameObject.FindComponent<Transform>("Club").gameObject;
+        }
+
         animationHandler = GetComponent<AnimationHandler>();
     }
 
