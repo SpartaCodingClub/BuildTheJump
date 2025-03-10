@@ -14,6 +14,7 @@ public abstract class BuildingObject : InteractableObject
     protected UI_BuildingStatus buildingStatusUI;
 
     private Vector3 originalScale;
+    private AudioSource audioSource;
     private Material originalMaterial;
     private MeshCollider meshCollider;
     private Transform effect;
@@ -24,6 +25,7 @@ public abstract class BuildingObject : InteractableObject
     private void Start()
     {
         buildingStatusUI = gameObject.FindComponent<UI_BuildingStatus>();
+        audioSource = GetComponent<AudioSource>();
         originalMaterial = meshRenderer.material;
         meshCollider = GetComponentInChildren<MeshCollider>();
         effect = gameObject.FindComponent<Transform>(Define.EFFECT);
@@ -82,6 +84,9 @@ public abstract class BuildingObject : InteractableObject
                 meshRenderer.material = originalMaterial;
                 meshRenderer.gameObject.layer = LayerMask.NameToLayer(Define.LAYER_OBJECT);
             });
+
+        audioSource.enabled = true;
+        audioSource.DOFade(audioSource.volume, 2.0f).From(0.0f);
 
         effect.gameObject.SetActive(true);
         effect.DOScale(originalScale, 2.0f).From(0.0f);

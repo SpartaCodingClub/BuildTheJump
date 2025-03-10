@@ -19,6 +19,7 @@ public class GameManager
         CurrentSP = SP;
         Player = player;
         Interaction = interaction;
+
         playerStatusUI = Managers.UI.Open<UI_PlayerStatus>();
 
         Application.targetFrameRate = 60;

@@ -28,6 +28,7 @@ public class UIManager
     #endregion
 
     public UI_Base CurrentMenuUI { get; private set; }
+    public UI_Minimap MinimapUI { get; private set; }
     public UI_Navigation NavagationUI { get; private set; }
     public UI_Popup PopupUI { get; private set; }
 
@@ -38,6 +39,7 @@ public class UIManager
         Transform = new GameObject(nameof(UIManager), typeof(InputSystemUIInputModule)).transform;
         Transform.SetParent(Managers.Instance.transform);
 
+        MinimapUI = Open<UI_Minimap>();
         NavagationUI = Open<UI_Navigation>();
         PopupUI = Open<UI_Popup>();
 
