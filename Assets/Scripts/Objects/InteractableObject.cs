@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
     #region Inspector
-    [SerializeField] protected BaseData data;
+    [SerializeField] protected BaseData baseData;
     #endregion
 
     public ObjectType Type { get; private set; }
@@ -14,24 +14,26 @@ public abstract class InteractableObject : MonoBehaviour
 
     private void Awake()
     {
-        Type = data.Type;
-        currentHP = data.HP;
+        Type = baseData.Type;
+
+        currentHP = baseData.HP;
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
-    public virtual void OnInteraction(int damage = 0)
+    public virtual void InteractionEnter(bool isPlayer, int damage = 0)
     {
-        if (data.HP == 0)
+        if (baseData.HP == 0)
         {
             return;
         }
 
         currentHP = Mathf.Max(currentHP - damage, 0);
-
         if (IsDead)
         {
             Managers.Resource.Instantiate(Define.EFFECT_DEATH, transform.position, Define.PATH_EFFECT).GetComponent<ParticleHandler>().Play(meshRenderer);
             Managers.Resource.Destroy(gameObject);
         }
     }
+
+    public virtual void InteractionExit(bool isPlayer) { }
 }

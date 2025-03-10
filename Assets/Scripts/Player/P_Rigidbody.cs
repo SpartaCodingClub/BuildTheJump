@@ -29,6 +29,7 @@ public class P_Rigidbody : MonoBehaviour
     private AnimationHandler animationHandler;
     private CharacterController controller;
 
+    private bool isGrounded;
     private bool jumping;
 
     private void Awake()
@@ -57,19 +58,19 @@ public class P_Rigidbody : MonoBehaviour
         Move();
     }
 
-    public void Jump()
+    public void Jump(float jumpForce)
     {
-        velocity.y = 150.0f;
+        velocity.y = jumpForce;
+        isGrounded = false;
     }
 
     private void Move()
     {
         float verticalVelocity = velocity.y;
         Vector3 targetVelocity = (readValue.magnitude > 0.0f) ? MOVE_SPEED * direction : Vector3.zero;
-        velocity = Vector3.Lerp(velocity, targetVelocity, MOVE_SPEED * 2.0f * Time.deltaTime);
+        velocity = Vector3.Lerp(velocity, targetVelocity, MOVE_SPEED * 2.0f * Time.fixedDeltaTime);
         velocity.y = verticalVelocity;
 
-        bool isGrounded = controller.isGrounded;
         if (isGrounded)
         {
             if (jumping)
@@ -79,18 +80,19 @@ public class P_Rigidbody : MonoBehaviour
             }
             else
             {
-                velocity.y = jumping ? JUMP_FORCE : 0.0f;
+                velocity.y = 0.0f;
             }
         }
         else
         {
-            velocity.y -= GRAVITY * Time.deltaTime;
+            velocity.y -= GRAVITY * Time.fixedDeltaTime;
         }
 
         animationHandler.SetBool(Define.ID_GROUND, isGrounded);
         animationHandler.SetBool(Define.ID_MOVE, velocity.magnitude > 1.0f);
 
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(velocity * Time.fixedDeltaTime);
+        isGrounded = controller.isGrounded;
     }
 
     private void Rotate()
@@ -110,6 +112,6 @@ public class P_Rigidbody : MonoBehaviour
 
         direction = right * readValue.x + forward * readValue.y;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, ROTATE_SPEED * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, ROTATE_SPEED * Time.fixedDeltaTime);
     }
 }

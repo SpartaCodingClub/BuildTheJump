@@ -37,8 +37,8 @@ public class Managers : MonoBehaviour
         Game.Update();
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        Camera.LateUpdate();
+        Camera.FixedUpdate();
     }
 }

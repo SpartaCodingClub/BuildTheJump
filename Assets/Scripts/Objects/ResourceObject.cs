@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceObject : InteractableObject
@@ -8,26 +9,16 @@ public class ResourceObject : InteractableObject
 
     public void Open_ObjectStatusUI()
     {
-        if (data.HP == 0)
-        {
-            return;
-        }
-
         if (objectStatusUI == null)
         {
             objectStatusUI = Managers.UI.Open<UI_ObjectStatus>();
         }
 
-        objectStatusUI.UpdateUI(currentHP, data);
+        objectStatusUI.UpdateUI(currentHP, baseData);
     }
 
-    public void Close_ObjectStatusUI()
+    private void Close_ObjectStatusUI()
     {
-        if (data.HP == 0)
-        {
-            return;
-        }
-
         if (objectStatusUI == null)
         {
             return;
@@ -38,8 +29,8 @@ public class ResourceObject : InteractableObject
     }
     #endregion
 
-    private readonly float SHAKE_AMOUNT = 5.0f;
-    private readonly float SHAKE_DURATION = 0.5f;
+    private static readonly float SHAKE_AMOUNT = 5.0f;
+    private static readonly float SHAKE_DURATION = 0.5f;
 
     private Quaternion originalRotation;
 
@@ -48,21 +39,23 @@ public class ResourceObject : InteractableObject
         originalRotation = transform.rotation;
     }
 
-    public override void OnInteraction(int damage = 0)
+    public override void InteractionEnter(bool isPlayer, int damage = 0)
     {
-        base.OnInteraction(damage);
+        base.InteractionEnter(isPlayer, damage);
 
-        if (objectStatusUI != null)
+        if (isPlayer && objectStatusUI != null)
         {
-            objectStatusUI.UpdateUI(currentHP, data);
+            objectStatusUI.UpdateUI(currentHP, baseData);
         }
 
         if (IsDead)
         {
-            ObjectData data = this.data as ObjectData;
-            foreach (var dropItem in Managers.Item.GetDropItems(data.DropTable))
+            ObjectData objectData = baseData as ObjectData;
+            List<Item> dropItems = Managers.Item.GetDropItems(objectData.DropTable);
+            foreach (Item dropItem in dropItems)
             {
-                Managers.Resource.Instantiate(Define.EFFECT_ITEM, transform.position, Define.PATH_EFFECT).GetComponent<ItemObject>().Play(dropItem);
+                GameObject gameObject = Managers.Resource.Instantiate(Define.EFFECT_ITEM, transform.position, Define.PATH_EFFECT);
+                gameObject.GetComponent<ItemObject>().Play(dropItem);
             }
 
             return;
@@ -70,6 +63,12 @@ public class ResourceObject : InteractableObject
 
         Vector3 attackDirection = (transform.position - Managers.Game.Player.transform.position).normalized;
         StartCoroutine(Shaking(attackDirection));
+    }
+
+    public override void InteractionExit(bool isPlayer)
+    {
+        base.InteractionExit(isPlayer);
+        if (isPlayer) Close_ObjectStatusUI();
     }
 
     private IEnumerator Shaking(Vector3 attackDirection)

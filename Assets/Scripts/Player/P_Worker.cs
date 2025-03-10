@@ -15,7 +15,7 @@ public enum WorkerState
 public class P_Worker : MonoBehaviour
 {
     private readonly WaitForSeconds DELAY = new(1.0f);
-    private readonly WaitForSeconds INTERVAL = new(0.2f);
+    private readonly WaitForSeconds INTERVAL = new(0.5f);
 
     #region Inspector
     [SerializeField, ReadOnly]
@@ -28,7 +28,7 @@ public class P_Worker : MonoBehaviour
     private Transform target;
     #endregion
 
-    private readonly Collider[] colliders = new Collider[8];
+    private readonly Collider[] objectColliders = new Collider[8];
 
     private LayerMask targetLayer;
     private AnimationHandler animationHandler;
@@ -92,14 +92,15 @@ public class P_Worker : MonoBehaviour
     {
         Transform target = null;
         float closestDistance = Mathf.Infinity;
-        foreach (var collider in colliders)
+
+        foreach (var collider in objectColliders)
         {
             if (collider == null)
             {
-                continue;
+                continue; ;
             }
 
-            if (collider.TryGetComponent<ResourceObject>(out var resourceObject) == false)
+            if (collider.GetComponent<ResourceObject>() == null)
             {
                 continue;
             }
@@ -117,7 +118,7 @@ public class P_Worker : MonoBehaviour
 
     private void Interaction()
     {
-        if (target == null)
+        if (target == null || state != WorkerState.Interact)
         {
             SetState(WorkerState.Idle);
             return;
@@ -131,6 +132,17 @@ public class P_Worker : MonoBehaviour
         SetState(WorkerState.Interaction);
     }
 
+    private IEnumerator Moving(Action onComplete)
+    {
+        do
+        {
+            yield return null;
+        }
+        while (navMeshAgent.remainingDistance > P_InteractionFinder.RADIUS);
+
+        onComplete();
+    }
+
     private IEnumerator Targeting()
     {
         animationHandler.SetBool(Define.ID_MOVE, false);
@@ -138,7 +150,7 @@ public class P_Worker : MonoBehaviour
 
         while (target == null)
         {
-            if (Physics.OverlapSphereNonAlloc(transform.position, radius += 10.0f, colliders, targetLayer) == 0)
+            if (Physics.OverlapSphereNonAlloc(transform.position, radius += 10.0f, objectColliders, targetLayer) == 0)
             {
                 continue;
             }
@@ -149,16 +161,5 @@ public class P_Worker : MonoBehaviour
 
         radius = 0.0f;
         SetState(WorkerState.Move);
-    }
-
-    private IEnumerator Moving(Action onComplete)
-    {
-        do
-        {
-            yield return null;
-        }
-        while (navMeshAgent.remainingDistance > P_InteractionFinder.RADIUS);
-
-        onComplete();
     }
 }

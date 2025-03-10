@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 using VInspector;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(AnimationHandler))]
 public class P_Interaction : MonoBehaviour
 {
     private readonly int DAMAGE = 20;
@@ -16,11 +15,6 @@ public class P_Interaction : MonoBehaviour
     #region AnimationEvents
     private void InteractEnter(float height)
     {
-        if (animationHandler.Animator.GetCurrentAnimatorStateInfo(1).shortNameHash == Define.ID_ACTION_TREE)
-        {
-            Debug.Log("상체 애니메이션 이벤트 호출");
-        }
-
         if (InteractableObject == null)
         {
             return;
@@ -37,7 +31,7 @@ public class P_Interaction : MonoBehaviour
         position.z += Random.Range(-0.5f, 0.5f);
         Managers.Resource.Instantiate(Define.EFFECT_INTERACTION, position, Define.PATH_EFFECT);
 
-        InteractableObject.OnInteraction(DAMAGE);
+        InteractableObject.InteractionEnter(isPlayer, DAMAGE);
     }
 
     private void InteractExit()
@@ -56,7 +50,7 @@ public class P_Interaction : MonoBehaviour
     }
     #endregion
     #region InputSystem
-    private void OnInteractionExit(InputAction.CallbackContext callbackContext)
+    private void OnInteraction(InputAction.CallbackContext callbackContext)
     {
         InteractionExit();
     }
@@ -66,16 +60,13 @@ public class P_Interaction : MonoBehaviour
 
     public bool Interaction { get; private set; }
 
-    private readonly GameObject[] equipments = new GameObject[(int)ObjectType.Other];
-
     private bool isPlayer;
     private AnimationHandler animationHandler;
 
+    private readonly GameObject[] equipments = new GameObject[(int)ObjectType.Other];
+
     private void Awake()
     {
-        equipments[(int)ObjectType.Tree] = gameObject.FindComponent<Transform>("Axe").gameObject;
-        equipments[(int)ObjectType.Rock] = gameObject.FindComponent<Transform>("Pickaxe").gameObject;
-
         isPlayer = GetComponent<P_Worker>() == null;
         if (isPlayer)
         {
@@ -83,6 +74,9 @@ public class P_Interaction : MonoBehaviour
         }
 
         animationHandler = GetComponent<AnimationHandler>();
+
+        equipments[(int)ObjectType.Tree] = gameObject.FindComponent<Transform>("Axe").gameObject;
+        equipments[(int)ObjectType.Rock] = gameObject.FindComponent<Transform>("Pickaxe").gameObject;
     }
 
     private void Start()
@@ -92,19 +86,16 @@ public class P_Interaction : MonoBehaviour
             return;
         }
 
-        Managers.Input.System.Player.Move.performed += OnInteractionExit;
-        Managers.Input.System.Player.Jump.performed += OnInteractionExit;
+        Managers.Input.System.Player.Move.performed += OnInteraction;
+        Managers.Input.System.Player.Jump.performed += OnInteraction;
     }
 
     public void InteractionEnter()
     {
-        Interaction = true;
-        animationHandler.SetBool(Define.ID_ACTION, true);
-        animationHandler.SetTrigger(InteractableObject.Type);
-
         if (isPlayer)
         {
-            //InteractableObject.Open_ObjectStatusUI();
+            ResourceObject resourceObject = InteractableObject as ResourceObject;
+            if (resourceObject != null) resourceObject.Open_ObjectStatusUI();
         }
 
         GameObject equipment = equipments[(int)InteractableObject.Type];
@@ -114,8 +105,13 @@ public class P_Interaction : MonoBehaviour
         }
         else
         {
-            InteractableObject.OnInteraction();
+            InteractableObject.InteractionEnter(isPlayer);
         }
+
+        Interaction = true;
+
+        animationHandler.SetBool(Define.ID_ACTION, true);
+        animationHandler.SetTrigger(InteractableObject.Type);
 
         OnInteractionEnter?.Invoke();
     }
@@ -127,14 +123,15 @@ public class P_Interaction : MonoBehaviour
             return;
         }
 
-        Interaction = false;
-        //InteractableObject.Close_ObjectStatusUI();
-        animationHandler.SetBool(Define.ID_ACTION, false);
-
         GameObject equipment = equipments[(int)InteractableObject.Type];
         if (equipment != null)
         {
             equipment.SetActive(false);
         }
+
+        Interaction = false;
+        animationHandler.SetBool(Define.ID_ACTION, false);
+
+        InteractableObject.InteractionExit(isPlayer);
     }
 }

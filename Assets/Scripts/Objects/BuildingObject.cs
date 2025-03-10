@@ -68,7 +68,7 @@ public abstract class BuildingObject : InteractableObject
         meshCollider.isTrigger = false;
         confirm = true;
 
-        buildingStatusUI.UpdateUI_Build(data as BuildingData);
+        buildingStatusUI.UpdateUI_Build(baseData as BuildingData);
         Managers.Resource.Instantiate(Define.EFFECT_BUILD, transform.position, Define.PATH_EFFECT);
     }
 

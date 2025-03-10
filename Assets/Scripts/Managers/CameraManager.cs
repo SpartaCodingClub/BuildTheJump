@@ -31,7 +31,7 @@ public class CameraManager
         Transform.DORotate(endValue, 1.0f);
     }
 
-    public void LateUpdate()
+    public void FixedUpdate()
     {
         if (shaking)
         {

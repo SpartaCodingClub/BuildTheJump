@@ -133,7 +133,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 100
@@ -677,7 +677,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB530\uB048\uB530\uADFC\uD55C \uBAA8\uB2E5\uBD88~!"
+  m_text: "\uC5B4\uB460\uC744 \uBC1D\uD600\uC8FC\uAC70\uB098, \uC8FC\uC704\uC5D0\uC11C
+    \uD734\uC2DD\uC744 \uCDE8\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed5f53cafc84a4842aebe5be26aef952, type: 2}
   m_sharedMaterial: {fileID: 2843776285013634508, guid: ed5f53cafc84a4842aebe5be26aef952, type: 2}

@@ -24,12 +24,6 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
-        if ((1 << target.gameObject.layer) == monsterLayer)
-        {
-            GetComponent<AnimationHandler>().SetTrigger(ObjectType.Monster);
-            return;
-        }
-
         transform.LookAt(target);
 
         interaction.InteractableObject = target.GetComponentInParent<InteractableObject>();
@@ -87,11 +81,6 @@ public class P_InteractionFinder : MonoBehaviour
         if (interaction.Interaction)
         {
             return;
-        }
-
-        for (int i = 0; i < objectColliders.Length; i++)
-        {
-            objectColliders[i] = null;
         }
 
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, monsterColliders, monsterLayer) > 0)
