@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a766d12dec4dd5d4c8e58712b9b0f61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 5645c78e675ee814989ae7413d50617f, type: 2}
+  baseData: {fileID: 11400000, guid: 5645c78e675ee814989ae7413d50617f, type: 2}
 --- !u!1 &2711977993677785518
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +563,7 @@ GameObject:
   - component: {fileID: 4055617126224139138}
   - component: {fileID: 7531174114759765794}
   - component: {fileID: 6953166581815511844}
+  - component: {fileID: 8676445788273406335}
   m_Layer: 5
   m_Name: UI_MonsterStatus
   m_TagString: Untagged
@@ -658,6 +659,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7fe063981f6e8c41a3b657d26b0a21a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8676445788273406335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3888720461707574324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b53f272a1260b479aa448feda1a0f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4237352141702763379

@@ -44,7 +44,7 @@ public class ResourceManager
             gameObject = Instantiate(original);
         }
 
-        gameObject.transform.SetPositionAndRotation(position, Quaternion.identity);
+        gameObject.transform.position = position;
         return gameObject;
     }
 

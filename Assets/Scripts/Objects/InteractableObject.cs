@@ -29,8 +29,12 @@ public abstract class InteractableObject : MonoBehaviour
             return;
         }
 
+        // 데미지 텍스트
+        int amount = currentHP - Mathf.Max(currentHP - damage, 0);
+        currentHP -= amount;
+        Managers.UI.Open<UI_FloatingText>().UpdateUI(amount.ToString(), transform.position + Vector3.right * 3.0f, Color.red);
+
         // 오브젝트 사망 이펙트
-        currentHP = Mathf.Max(currentHP - damage, 0);
         if (IsDead)
         {
             Managers.Resource.Instantiate(Define.EFFECT_DEATH, transform.position, Define.PATH_EFFECT).GetComponent<ParticleHandler>().Play(meshRenderer);

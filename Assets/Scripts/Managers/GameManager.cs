@@ -34,33 +34,48 @@ public class GameManager
         if (CurrentHP < HP)
         {
             CurrentHP += Time.deltaTime;
-        }
 
-        if (CurrentHP != previousHP)
-        {
-            previousHP = (int)CurrentHP;
-            playerStatusUI.UpdateUI_HP(CurrentHP, HP);
+            int currnetHP = (int)CurrentHP;
+            if (currnetHP != previousHP)
+            {
+                previousHP = currnetHP;
+                playerStatusUI.UpdateUI_HP(CurrentHP, HP);
+            }
         }
 
         if (CurrentSP < SP)
         {
             CurrentSP += Time.deltaTime * 2.0f;
-        }
 
-        if (CurrentSP != previousSP)
-        {
-            previousSP = (int)CurrentSP;
-            playerStatusUI.UpdateUI_SP(CurrentSP, SP);
+            int currentSP = (int)CurrentSP;
+            if (currentSP != previousSP)
+            {
+                previousSP = currentSP;
+                playerStatusUI.UpdateUI_SP(CurrentSP, SP);
+            }
         }
     }
 
     public void SetHP(int value)
     {
-        CurrentHP = Mathf.Clamp(CurrentHP + value, 0, HP);
+        float amount = Mathf.Clamp(CurrentHP + value, 0, HP) - CurrentHP;
+        if (Mathf.Approximately(amount, 0.0f))
+        {
+            return;
+        }
+
+        CurrentHP += amount;
+        Managers.UI.Open<UI_FloatingText>().UpdateUI(amount.ToString("0"), Managers.Game.Player.transform.position, Color.green);
     }
 
     public void SetSP(int value)
     {
-        CurrentSP = Mathf.Clamp(CurrentSP + value, 0, SP);
+        float amount = Mathf.Clamp(CurrentSP + value, 0, SP) - CurrentSP;
+        if (amount > 0.0f)
+        {
+            Managers.UI.Open<UI_FloatingText>().UpdateUI(amount.ToString("0"), Managers.Game.Player.transform.position, Color.yellow);
+        }
+
+        CurrentSP += amount;
     }
 }

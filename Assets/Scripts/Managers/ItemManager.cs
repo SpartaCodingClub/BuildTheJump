@@ -5,6 +5,8 @@ public class ItemManager
 {
     public Dictionary<int, Item> Inventory { get; private set; } = new();
 
+    private float totalWeight;
+
     public void AddItem(Item item)
     {
         int key = item.Data.ID;
@@ -14,8 +16,25 @@ public class ItemManager
             return;
         }
 
-        Inventory.Add(key, item);
+        totalWeight += item.Data.Weight * item.Count;
         SetMoveSpeed();
+
+        Inventory.Add(key, item);
+    }
+
+    public void Subtract(Item item)
+    {
+        int key = item.Data.ID;
+        if (Inventory.TryGetValue(key, out var inventoryItem))
+        {
+            inventoryItem.Count -= item.Count;
+            return;
+        }
+
+        totalWeight -= item.Data.Weight * item.Count;
+        SetMoveSpeed();
+
+        Inventory.Remove(key);
     }
 
     public List<Item> GetDropItems(List<DropRow> dropTable)
@@ -48,12 +67,6 @@ public class ItemManager
 
     private void SetMoveSpeed()
     {
-        float totalWeights = 0.0f;
-        foreach (var item in Inventory)
-        {
-            totalWeights += GetWeights(item.Key);
-        }
-
-        Managers.Game.Player.SetMoveSpeed(totalWeights >= Define.MAX_WEIGHT ? Define.WORKER_MOVE_SPEED : Define.PLAYER_MOVE_SPEED);
+        Managers.Game.Player.SetMoveSpeed(totalWeight >= Define.MAX_WEIGHT ? Define.WORKER_MOVE_SPEED : Define.PLAYER_MOVE_SPEED);
     }
 }

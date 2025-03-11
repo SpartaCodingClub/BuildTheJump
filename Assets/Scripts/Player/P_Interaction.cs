@@ -33,7 +33,7 @@ public class P_Interaction : MonoBehaviour
         position.z += Random.Range(-0.5f, 0.5f);
         Managers.Resource.Instantiate(Define.EFFECT_INTERACTION, position, Define.PATH_EFFECT);
 
-        InteractableObject.InteractionEnter(DAMAGE);
+        InteractableObject.InteractionEnter((int)Random.Range(DAMAGE * 0.75f, DAMAGE * 1.5f));
     }
 
     private void InteractExit()
