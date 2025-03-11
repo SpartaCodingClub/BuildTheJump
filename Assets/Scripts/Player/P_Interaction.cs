@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class P_Interaction : MonoBehaviour
 {
     private readonly int DAMAGE = 20;
+    private readonly int SP = 10;
 
     #region Inspector
     [ShowInInspector, ReadOnly]
@@ -23,6 +24,7 @@ public class P_Interaction : MonoBehaviour
         if (isPlayer)
         {
             Managers.Camera.Shake();
+            Managers.Game.SetSP(-SP);
         }
 
         Vector3 position = transform.position + transform.forward * P_InteractionFinder.RADIUS;
@@ -36,12 +38,15 @@ public class P_Interaction : MonoBehaviour
 
     private void InteractExit()
     {
-        if (InteractableObject.IsDead == false)
+        if (InteractableObject.IsDead)
         {
-            return;
+            InteractionExit();
         }
 
-        InteractionExit();
+        if (isPlayer && Managers.Game.CurrentSP < SP)
+        {
+            InteractionExit();
+        }
     }
 
     private void Attack()
@@ -95,6 +100,9 @@ public class P_Interaction : MonoBehaviour
     {
         if (isPlayer)
         {
+            // SP가 부족하다면 무시
+            if (Managers.Game.CurrentSP < SP) return;
+
             // 플레이어가 공격 중인 대상이 자원 오브젝트라면, 체력바 UI를 표시
             ResourceObject resourceObject = InteractableObject as ResourceObject;
             if (resourceObject != null) resourceObject.Open_ObjectStatusUI();

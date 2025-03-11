@@ -6,12 +6,15 @@ public class GameManager
     private readonly int HP = 200;
     private readonly int SP = 100;
 
-    public int CurrentHP { get; private set; }
-    public int CurrentSP { get; private set; }
+    public float CurrentHP { get; private set; }
+    public float CurrentSP { get; private set; }
     public P_Rigidbody Player { get; private set; }
     public P_Interaction Interaction { get; private set; }
 
     private UI_PlayerStatus playerStatusUI;
+
+    private int previousHP;
+    private int previousSP;
 
     public void Initialize(P_Rigidbody player, P_Interaction interaction)
     {
@@ -28,18 +31,36 @@ public class GameManager
 
     public void Update()
     {
-        // TODO: 자연회복 구현예정
+        if (CurrentHP < HP)
+        {
+            CurrentHP += Time.deltaTime;
+        }
+
+        if (CurrentHP != previousHP)
+        {
+            previousHP = (int)CurrentHP;
+            playerStatusUI.UpdateUI_HP(CurrentHP, HP);
+        }
+
+        if (CurrentSP < SP)
+        {
+            CurrentSP += Time.deltaTime;
+        }
+
+        if (CurrentSP != previousSP)
+        {
+            previousSP = (int)CurrentSP;
+            playerStatusUI.UpdateUI_SP(CurrentSP, SP);
+        }
     }
 
     public void SetHP(int value)
     {
         CurrentHP = Mathf.Clamp(CurrentHP + value, 0, HP);
-        playerStatusUI.UpdateUI_HP(CurrentHP, HP);
     }
 
     public void SetSP(int value)
     {
         CurrentSP = Mathf.Clamp(CurrentSP + value, 0, SP);
-        playerStatusUI.UpdateUI_SP(CurrentSP, SP);
     }
 }
