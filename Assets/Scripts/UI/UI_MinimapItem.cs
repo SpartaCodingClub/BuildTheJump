@@ -53,6 +53,7 @@ public class UI_MinimapItem : UI_Base
         Target = target;
 
         rectTransform.SetParent(parent);
+        rectTransform.localPosition = Vector3.one;
         rectTransform.anchoredPosition = 50.0f * Vector2.up;
 
         gameObject.name = $"{nameof(UI_MinimapItem)} ({target.name})";

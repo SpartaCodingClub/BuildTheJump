@@ -1,5 +1,6 @@
 using DG.Tweening;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -60,6 +61,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
     {
         this.buildingData = buildingData as BuildingData;
 
+        transform.localScale = Vector3.one;
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, buildingData.ID.ToString());
         Get<TMP_Text>((int)Children.Text_Name).text = (buildingData as BuildingData).NameBuilding;
     }

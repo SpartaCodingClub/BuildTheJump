@@ -33,6 +33,7 @@ public class UI_Navigation : UI_Base
 
         UI_NavigationItem navigationItem = Managers.UI.Open<UI_NavigationItem>();
         navigationItem.transform.SetParent(content);
+        navigationItem.transform.localScale = Vector3.one;
 
         return navigationItem;
     }
