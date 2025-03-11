@@ -23,6 +23,8 @@ public class UI_Popup : UI_Base
         Text_Description
     }
 
+    private RectTransform rectTransform;
+
     protected override void Initialize()
     {
         base.Initialize();
@@ -30,6 +32,7 @@ public class UI_Popup : UI_Base
 
         BindSequences(UIState.Open, Frame_Open);
 
+        rectTransform = GetComponent<RectTransform>();
         gameObject.SetActive(false);
     }
 
@@ -44,7 +47,9 @@ public class UI_Popup : UI_Base
 
         RectTransform frame = Get((int)Children.Frame);
         frame.pivot = GetPivot(screenPosition);
-        frame.anchoredPosition = screenPosition;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPosition, null, out Vector2 localPoint);
+        frame.localPosition = localPoint;
 
         BaseData data = Managers.Data.GetData(type, id);
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite((SpriteType)type, id.ToString());

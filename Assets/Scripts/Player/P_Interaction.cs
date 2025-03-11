@@ -25,7 +25,7 @@ public class P_Interaction : MonoBehaviour
             Managers.Camera.Shake();
         }
 
-        Vector3 position = InteractableObject.transform.position;
+        Vector3 position = transform.position + transform.forward * P_InteractionFinder.RADIUS;
         position.x += Random.Range(-0.5f, 0.5f);
         position.y += height;
         position.z += Random.Range(-0.5f, 0.5f);
