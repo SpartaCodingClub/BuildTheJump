@@ -100,18 +100,18 @@ public class UI_BuildingStatus : UI_Base
         opened.Kill();
     }
 
-    public void UpdateUI_Build(BuildingData data)
+    public void UpdateUI_Build(BuildingData buildingData)
     {
         Open();
 
-        string id = data.ID.ToString();
+        string id = buildingData.ID.ToString();
         Get<Image>((int)Children.Icon_Building).sprite = Managers.Resource.GetSprite(SpriteType.Building, id);
-        Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
+        Get<TMP_Text>((int)Children.Text_Name).text = buildingData.Name;
 
         gameObject.SetActive(true);
         Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Building, id, MESSAGE_CONFIRM);
 
-        StartCoroutine(Updating(data.Duration, () =>
+        StartCoroutine(Updating(buildingData.Duration, () =>
         {
             buildingObject.Complete();
 

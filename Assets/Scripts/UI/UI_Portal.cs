@@ -98,6 +98,7 @@ public class UI_Portal : UI_Base
         Get<Button>((int)Children.Button_Close).onClick.AddListener(() => Managers.UI.Close_MenuUI<UI_Portal>());
         Get<Button>((int)Children.Button_Summon).onClick.AddListener(Button_Summon);
 
+        // TODO: 추후 아직 소환 안된 일꾼으로 변경
         UpdateUI(Managers.Data.GetData<UnitData>(DataType.Unit, 10001));
         UpdateUI();
     }

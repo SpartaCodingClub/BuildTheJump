@@ -29,6 +29,14 @@ public class BuildingManager
         Managers.Input.System.UI.Enable();
         Managers.Input.System.UI_Building.Disable();
     }
+
+    private void OnCancel(InputAction.CallbackContext callbackContext)
+    {
+        Managers.Input.System.UI.Enable();
+        Managers.Input.System.UI_Building.Disable();
+        Managers.Resource.Destroy(buildingObject.gameObject);
+        Managers.UI.Open_MenuUI<UI_Building>();
+    }
     #endregion
 
     private LayerMask layerMask;
@@ -41,11 +49,12 @@ public class BuildingManager
 
         Managers.Input.System.UI_Building.Build.performed += OnBuild;
         Managers.Input.System.UI_Building.Confirm.canceled += OnConfirm;
+        Managers.Input.System.UI_Building.Cancel.started += OnCancel;
     }
 
-    public void Build(BuildingData data)
+    public void Build(BuildingData buildingData)
     {
-        buildingObject = Managers.Resource.Instantiate(data.name, Vector3.zero, Define.PATH_BUILDING).GetComponent<BuildingObject>();
+        buildingObject = Managers.Resource.Instantiate(buildingData.name, Vector3.zero, Define.PATH_BUILDING).GetComponent<BuildingObject>();
 
         Managers.Input.System.UI.Disable();
         Managers.Input.System.UI_Building.Enable();

@@ -224,6 +224,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a1aef58-0b29-465a-a5d3-485789ffe7aa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -246,6 +255,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Build"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77466b7c-3963-4386-985f-32e684e4e089"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -329,6 +349,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_Building = asset.FindActionMap("UI_Building", throwIfNotFound: true);
         m_UI_Building_Build = m_UI_Building.FindAction("Build", throwIfNotFound: true);
         m_UI_Building_Confirm = m_UI_Building.FindAction("Confirm", throwIfNotFound: true);
+        m_UI_Building_Cancel = m_UI_Building.FindAction("Cancel", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -523,12 +544,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IUI_BuildingActions> m_UI_BuildingActionsCallbackInterfaces = new List<IUI_BuildingActions>();
     private readonly InputAction m_UI_Building_Build;
     private readonly InputAction m_UI_Building_Confirm;
+    private readonly InputAction m_UI_Building_Cancel;
     public struct UI_BuildingActions
     {
         private @InputSystem_Actions m_Wrapper;
         public UI_BuildingActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Build => m_Wrapper.m_UI_Building_Build;
         public InputAction @Confirm => m_Wrapper.m_UI_Building_Confirm;
+        public InputAction @Cancel => m_Wrapper.m_UI_Building_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_UI_Building; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -544,6 +567,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Confirm.started += instance.OnConfirm;
             @Confirm.performed += instance.OnConfirm;
             @Confirm.canceled += instance.OnConfirm;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         private void UnregisterCallbacks(IUI_BuildingActions instance)
@@ -554,6 +580,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Confirm.started -= instance.OnConfirm;
             @Confirm.performed -= instance.OnConfirm;
             @Confirm.canceled -= instance.OnConfirm;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         public void RemoveCallbacks(IUI_BuildingActions instance)
@@ -632,5 +661,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     {
         void OnBuild(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

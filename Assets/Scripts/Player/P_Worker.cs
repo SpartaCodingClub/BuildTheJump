@@ -15,7 +15,7 @@ public enum WorkerState
 public class P_Worker : MonoBehaviour
 {
     private readonly WaitForSeconds DELAY = new(1.0f);
-    private readonly WaitForSeconds INTERVAL = new(0.5f);
+    private readonly WaitForSeconds INTERVAL = new(0.2f);
 
     #region Inspector
     [SerializeField, ReadOnly]
@@ -50,6 +50,7 @@ public class P_Worker : MonoBehaviour
         switch (state)
         {
             case WorkerState.Interact:
+                navMeshAgent.enabled = false;
                 Interaction();
                 break;
             case WorkerState.Interaction:
@@ -60,14 +61,18 @@ public class P_Worker : MonoBehaviour
 
     public void SetDestination(Vector3 target, Action onComplete)
     {
+        // navMeshAgent가 미리 켜져있으면, 길찾기에 오류가 있음
+        // 따라서, 필요한 시점에 활성화 시작
         if (navMeshAgent.enabled == false)
         {
             navMeshAgent.enabled = true;
         }
 
+        // 목적지 설정
         animationHandler.SetBool(Define.ID_MOVE, true);
         navMeshAgent.SetDestination(target);
 
+        // 도착 여부 확인 후 콜백 실행
         StartCoroutine(Moving(onComplete));
     }
 
@@ -97,9 +102,10 @@ public class P_Worker : MonoBehaviour
         {
             if (collider == null)
             {
-                continue; ;
+                continue;
             }
 
+            // 자원 오브젝트가 아닐 수도 있음 (예, 건물 오브젝트)
             if (collider.GetComponent<ResourceObject>() == null)
             {
                 continue;
@@ -118,6 +124,7 @@ public class P_Worker : MonoBehaviour
 
     private void Interaction()
     {
+        // 이동 중 타겟이 이미 사망했다면 재탐색
         if (target == null)
         {
             SetState(WorkerState.Idle);
@@ -132,12 +139,12 @@ public class P_Worker : MonoBehaviour
         SetState(WorkerState.Interaction);
     }
 
-    private IEnumerator Moving(Action onComplete)
+    private IEnumerator Moving(Action onComplete = null)
     {
-        do yield return null;
-        while (navMeshAgent.remainingDistance > P_InteractionFinder.RADIUS);
+        do yield return INTERVAL;
+        while (navMeshAgent.pathPending || navMeshAgent.remainingDistance > P_InteractionFinder.RADIUS);
 
-        onComplete();
+        onComplete?.Invoke();
     }
 
     private IEnumerator Targeting()
@@ -145,6 +152,7 @@ public class P_Worker : MonoBehaviour
         animationHandler.SetBool(Define.ID_MOVE, false);
         yield return DELAY;
 
+        // 타겟이 반경 내에 없다면 반경 확대 후 재탐색
         while (target == null)
         {
             for (int i = 0; i < objectColliders.Length; i++) objectColliders[i] = null;

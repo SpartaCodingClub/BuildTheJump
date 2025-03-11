@@ -14,21 +14,27 @@ public class P_InteractionFinder : MonoBehaviour
     #region InputSystem
     private void OnInteraction(InputAction.CallbackContext callbackContext)
     {
+        // 상호작용 중 상호작용 키를 누르면 무시
         if (interaction.Interaction)
         {
             return;
         }
 
+        // 평캔 중 재호출 시, 타겟이 이미 사망했다면 무시
         if (target == null)
         {
             return;
         }
 
-        transform.LookAt(target);
+        // Z축 기울임 방지
+        Vector3 lookAtPosition = new(target.position.x, transform.position.y, target.position.z);
+        transform.LookAt(lookAtPosition);
 
+        // 상호작용 시작
         interaction.InteractableObject = target.GetComponentInParent<InteractableObject>();
         interaction.InteractionEnter();
 
+        // 상호작용 UI 숨김
         Close_KeyUI();
     }
     #endregion
@@ -73,16 +79,19 @@ public class P_InteractionFinder : MonoBehaviour
 
     private void Start()
     {
+        // 상호작용이 버튼을 누르면 상호작용 시작
         Managers.Input.System.Player.Interaction.started += OnInteraction;
     }
 
     private void Update()
     {
+        // 이미 상호작용 중이라면 무시
         if (interaction.Interaction)
         {
             return;
         }
 
+        // 몬스터 우선 탐색
         for (int i = 0; i < monsterColliders.Length; i++) monsterColliders[i] = null;
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, monsterColliders, monsterLayer) > 0)
         {
@@ -90,6 +99,7 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
+        // 자원 탐색
         for (int i = 0; i < objectColliders.Length; i++) objectColliders[i] = null;
         if (Physics.OverlapSphereNonAlloc(transform.position, RADIUS, objectColliders, objectLayer) == 0)
         {
@@ -98,12 +108,14 @@ public class P_InteractionFinder : MonoBehaviour
             return;
         }
 
+        // 가장 가까운 자원 탐색
         var target = GetTarget();
         if (target != this.target)
         {
             Close_KeyUI();
         }
 
+        // 상호작용 UI 표시
         this.target = target;
         Open_KeyUI();
     }

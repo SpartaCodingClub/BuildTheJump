@@ -54,8 +54,8 @@ public class P_Rigidbody : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Rotate();
-        Move();
+        Rotate();  // 캐릭터의 방향 갱신
+        Move();    // 물리 연산
     }
 
     public void Jump(float jumpForce)

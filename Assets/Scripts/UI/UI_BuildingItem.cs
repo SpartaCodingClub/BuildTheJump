@@ -41,7 +41,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         Text_Name
     }
 
-    private BaseData data;
+    private BuildingData buildingData;
 
     protected override void Initialize()
     {
@@ -58,7 +58,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
 
     public void UpdateUI(BaseData buildingData)
     {
-        data = buildingData;
+        this.buildingData = buildingData as BuildingData;
 
         Get<Image>((int)Children.Icon).sprite = Managers.Resource.GetSprite(SpriteType.Building, buildingData.ID.ToString());
         Get<TMP_Text>((int)Children.Text_Name).text = (buildingData as BuildingData).NameBuilding;
@@ -66,13 +66,13 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UI_Building buildingUI = (Managers.UI.CurrentMenuUI as UI_Building);
+        UI_Building buildingUI = Managers.UI.CurrentMenuUI as UI_Building;
         if (buildingUI != null)
         {
             buildingUI.FocusUI.UpdateUI(transform);
         }
 
-        Managers.UI.PopupUI.UpdateUI(DataType.Building, data.ID, eventData.position);
+        Managers.UI.PopupUI.UpdateUI(DataType.Building, buildingData.ID, eventData.position);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -91,7 +91,7 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
     {
         if (BuildingBoardUI != null)
         {
-            if (BuildingBoardUI.ID == data.ID)
+            if (BuildingBoardUI.ID == buildingData.ID)
             {
                 return;
             }
@@ -100,6 +100,6 @@ public class UI_BuildingItem : UI_Base, IPointerEnterHandler, IPointerExitHandle
         }
 
         BuildingBoardUI = Managers.UI.Open<UI_BuildingBoard>();
-        BuildingBoardUI.UpdateUI(data);
+        BuildingBoardUI.UpdateUI(buildingData);
     }
 }

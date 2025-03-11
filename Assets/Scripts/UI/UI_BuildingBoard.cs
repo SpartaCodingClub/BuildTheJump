@@ -31,7 +31,7 @@ public class UI_BuildingBoard : UI_Base
         }
 
         // TODO: 추후 재료 삭제
-        Managers.Building.Build(data);
+        Managers.Building.Build(buildingData);
         Managers.UI.Close_MenuUI<UI_Building>();
     }
     #endregion
@@ -49,7 +49,7 @@ public class UI_BuildingBoard : UI_Base
     private UI_Subitem[] content;
 
     private bool canBuild;
-    private BuildingData data;
+    private BuildingData buildingData;
 
     protected override void Initialize()
     {
@@ -68,13 +68,13 @@ public class UI_BuildingBoard : UI_Base
         Get<Button>((int)Children.Button_Build).onClick.AddListener(Button_Build);
     }
 
-    public void UpdateUI(BaseData data)
+    public void UpdateUI(BuildingData buildingData)
     {
-        ID = data.ID;
-        this.data = data as BuildingData;
+        ID = buildingData.ID;
+        this.buildingData = buildingData;
 
         UpdateUI();
-        Get<TMP_Text>((int)Children.Text_Timer).text = Utility.GetTimer(this.data.Duration);
+        Get<TMP_Text>((int)Children.Text_Timer).text = Utility.GetTimer(this.buildingData.Duration);
     }
 
     public void UpdateUI()
@@ -85,10 +85,10 @@ public class UI_BuildingBoard : UI_Base
         }
 
         canBuild = true;
-        for (int i = 0; i < data.Items.Count; i++)
+        for (int i = 0; i < buildingData.Items.Count; i++)
         {
             UI_Subitem subitem = content[i];
-            if (subitem.UpdateUI(data.Items[i]) == false)
+            if (subitem.UpdateUI(buildingData.Items[i]) == false)
             {
                 canBuild = false;
             }

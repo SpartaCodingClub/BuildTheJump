@@ -20,13 +20,16 @@ public abstract class InteractableObject : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
+    // 공격 애니메이션 이벤트 시점에서 호출됩니다.
     public virtual void InteractionEnter(int damage = 0)
     {
+        // 체력이 없는(무적) 오브젝트라면, 오브젝트가 죽지 않음
         if (baseData.HP == 0)
         {
             return;
         }
 
+        // 오브젝트 사망 이펙트
         currentHP = Mathf.Max(currentHP - damage, 0);
         if (IsDead)
         {
@@ -35,5 +38,6 @@ public abstract class InteractableObject : MonoBehaviour
         }
     }
 
+    // 공격 애니메이션 이벤트 종료 시점에서 호출됩니다.
     public virtual void InteractionExit(bool isPlayer) { }
 }

@@ -89,8 +89,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4647016593840204507}
   - component: {fileID: 779567337969290443}
-  - component: {fileID: -2977510343458040927}
   - component: {fileID: 1009502126261571381}
+  - component: {fileID: -2977510343458040927}
+  - component: {fileID: -6566406269698185855}
   m_Layer: 0
   m_Name: 10002_Portal
   m_TagString: Untagged
@@ -142,19 +143,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-2977510343458040927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2209129552927105346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf83dae0c626de42ab74d1744dcae08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseData: {fileID: 11400000, guid: 71f616550aea5ea4d86e8010d0d20d5c, type: 2}
 --- !u!82 &1009502126261571381
 AudioSource:
   m_ObjectHideFlags: 0
@@ -252,6 +240,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2977510343458040927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209129552927105346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf83dae0c626de42ab74d1744dcae08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseData: {fileID: 11400000, guid: 71f616550aea5ea4d86e8010d0d20d5c, type: 2}
+--- !u!114 &-6566406269698185855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209129552927105346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 409d6b22ece416a4d90299ba853c40e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4323099680398907482
 GameObject:
   m_ObjectHideFlags: 0

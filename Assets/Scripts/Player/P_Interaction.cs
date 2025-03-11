@@ -86,6 +86,7 @@ public class P_Interaction : MonoBehaviour
             return;
         }
 
+        // 상호작용 중 움직이면, 상호작용 종료
         Managers.Input.System.Player.Move.performed += OnInteraction;
         Managers.Input.System.Player.Jump.performed += OnInteraction;
     }
@@ -94,6 +95,7 @@ public class P_Interaction : MonoBehaviour
     {
         if (isPlayer)
         {
+            // 플레이어가 공격 중인 대상이 자원 오브젝트라면, 체력바 UI를 표시
             ResourceObject resourceObject = InteractableObject as ResourceObject;
             if (resourceObject != null) resourceObject.Open_ObjectStatusUI();
         }
@@ -101,10 +103,12 @@ public class P_Interaction : MonoBehaviour
         GameObject equipment = equipments[(int)InteractableObject.Type];
         if (equipment != null)
         {
+            // 상호작용에 필요한 장비를 장착
             equipment.SetActive(true);
         }
         else
         {
+            // 장비가 없다면 즉시 상호작용
             InteractableObject.InteractionEnter();
         }
 
@@ -113,16 +117,19 @@ public class P_Interaction : MonoBehaviour
         animationHandler.SetBool(Define.ID_ACTION, true);
         animationHandler.SetTrigger(InteractableObject.Type);
 
+        // 상호작용이 시작되었다면, 플레이어를 일시정지
         OnInteractionEnter?.Invoke();
     }
 
     private void InteractionExit()
     {
+        // 애니메이션 이벤트 종료 시점과 플레이어가 상호작용 중 움직이면, 호출될 수 있음
         if (Interaction == false)
         {
             return;
         }
 
+        // 상호작용 장비를 해제
         GameObject equipment = equipments[(int)InteractableObject.Type];
         if (equipment != null)
         {
@@ -132,6 +139,7 @@ public class P_Interaction : MonoBehaviour
         Interaction = false;
         animationHandler.SetBool(Define.ID_ACTION, false);
 
+        // 체력바 UI를 숨김
         InteractableObject.InteractionExit(isPlayer);
     }
 }

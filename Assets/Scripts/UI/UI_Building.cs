@@ -42,11 +42,11 @@ public class UI_Building : UI_Base
 
         FocusUI = gameObject.FindComponent<UI_Focus>();
 
-        foreach (var data in Managers.Data.GetDatas(DataType.Building))
+        foreach (var buildingData in Managers.Data.GetDatas(DataType.Building))
         {
             var buildingItem = Managers.UI.Open<UI_BuildingItem>();
             buildingItem.transform.SetParent(Get((int)Children.Content));
-            buildingItem.UpdateUI(data);
+            buildingItem.UpdateUI(buildingData);
             content.Add(buildingItem);
         }
     }
