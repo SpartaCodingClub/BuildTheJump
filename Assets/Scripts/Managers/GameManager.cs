@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class GameManager
 {
-    private readonly int HP = 200;
-    private readonly int SP = 100;
+    private readonly int HP = 100;
+    private readonly int SP = 200;
 
     public float CurrentHP { get; private set; }
     public float CurrentSP { get; private set; }

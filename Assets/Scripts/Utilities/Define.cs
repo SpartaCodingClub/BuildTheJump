@@ -4,11 +4,13 @@ public class Define
 {
     #region Animations
     public static readonly int ID_ACTION = Animator.StringToHash("Action");
+    public static readonly int ID_ACTION_SPEED = Animator.StringToHash("ActionSpeed");
     public static readonly int ID_ACTION_BONFIRE = Animator.StringToHash("Action_Bonfire");
     public static readonly int ID_ACTION_TREE = Animator.StringToHash("Action_Tree");
     public static readonly int ID_ACTION_ROCK = Animator.StringToHash("Action_Rock");
     public static readonly int ID_ATTACK = Animator.StringToHash("Attack");
     public static readonly int ID_MOVE = Animator.StringToHash("Move");
+    public static readonly int ID_MOVE_SPEED = Animator.StringToHash("MoveSpeed");
     public static readonly int ID_GROUND = Animator.StringToHash("Ground");
     public static readonly int ID_JUMP = Animator.StringToHash("Jump");
     #endregion

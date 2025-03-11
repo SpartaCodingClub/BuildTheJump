@@ -68,6 +68,7 @@ public class UI_Portal : UI_Base
         Content_Left,
         Icon_Unit,
         Text_DescriptionUnit,
+        Text_ValueUnit,
         Content_Right,
         Button_Summon
     }
@@ -150,13 +151,14 @@ public class UI_Portal : UI_Base
         }
     }
 
-    public void UpdateUI(UnitData data)
+    public void UpdateUI(UnitData unitData)
     {
-        ID = data.ID;
-        this.data = data;
+        ID = unitData.ID;
+        data = unitData;
 
-        Get<Image>((int)Children.Icon_Unit).sprite = Managers.Resource.GetSprite(SpriteType.Unit, data.ID.ToString());
-        Get<TMP_Text>((int)Children.Text_DescriptionUnit).text = data.DescriptionUnit;
+        Get<Image>((int)Children.Icon_Unit).sprite = Managers.Resource.GetSprite(SpriteType.Unit, unitData.ID.ToString());
+        Get<TMP_Text>((int)Children.Text_DescriptionUnit).text = unitData.DescriptionUnit;
+        Get<TMP_Text>((int)Children.Text_ValueUnit).text = $"공속 {unitData.actionSpeed:F1} / 이속 {unitData.moveSpeed:F1}";
 
         openContentRight.Restart();
     }

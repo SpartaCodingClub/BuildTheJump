@@ -17,8 +17,10 @@ MonoBehaviour:
   Name: "\uD5C8\uBBFC\uC601"
   Description: "\uCF54\uB529\uC544\uBBF8\uD0C0\uBD88..."
   HP: 0
-  Duration: 6
   DescriptionUnit: "\uCF1C\uB193\uACE0 \uC790\uB7EC\uAC10 \u3145\u3131"
+  Duration: 6
+  actionSpeed: 0.8
+  moveSpeed: 2.5
   Items:
   - Data: {fileID: 11400000, guid: 2376e4e10d87e2549b5ffa607b536af4, type: 2}
     Count: 1

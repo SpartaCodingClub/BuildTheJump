@@ -94,6 +94,14 @@ public class P_Worker : MonoBehaviour
         this.state = state;
     }
 
+    public void SetStats(UnitData unitData)
+    {
+        animationHandler.Animator.SetFloat(Define.ID_ACTION_SPEED, unitData.actionSpeed);
+        animationHandler.Animator.SetFloat(Define.ID_MOVE_SPEED, unitData.moveSpeed / 3.5f);
+
+        navMeshAgent.speed = unitData.moveSpeed;
+    }
+
     private Transform GetTarget()
     {
         Transform target = null;

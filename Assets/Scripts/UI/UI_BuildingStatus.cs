@@ -122,21 +122,20 @@ public class UI_BuildingStatus : UI_Base
         }));
     }
 
-    public void UpdateUI_Summon(UnitData data)
+    public void UpdateUI_Summon(UnitData unitData)
     {
         Open();
 
-        string id = data.ID.ToString();
+        string id = unitData.ID.ToString();
         Get<Image>((int)Children.Icon_Building).sprite = Managers.Resource.GetSprite(SpriteType.Unit, id);
-        Get<TMP_Text>((int)Children.Text_Name).text = data.Name;
+        Get<TMP_Text>((int)Children.Text_Name).text = unitData.Name;
 
         gameObject.SetActive(true);
         Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Unit, id, MESSAGE_SUMMON);
 
-        StartCoroutine(Updating(data.Duration, () =>
+        StartCoroutine(Updating(unitData.Duration, () =>
         {
-            P_Worker worker = (buildingObject as Building_Portal).Complete(data);
-
+            P_Worker worker = (buildingObject as Building_Portal).Complete(unitData);
             Managers.UI.MinimapUI.AddItem(worker.transform, SpriteType.Unit, id);
             Managers.UI.NavagationUI.Open_NavigationItem(SpriteType.Unit, id, MESSAGE_SUMMONED);
 
@@ -144,7 +143,7 @@ public class UI_BuildingStatus : UI_Base
         }));
     }
 
-    private IEnumerator Updating(float duration, Action onComplete)
+    private IEnumerator Updating(float duration, Action onComplete = null)
     {
         float elapsedTime = 0.0f;
         while (elapsedTime < duration)
@@ -155,6 +154,6 @@ public class UI_BuildingStatus : UI_Base
             yield return null;
         }
 
-        onComplete();
+        onComplete?.Invoke();
     }
 }
