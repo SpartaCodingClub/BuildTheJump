@@ -5,7 +5,6 @@ using VInspector;
 public class P_Rigidbody : MonoBehaviour
 {
     private readonly float GRAVITY = 9.81f;
-    private readonly float MOVE_SPEED = 5.0f;
     private readonly float ROTATE_SPEED = 10.0f;
     private readonly float JUMP_FORCE = 8.0f;
 
@@ -31,6 +30,7 @@ public class P_Rigidbody : MonoBehaviour
 
     private bool isGrounded;
     private bool jumping;
+    private float moveSpeed;
 
     private void Awake()
     {
@@ -50,12 +50,20 @@ public class P_Rigidbody : MonoBehaviour
         Managers.Input.System.Player.Move.canceled += OnMove;
         Managers.Input.System.Player.Jump.started += OnJump;
         Managers.Input.System.Player.Jump.canceled += OnJump;
+
+        SetMoveSpeed(Define.PLAYER_MOVE_SPEED);
     }
 
     private void FixedUpdate()
     {
         Rotate();  // 캐릭터의 방향 갱신
         Move();    // 물리 연산
+    }
+
+    public void SetMoveSpeed(float moveSpeed)
+    {
+        animationHandler.Animator.SetFloat(Define.ID_MOVE_SPEED, moveSpeed / Define.WORKER_MOVE_SPEED);
+        this.moveSpeed = moveSpeed;
     }
 
     public void Jump(float jumpForce)
@@ -67,8 +75,8 @@ public class P_Rigidbody : MonoBehaviour
     private void Move()
     {
         float verticalVelocity = velocity.y;
-        Vector3 targetVelocity = (readValue.magnitude > 0.0f) ? MOVE_SPEED * direction : Vector3.zero;
-        velocity = Vector3.Lerp(velocity, targetVelocity, MOVE_SPEED * 2.0f * Time.fixedDeltaTime);
+        Vector3 targetVelocity = (readValue.magnitude > 0.0f) ? moveSpeed * direction : Vector3.zero;
+        velocity = Vector3.Lerp(velocity, targetVelocity, moveSpeed * 2.0f * Time.fixedDeltaTime);
         velocity.y = verticalVelocity;
 
         if (isGrounded)

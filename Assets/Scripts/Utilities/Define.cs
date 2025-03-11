@@ -48,5 +48,7 @@ public class Define
     #endregion
     #region Values
     public static readonly float MAX_WEIGHT = 2500.0f;
+    public static readonly float PLAYER_MOVE_SPEED = 5.0f;
+    public static readonly float WORKER_MOVE_SPEED = 3.5f;
     #endregion
 }

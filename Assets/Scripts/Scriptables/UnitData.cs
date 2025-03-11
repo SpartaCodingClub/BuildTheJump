@@ -9,7 +9,7 @@ public class UnitData : BaseData
     public float Duration;
 
     public float actionSpeed = 1.0f;
-    public float moveSpeed = 3.5f;
+    public float moveSpeed = Define.WORKER_MOVE_SPEED;
 
     public List<Item> Items = new();
 }

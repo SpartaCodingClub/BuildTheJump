@@ -97,7 +97,7 @@ public class P_Worker : MonoBehaviour
     public void SetStats(UnitData unitData)
     {
         animationHandler.Animator.SetFloat(Define.ID_ACTION_SPEED, unitData.actionSpeed);
-        animationHandler.Animator.SetFloat(Define.ID_MOVE_SPEED, unitData.moveSpeed / 3.5f);
+        animationHandler.Animator.SetFloat(Define.ID_MOVE_SPEED, unitData.moveSpeed / Define.WORKER_MOVE_SPEED);
 
         navMeshAgent.speed = unitData.moveSpeed;
     }

@@ -15,6 +15,7 @@ public class ItemManager
         }
 
         Inventory.Add(key, item);
+        SetMoveSpeed();
     }
 
     public List<Item> GetDropItems(List<DropRow> dropTable)
@@ -43,5 +44,16 @@ public class ItemManager
         }
 
         return item.Data.Weight * item.Count;
+    }
+
+    private void SetMoveSpeed()
+    {
+        float totalWeights = 0.0f;
+        foreach (var item in Inventory)
+        {
+            totalWeights += GetWeights(item.Key);
+        }
+
+        Managers.Game.Player.SetMoveSpeed(totalWeights >= Define.MAX_WEIGHT ? Define.WORKER_MOVE_SPEED : Define.PLAYER_MOVE_SPEED);
     }
 }
