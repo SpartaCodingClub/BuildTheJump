@@ -44,7 +44,7 @@ public class GameManager
 
         if (CurrentSP < SP)
         {
-            CurrentSP += Time.deltaTime;
+            CurrentSP += Time.deltaTime * 2.0f;
         }
 
         if (CurrentSP != previousSP)

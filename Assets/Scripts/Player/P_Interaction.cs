@@ -100,12 +100,18 @@ public class P_Interaction : MonoBehaviour
     {
         if (isPlayer)
         {
-            // SP가 부족하다면 무시
-            if (Managers.Game.CurrentSP < SP) return;
-
             // 플레이어가 공격 중인 대상이 자원 오브젝트라면, 체력바 UI를 표시
             ResourceObject resourceObject = InteractableObject as ResourceObject;
-            if (resourceObject != null) resourceObject.Open_ObjectStatusUI();
+            if (resourceObject != null)
+            {
+                // SP가 부족하다면 무시
+                if (Managers.Game.CurrentSP < SP)
+                {
+                    return;
+                }
+
+                resourceObject.Open_ObjectStatusUI();
+            }
         }
 
         GameObject equipment = equipments[(int)InteractableObject.Type];
