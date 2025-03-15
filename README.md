@@ -14,10 +14,33 @@ Unity 6000.0.23f1
 # 기능 소개
 
 ## Character Controller
-Rigidbody가 아닌 Character Controller로 움직일 수 있으며, 캐릭터는 항상 중력의 영향을 받도록 설계되어 있습니다.
+Character Controller로 캐릭터를 제어하고 있습니다.
+
+캐릭터의 물리 연산은 P_Rigidbody에서 제어합니다.
+
+캐릭터가 움직이는 방향대로 부드러운 회전을 하기 위해 LookRotation을 Slerp 함수를 통해 회전을 구현했습니다.
+
+캐릭터는 회전한 방향을 기준으로 W, A, S, D 키로 움직일 수 있으며, 역시 Lerp 함수를 통해 가속도를 구현했습니다.
+
+캐릭터는 항상 중력의 영향을 받으며, isGrounded 상태에서 점프 키를 누르면 P_Rigidbody의 velocity.y 값을 조절하여 포물선 운동을 구현했습니다.
+
+### P_Interaction, P_InteractionFinder
+모든 키는 New Input SYstem으로 제어하고 있습니다.
+
+Start 문에서 New Input System의 제너레이트 함수를 통해 이벤트를 연결해주고 있습니다.
+
+P_Interaction 스크립트는 델리게이트를 활용하여 상호작용의 시작, 중, 종료 상태를 관리해주고 있습니다.
+
+P_InteractionFinder 스크립트는 OverlapSphereNonAlloc 함수를 이용해, 주변 반경에서 InteractableObject(상호작용 가능한 오브젝트)를 찾습니다.
+
+또한 미리 만들어진 배열을 이용해 GC 호출을 최소화 합니다.
+
+탐색한 배열에서 가장 가까운 대상을 탐색하여 상호작용 UI를 노출시킵니다.
 
 ## 인터렉티브 키
 주변에 상호작용 가능한 오브젝트가 있다면, 상호작용 UI가 노출됩니다.
+
+UI는 대상의 WorldPosition을 ScreenPosition으로 변환하여 상호작용 가능한 오브젝트의 위치에서 표시될 수 있도록 위치를 갱신합니다.
 
 ## 건물
 건물은 장애물이 없는 지형에만 설치가 가능하며, 다양한 종류의 건물을 건설할 수 있습니다.
