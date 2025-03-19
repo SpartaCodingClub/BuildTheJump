@@ -346,7 +346,7 @@ private void OnParticleSystemStopped()
 
 
 <details>
-<summary>리소스 및 오브젝트 동적 생성</summary>
+<summary>리소스 및 오브젝트 관리(동적 생성, 풀링)</summary>
 
 ### 리소스 관리 [ 🔗 Resource Manager ](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/Managers/ResourceManager.cs)
 
