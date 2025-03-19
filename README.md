@@ -98,6 +98,8 @@ private void Move()
 <details>
 <summary>상호작용 로직</summary>
 
+![Interaction](https://github.com/user-attachments/assets/abed9a28-0d4a-4dba-9b54-c51a4ad32591)
+
 ### 상호작용 [ 🔗 P_Interaction ](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/Player/P_Interaction.cs)
 
 모든 키 이벤트는 New Input SYstem으로 제어하고 있으며, Start 문에서 New Input System의 제너레이트 함수를 통해 이벤트를 연결했습니다.
@@ -229,6 +231,8 @@ transform.LookAt(lookAtPosition);
 
 <details>
 <summary>건물 로직</summary>
+
+![Build](https://github.com/user-attachments/assets/18415d6c-8fbc-47d9-9504-34f417ea4d9f)
 
 ## 건물
 
@@ -426,7 +430,11 @@ objectPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet, ActionOnRelease
 
 
 <details>
-<summary>일꾼 로직 [ 🔗 P_Worker ](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/Player/P_Worker.cs)</summary>
+<summary>일꾼 로직</summary>
+
+![Worker](https://github.com/user-attachments/assets/b4c5361e-a494-4b0a-8fbe-08bc456473ba)
+
+### 일꾼 [ 🔗 P_Worker ](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/Player/P_Worker.cs)
 
 일꾼은 '포탈' 건물에서 소환할 수 있으며, 일꾼은 가장 가까운 자원 오브젝트를 찾아 자원을 채집합니다.
 
