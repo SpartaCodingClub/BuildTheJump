@@ -52,6 +52,7 @@ public class ResourceManager
     {
         GameObject gameObject = Object.Instantiate(original);
         gameObject.name = original.name;
+
         return gameObject;
     }
 

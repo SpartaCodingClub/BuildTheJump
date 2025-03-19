@@ -28,12 +28,17 @@ public class P_Rigidbody : MonoBehaviour
     private AnimationHandler animationHandler;
     private CharacterController controller;
 
+    private LayerMask waterLayer;
+
     private bool isGrounded;
     private bool jumping;
     private float moveSpeed;
 
+
     private void Awake()
     {
+        waterLayer = LayerMask.NameToLayer(Define.LAYER_WATER);
+
         animationHandler = GetComponent<AnimationHandler>();
         controller = GetComponent<CharacterController>();
     }
@@ -58,6 +63,11 @@ public class P_Rigidbody : MonoBehaviour
     {
         Rotate();  // 캐릭터의 방향 갱신
         Move();    // 물리 연산
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        animationHandler.SetBool(Define.ID_WATER, hit.gameObject.layer == waterLayer);
     }
 
     public void SetMoveSpeed(float moveSpeed)

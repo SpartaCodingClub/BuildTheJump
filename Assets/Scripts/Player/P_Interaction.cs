@@ -33,7 +33,7 @@ public class P_Interaction : MonoBehaviour
         position.z += Random.Range(-0.5f, 0.5f);
         Managers.Resource.Instantiate(Define.EFFECT_INTERACTION, position, Define.PATH_EFFECT);
 
-        InteractableObject.InteractionEnter((int)Random.Range(DAMAGE * 0.75f, DAMAGE * 1.5f));
+        InteractableObject.InteractionEnter((int)Random.Range(DAMAGE, DAMAGE * 1.5f));
     }
 
     private void InteractExit()
@@ -107,6 +107,7 @@ public class P_Interaction : MonoBehaviour
                 // SP가 부족하다면 무시
                 if (Managers.Game.CurrentSP < SP)
                 {
+                    Managers.UI.Open<UI_FloatingText>().UpdateUI("스태미너가 부족합니다.", transform.position + Vector3.right * 3.0f, Color.red);
                     return;
                 }
 

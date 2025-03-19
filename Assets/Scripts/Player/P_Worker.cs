@@ -31,6 +31,8 @@ public class P_Worker : MonoBehaviour
     private readonly Collider[] objectColliders = new Collider[8];
 
     private LayerMask targetLayer;
+    private LayerMask waterLayer;
+
     private AnimationHandler animationHandler;
     private NavMeshAgent navMeshAgent;
     private P_Interaction interaction;
@@ -38,6 +40,8 @@ public class P_Worker : MonoBehaviour
     private void Awake()
     {
         targetLayer = LayerMask.GetMask(Define.LAYER_OBJECT);
+        waterLayer = LayerMask.NameToLayer(Define.LAYER_WATER);
+
         animationHandler = GetComponent<AnimationHandler>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         interaction = GetComponent<P_Interaction>();
@@ -57,6 +61,11 @@ public class P_Worker : MonoBehaviour
                 if (target == null) SetState(WorkerState.Idle);
                 break;
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        animationHandler.SetBool(Define.ID_WATER, other.gameObject.layer == waterLayer);
     }
 
     public void SetDestination(Vector3 target, Action onComplete)

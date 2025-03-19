@@ -34,25 +34,25 @@ public class GameManager
         if (CurrentHP < HP)
         {
             CurrentHP += Time.deltaTime;
+        }
 
-            int currnetHP = (int)CurrentHP;
-            if (currnetHP != previousHP)
-            {
-                previousHP = currnetHP;
-                playerStatusUI.UpdateUI_HP(CurrentHP, HP);
-            }
+        int currnetHP = (int)CurrentHP;
+        if (currnetHP != previousHP)
+        {
+            previousHP = currnetHP;
+            playerStatusUI.UpdateUI_HP(CurrentHP, HP);
         }
 
         if (CurrentSP < SP)
         {
             CurrentSP += Time.deltaTime * 2.0f;
+        }
 
-            int currentSP = (int)CurrentSP;
-            if (currentSP != previousSP)
-            {
-                previousSP = currentSP;
-                playerStatusUI.UpdateUI_SP(CurrentSP, SP);
-            }
+        int currentSP = (int)CurrentSP;
+        if (currentSP != previousSP)
+        {
+            previousSP = currentSP;
+            playerStatusUI.UpdateUI_SP(CurrentSP, SP);
         }
     }
 

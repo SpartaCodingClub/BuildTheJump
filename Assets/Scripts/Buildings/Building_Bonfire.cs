@@ -20,7 +20,7 @@ public class Building_Bonfire : BuildingObject
             timer -= INTERVAL;
 
             Managers.Game.SetHP(10);
-            Managers.Game.SetSP(10);
+            Managers.Game.SetSP(20);
         }
     }
 

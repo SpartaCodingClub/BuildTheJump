@@ -12,6 +12,7 @@ public class Define
     public static readonly int ID_MOVE = Animator.StringToHash("Move");
     public static readonly int ID_MOVE_SPEED = Animator.StringToHash("MoveSpeed");
     public static readonly int ID_GROUND = Animator.StringToHash("Ground");
+    public static readonly int ID_WATER = Animator.StringToHash("Water");
     public static readonly int ID_JUMP = Animator.StringToHash("Jump");
     #endregion
     #region Colors
@@ -32,6 +33,7 @@ public class Define
     public static readonly string LAYER_GROUND = "Ground";
     public static readonly string LAYER_MONSTER = "Monster";
     public static readonly string LAYER_OBJECT = "Object";
+    public static readonly string LAYER_WATER = "Water";
     #endregion
     #region Path
     public const string PATH_ATLAS = "Atlas";
