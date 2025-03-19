@@ -600,6 +600,8 @@ public class AudioSourceHandler : MonoBehaviour
 <details>
 <summary>UI 로직</summary>
 
+### 트위닝 시퀀스 관리 [ 🔗 SequenceHandler ](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/Handlers/SequenceHandler.cs)
+
 UI 애니메이션을 관리하기 위해 DoTween 플러그인을 사용했고, DoTween의 Sequence 관리를 위한 SequenceHandler를 만들었습니다.
 
 SequenceHandler는 Sequence 할당, 해제, 바인딩을 관리해 줍니다.
@@ -643,7 +645,7 @@ public class SequenceHandler
 }
 ```
 
-### [UI_Base](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/UI/UI_Base.cs)
+### 베이스 UI [ 🔗 UI_Base ](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/UI/UI_Base.cs)
 
 모든 UI는 UI_Base를 상속받아 만들어 지며, UI가 열리는 중이거나, 닫히는 중일때는 상호작용되지 않도록 처리했습니다.
 
@@ -681,5 +683,26 @@ protected void BindChildren(Type enumType)
 }
 ```
 
+### UI 매니저 [ 🔗 UI Manager ](https://github.com/SpartaCodingClub/BuildTheJump/blob/main/Assets/Scripts/Managers/UIManager.cs)
+
+UI Manager는 모든 UI를 UI를 생성하고 MenuUI를 관리하고 있습니다.
+
+Menu UI가 열릴 때 이전에 열린 Menu UI가 있다면, 닫아줍니다.
+
+```csharp
+public bool Close_MenuUI<T>() where T : UI_Base
+{
+    if (CurrentMenuUI == null)
+    {
+        return false;
+    }
+
+    UI_Base menuUI = CurrentMenuUI;
+    menuUI.Close();
+
+    CurrentMenuUI = null;
+    return menuUI is T;
+}
+```
 
 </details>
