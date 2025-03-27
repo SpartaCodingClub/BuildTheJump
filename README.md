@@ -11,9 +11,6 @@
 * 개발 기간: 2025년 3월 4일 ~ 2025년 3월 11일
 * 개발 엔진: Unity 6000.0.23f1
 
-### 플레이 영상
-(추후 첨부 예정)
-
 ### 게임 플레이
 [WebGL: Build The Jump!](https://play.unity.com/en/games/1bbb1716-136c-47b4-800f-d44c4d4bd98f/build-the-jump)
 
